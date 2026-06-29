@@ -33,6 +33,10 @@
             {
               "name": "Highlight",
               "value": "highlight"
+            },
+            {
+              "name": "AVG Grey",
+              "value": "avg-grey"
             }
           ]
         }
@@ -50,7 +54,9 @@
         "hero",
         "cards",
         "columns",
-        "fragment"
+        "fragment",
+        "media-text",
+        "features"
       ]
     }
   ]
