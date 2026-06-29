@@ -1,6 +1,7 @@
 footer {
   background-color: #1c222e;
   color: #fff;
+  font-family: var(--body-font-family);
   font-size: 14px;
   line-height: 1.43;
 }
@@ -16,23 +17,129 @@ footer .footer-inner {
   padding: 40px 20px;
 }
 
+/* Row 1: brand left, region + account right */
+footer .footer-top {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: flex-start;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgb(255 255 255 / 14%);
+}
+
+footer .footer-brand picture,
+footer .footer-brand img {
+  display: block;
+  width: 98px;
+  height: 40px;
+}
+
+footer .footer-tools {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+footer .footer-tools p {
+  margin: 0;
+}
+
+footer .footer-region img {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+/* Row 2: Gen logo + description on one line */
+footer .footer-gen {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: center;
+  margin-top: 24px;
+}
+
+footer .footer-gen-logo {
+  flex: 0 0 auto;
+}
+
+footer .footer-gen-logo picture,
+footer .footer-gen-logo img {
+  display: block;
+  width: 41px;
+  height: 16px;
+}
+
+footer .footer-gen-copy {
+  flex: 1;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.43;
+}
+
+/* Row 3: legal copy */
+footer .footer-legal {
+  margin-top: 24px;
+}
+
+footer .footer-legal p {
+  margin: 0;
+  color: #9aa3b5;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* Row 4: footer links */
+footer .footer-links {
+  margin-top: 24px;
+}
+
+footer .footer-links ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+footer .footer-links li {
+  display: inline-flex;
+  align-items: center;
+  color: #9aa3b5;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+footer .footer-links li:not(:last-child)::after {
+  content: '|';
+  margin-left: 8px;
+  color: #697284;
+}
+
+/* Anchors — ordered by ascending specificity for the linter */
 footer .footer-region a {
   display: inline-flex;
   gap: 8px;
   align-items: center;
-  font-size: 12px;
-  line-height: 1.5;
-}
-
-footer .footer-region img {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
+  font-size: 14px;
+  line-height: 1.43;
 }
 
 footer .footer-account a {
-  font-size: 12px;
-  line-height: 1.5;
+  font-size: 14px;
+  line-height: 1.43;
+}
+
+footer .footer-region a::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  margin-left: 2px;
+  border: solid currentcolor;
+  border-width: 0 1.5px 1.5px 0;
+  transform: translateY(-2px) rotate(45deg);
 }
 
 footer .footer-inner a:any-link {
@@ -62,93 +169,6 @@ footer .footer-links a:hover {
   text-decoration: underline;
 }
 
-/* Top row: logo + region/account */
-footer .footer-top {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid #697284;
-}
-
-footer .footer-brand picture,
-footer .footer-brand img {
-  display: block;
-  width: 98px;
-  height: 40px;
-}
-
-footer .footer-tools {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-footer .footer-tools p {
-  margin: 0;
-}
-
-/* Gen branding */
-footer .footer-gen {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-top: 24px;
-}
-
-footer .footer-gen-logo picture,
-footer .footer-gen-logo img {
-  display: block;
-  width: 41px;
-  height: 16px;
-}
-
-footer .footer-gen-copy p {
-  margin: 0;
-  font-size: 14px;
-  line-height: 1.43;
-}
-
-/* Legal copy */
-footer .footer-legal {
-  margin-top: 24px;
-}
-
-footer .footer-legal p {
-  margin: 0;
-  color: #9aa3b5;
-  font-size: 12px;
-  line-height: 1.5;
-}
-
-/* Footer links */
-footer .footer-links {
-  margin-top: 24px;
-}
-
-footer .footer-links ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-footer .footer-links li {
-  display: inline-flex;
-  align-items: center;
-  color: #9aa3b5;
-  font-size: 12px;
-  line-height: 1.5;
-}
-
-footer .footer-links li:not(:last-child)::after {
-  content: '|';
-  margin-left: 8px;
-  color: #9aa3b5;
-}
-
 @media (width >= 900px) {
   footer .footer-inner {
     padding: 40px 32px;
@@ -162,17 +182,7 @@ footer .footer-links li:not(:last-child)::after {
 
   footer .footer-tools {
     flex-direction: row;
-    gap: 40px;
+    gap: 32px;
     align-items: center;
-  }
-
-  footer .footer-gen {
-    flex-direction: row;
-    gap: 16px;
-    align-items: center;
-  }
-
-  footer .footer-gen-copy {
-    flex: 1;
   }
 }

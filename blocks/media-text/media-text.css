@@ -45,8 +45,13 @@
 
 .media-text-body > p {
   margin: 0 0 16px;
+  color: #697284;
   font-size: 16px;
   line-height: 1.5;
+}
+
+.media-text-body > p strong {
+  color: #1c222e;
 }
 
 .media-text-body ul {
@@ -59,6 +64,7 @@
   position: relative;
   margin: 0 0 8px;
   padding-left: 24px;
+  color: #697284;
   font-size: 16px;
   line-height: 1.375;
 }
