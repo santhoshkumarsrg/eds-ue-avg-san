@@ -66,6 +66,7 @@
         "text",
         "image",
         "button",
+        "icon-button",
         "title"
       ]
     }
