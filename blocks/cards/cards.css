@@ -25,3 +25,73 @@
   aspect-ratio: 4 / 3;
   object-fit: cover;
 }
+
+/* Icons variation: centered icon + heading + text grid (replaces the features block) */
+.cards.icons {
+  padding: 0 20px 64px;
+}
+
+.cards.icons > ul {
+  grid-template-columns: 1fr;
+  gap: 32px;
+  margin: 32px 0 0;
+}
+
+.cards.icons > ul > li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 0;
+  background-color: transparent;
+  text-align: center;
+}
+
+.cards.icons .cards-card-image {
+  width: 80px;
+  height: 80px;
+  margin: 0;
+}
+
+.cards.icons .cards-card-image picture,
+.cards.icons .cards-card-image img {
+  width: 80px;
+  height: 80px;
+  aspect-ratio: auto;
+  object-fit: contain;
+}
+
+.cards.icons .cards-card-body {
+  margin: 0;
+}
+
+.cards.icons .cards-card-body h3 {
+  margin: 16px 0 0;
+  color: #1c222e;
+  font-family: var(--body-font-family);
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1.3;
+}
+
+.cards.icons .cards-card-body p {
+  margin: 16px 0 0;
+  color: #697284;
+  font-size: 16px;
+  line-height: 1.375;
+}
+
+@media (width >= 600px) {
+  .cards.icons > ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (width >= 900px) {
+  .cards.icons {
+    padding: 0 32px 88px;
+  }
+
+  .cards.icons > ul {
+    margin-top: 48px;
+  }
+}

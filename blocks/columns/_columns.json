@@ -21,6 +21,22 @@
       "id": "columns",
       "fields": [
         {
+          "component": "multiselect",
+          "name": "classes",
+          "label": "Style",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Prose",
+              "value": "prose"
+            },
+            {
+              "name": "Image Right",
+              "value": "image-right"
+            }
+          ]
+        },
+        {
           "component": "text",
           "valueType": "number",
           "name": "columns",

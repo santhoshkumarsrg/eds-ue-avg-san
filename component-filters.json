@@ -15,9 +15,7 @@
       "hero",
       "cards",
       "columns",
-      "fragment",
-      "media-text",
-      "features"
+      "fragment"
     ]
   },
   {
@@ -42,9 +40,12 @@
     ]
   },
   {
-    "id": "features",
+    "id": "hero",
     "components": [
-      "feature"
+      "image",
+      "title",
+      "text",
+      "button"
     ]
   }
 ]

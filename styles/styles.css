@@ -19,6 +19,14 @@
   --link-color: #3b63fb;
   --link-hover-color: #1d3ecf;
 
+  /* AVG brand palette (shared across blocks) */
+  --avg-green: #008941;
+  --avg-green-dark: #007a3a;
+  --avg-ink: #1c222e;
+  --avg-gray: #697284;
+  --avg-gray-muted: #9aa3b5;
+  --avg-gray-hover: #ced4e0;
+
   /* fonts */
   --body-font-family: roboto, roboto-fallback, sans-serif;
   --heading-font-family: roboto-condensed, roboto-condensed-fallback, sans-serif;

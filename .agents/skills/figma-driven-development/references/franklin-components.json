@@ -1,0 +1,2069 @@
+{
+    "jcr:primaryType": "sling:Folder",
+    "jcr:createdBy": "admin",
+    "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+    "image": {
+      "jcr:primaryType": "sling:Folder",
+      "jcr:createdBy": "admin",
+      "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+      "v1": {
+        "jcr:primaryType": "sling:Folder",
+        "jcr:createdBy": "admin",
+        "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+        "image": {
+          "jcr:primaryType": "cq:Component",
+          "jcr:createdBy": "admin",
+          "jcr:title": "Image",
+          "cq:isContainer": "true",
+          "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+          "componentGroup": "Franklin",
+          "image.html": {
+            "jcr:primaryType": "nt:file",
+            "jcr:createdBy": "admin",
+            "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+            "jcr:content": {
+              "jcr:primaryType": "nt:resource",
+              "jcr:lastModifiedBy": "admin",
+              "jcr:mimeType": "text/html",
+              "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+              ":jcr:data": 1106,
+              "jcr:uuid": "aac36314-3f54-4c4f-8863-b7fa7f30ae36"
+            }
+          }
+        }
+      }
+    },
+    "text": {
+      "jcr:primaryType": "sling:Folder",
+      "jcr:createdBy": "admin",
+      "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+      "v1": {
+        "jcr:primaryType": "sling:Folder",
+        "jcr:createdBy": "admin",
+        "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+        "text": {
+          "jcr:primaryType": "cq:Component",
+          "jcr:createdBy": "admin",
+          "jcr:title": "Text",
+          "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+          "componentGroup": "Franklin",
+          "text.html": {
+            "jcr:primaryType": "nt:file",
+            "jcr:createdBy": "admin",
+            "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+            "jcr:content": {
+              "jcr:primaryType": "nt:resource",
+              "jcr:lastModifiedBy": "admin",
+              "jcr:mimeType": "text/html",
+              "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+              ":jcr:data": 732,
+              "jcr:uuid": "db178b94-5761-4863-91a7-256922b04200"
+            }
+          }
+        }
+      }
+    },
+    "configuration": {
+      "jcr:primaryType": "nt:folder",
+      "jcr:createdBy": "admin",
+      "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+      "v1": {
+        "jcr:primaryType": "nt:folder",
+        "jcr:createdBy": "admin",
+        "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+        "configuration": {
+          "jcr:primaryType": "cq:Component",
+          "jcr:createdBy": "admin",
+          "jcr:title": "Taxonomy",
+          "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+          "sling:resourceSuperType": "wcm/foundation/components/basicpage/v1/basicpage",
+          "cq:icon": "page",
+          "componentGroup": ".franklin",
+          "configuration.html": {
+            "jcr:primaryType": "nt:file",
+            "jcr:createdBy": "admin",
+            "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+            "jcr:content": {
+              "jcr:primaryType": "nt:resource",
+              "jcr:lastModifiedBy": "admin",
+              "jcr:mimeType": "text/html",
+              "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+              ":jcr:data": 1398,
+              "jcr:uuid": "dd36e387-cfff-4646-b67e-26513a939484"
+            }
+          },
+          "cq:dialog": {
+            "jcr:primaryType": "nt:unstructured",
+            "jcr:title": "Configuration",
+            "extraClientlibs": [
+              "cq.common.wcm",
+              "cq.siteadmin.admin.properties",
+              "cq.wcm.msm.properties"
+            ],
+            "mode": "edit",
+            "sling:resourceType": "cq/gui/components/authoring/dialog",
+            "content": {
+              "jcr:primaryType": "nt:unstructured",
+              "class": "cq-dialog-content-page",
+              "sling:resourceType": "granite/ui/components/foundation/container",
+              "items": {
+                "jcr:primaryType": "nt:unstructured",
+                "tabs": {
+                  "jcr:primaryType": "nt:unstructured",
+                  "granite:class": "cq-siteadmin-admin-properties-tabs",
+                  "size": "L",
+                  "maximized": true,
+                  "sling:resourceType": "granite/ui/components/coral/foundation/tabs",
+                  "items": {
+                    "jcr:primaryType": "nt:unstructured",
+                    "sling:hideChildren": [
+                      "advanced",
+                      "thumbnail",
+                      "cloudservices",
+                      "personalization",
+                      "permissions",
+                      "previewurl"
+                    ],
+                    "basic": {
+                      "jcr:primaryType": "nt:unstructured",
+                      "jcr:title": "Basic",
+                      "sling:resourceType": "granite/ui/components/coral/foundation/fixedcolumns",
+                      "items": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "column": {
+                          "jcr:primaryType": "nt:unstructured",
+                          "sling:resourceType": "granite/ui/components/coral/foundation/container",
+                          "items": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "title": {
+                              "jcr:primaryType": "nt:unstructured",
+                              "required": true,
+                              "name": "./jcr:title",
+                              "fieldLabel": "Title",
+                              "sling:resourceType": "granite/ui/components/coral/foundation/form/textfield",
+                              "renderReadOnly": false,
+                              "fieldDescription": "Defines the page meta title for SEO, as well as a title displayable in the page content (unless an overriding 'Page Title' is defined).",
+                              "granite:data": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "cq-msm-lockable": "jcr:title"
+                              }
+                            },
+                            "msmConfigEndpoint": {
+                              "jcr:primaryType": "nt:unstructured",
+                              "granite:class": "msm-config-endpoint",
+                              "value": "${empty param.item ? requestPathInfo.suffix : param.item }",
+                              "sling:resourceType": "granite/ui/components/coral/foundation/form/hidden"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "authentication": {
+                      "jcr:primaryType": "nt:unstructured",
+                      "cq:showOnCreate": false,
+                      "jcr:title": "Access Control",
+                      "sling:resourceType": "granite/ui/components/coral/foundation/fixedcolumns",
+                      "items": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "column": {
+                          "jcr:primaryType": "nt:unstructured",
+                          "margin": false,
+                          "sling:resourceType": "granite/ui/components/coral/foundation/container",
+                          "items": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "roleAuthor": {
+                              "jcr:primaryType": "nt:unstructured",
+                              "fieldLabel": "Author Users",
+                              "sling:resourceType": "granite/ui/components/coral/foundation/form/multifield",
+                              "fieldDescription": "A list of email address of users with the author role.",
+                              "field": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "name": "./roleAuthor",
+                                "sling:resourceType": "granite/ui/components/coral/foundation/form/textfield"
+                              },
+                              "granite:data": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "cq-msm-lockable": "roleAuthor"
+                              }
+                            },
+                            "roleAdmin": {
+                              "jcr:primaryType": "nt:unstructured",
+                              "fieldLabel": "Admin Users",
+                              "sling:resourceType": "granite/ui/components/coral/foundation/form/multifield",
+                              "fieldDescription": "A list of email address of users with the admin role.",
+                              "field": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "name": "./roleAdmin",
+                                "sling:resourceType": "granite/ui/components/coral/foundation/form/textfield"
+                              },
+                              "granite:data": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "cq-msm-lockable": "roleAdmin"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "cdn": {
+                      "jcr:primaryType": "nt:unstructured",
+                      "cq:showOnCreate": false,
+                      "jcr:title": "CDN",
+                      "sling:resourceType": "granite/ui/components/coral/foundation/fixedcolumns",
+                      "items": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "column": {
+                          "jcr:primaryType": "nt:unstructured",
+                          "margin": false,
+                          "sling:resourceType": "granite/ui/components/coral/foundation/container",
+                          "items": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "cdnType": {
+                              "jcr:primaryType": "nt:unstructured",
+                              "granite:class": "cq-dialog-dropdown-showhide",
+                              "name": "./cdnType",
+                              "fieldLabel": "CDN Vendor",
+                              "sling:resourceType": "granite/ui/components/coral/foundation/form/select",
+                              "granite:data": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "cq-msm-lockable": "cdnType",
+                                "cq-dialog-dropdown-showhide-target": ".cdn-showhide-target"
+                              },
+                              "items": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "custom": {
+                                  "jcr:primaryType": "nt:unstructured",
+                                  "text": "None",
+                                  "value": "none"
+                                },
+                                "managed": {
+                                  "jcr:primaryType": "nt:unstructured",
+                                  "text": "Adobe Managed CDN",
+                                  "value": "managed"
+                                },
+                                "fastly": {
+                                  "jcr:primaryType": "nt:unstructured",
+                                  "text": "Fastly",
+                                  "value": "fastly"
+                                },
+                                "akamai": {
+                                  "jcr:primaryType": "nt:unstructured",
+                                  "text": "Akamai",
+                                  "value": "akamai"
+                                },
+                                "cloudflare": {
+                                  "jcr:primaryType": "nt:unstructured",
+                                  "text": "Cloudflare",
+                                  "value": "cloudflare"
+                                },
+                                "cloudfront": {
+                                  "jcr:primaryType": "nt:unstructured",
+                                  "text": "Cloudfront",
+                                  "value": "cloudfront"
+                                }
+                              }
+                            },
+                            "cdnFastly": {
+                              "jcr:primaryType": "nt:unstructured",
+                              "granite:class": "hide cdn-showhide-target",
+                              "sling:resourceType": "granite/ui/components/coral/foundation/container",
+                              "granite:data": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "showhidetargetvalue": "fastly"
+                              },
+                              "items": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "heading": {
+                                  "jcr:primaryType": "nt:unstructured",
+                                  "granite:class": "coral-Heading coral-Heading--4",
+                                  "text": "Fastly Options",
+                                  "level": 4,
+                                  "sling:resourceType": "granite/ui/components/coral/foundation/heading"
+                                },
+                                "well": {
+                                  "jcr:primaryType": "nt:unstructured",
+                                  "sling:resourceType": "granite/ui/components/coral/foundation/well",
+                                  "items": {
+                                    "jcr:primaryType": "nt:unstructured",
+                                    "cdnHost": {
+                                      "jcr:primaryType": "nt:unstructured",
+                                      "name": "./fastlyCdnHost",
+                                      "fieldLabel": "Host name",
+                                      "sling:resourceType": "granite/ui/components/coral/foundation/form/textfield",
+                                      "fieldDescription": "Host name of production site, e.g. www.yourdomain.com",
+                                      "granite:data": {
+                                        "jcr:primaryType": "nt:unstructured",
+                                        "cq-msm-lockable": "fastlyCdnHost"
+                                      }
+                                    },
+                                    "cdnServiceId": {
+                                      "jcr:primaryType": "nt:unstructured",
+                                      "name": "./fastlyCdnServiceId",
+                                      "fieldLabel": "Service ID",
+                                      "sling:resourceType": "granite/ui/components/coral/foundation/form/textfield",
+                                      "fieldDescription": "Service ID from Fastly",
+                                      "granite:data": {
+                                        "jcr:primaryType": "nt:unstructured",
+                                        "cq-msm-lockable": "fastlyCdnServiceId"
+                                      }
+                                    },
+                                    "cdnAuthToken": {
+                                      "jcr:primaryType": "nt:unstructured",
+                                      "name": "./fastlyCdnAuthToken",
+                                      "fieldLabel": "API token",
+                                      "sling:resourceType": "granite/ui/components/coral/foundation/form/password",
+                                      "fieldDescription": "API token from Fastly",
+                                      "granite:data": {
+                                        "jcr:primaryType": "nt:unstructured",
+                                        "cq-msm-lockable": "fastlyCdnAuthToken"
+                                      }
+                                    },
+                                    "encryptCdnAuthToken": {
+                                      "jcr:primaryType": "nt:unstructured",
+                                      "name": "./fastlyCdnAuthToken@Encrypted",
+                                      "value": "",
+                                      "sling:resourceType": "granite/ui/components/coral/foundation/form/hidden"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "cdnAkamai": {
+                              "jcr:primaryType": "nt:unstructured",
+                              "granite:class": "hide cdn-showhide-target",
+                              "sling:resourceType": "granite/ui/components/coral/foundation/container",
+                              "granite:data": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "showhidetargetvalue": "akamai"
+                              },
+                              "items": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "heading": {
+                                  "jcr:primaryType": "nt:unstructured",
+                                  "granite:class": "coral-Heading coral-Heading--4",
+                                  "text": "Akamai Options",
+                                  "level": 4,
+                                  "sling:resourceType": "granite/ui/components/coral/foundation/heading"
+                                },
+                                "well": {
+                                  "jcr:primaryType": "nt:unstructured",
+                                  "sling:resourceType": "granite/ui/components/coral/foundation/well",
+                                  "items": {
+                                    "jcr:primaryType": "nt:unstructured",
+                                    "cdnHost": {
+                                      "jcr:primaryType": "nt:unstructured",
+                                      "name": "./akamaiCdnHost",
+                                      "fieldLabel": "Host name",
+                                      "sling:resourceType": "granite/ui/components/coral/foundation/form/textfield",
+                                      "fieldDescription": "Host name of production site, e.g. www.yourdomain.com",
+                                      "granite:data": {
+                                        "jcr:primaryType": "nt:unstructured",
+                                        "cq-msm-lockable": "akamaiCdnHost"
+                                      }
+                                    },
+                                    "cdnEndpoint": {
+                                      "jcr:primaryType": "nt:unstructured",
+                                      "name": "./akamaiCdnEndpoint",
+                                      "fieldLabel": "Endpoint",
+                                      "sling:resourceType": "granite/ui/components/coral/foundation/form/textfield",
+                                      "fieldDescription": "Endpoint from Akamai",
+                                      "granite:data": {
+                                        "jcr:primaryType": "nt:unstructured",
+                                        "cq-msm-lockable": "akamaiCdnEndpoint"
+                                      }
+                                    },
+                                    "cdnClientSecret": {
+                                      "jcr:primaryType": "nt:unstructured",
+                                      "name": "./akamaiCdnClientSecret",
+                                      "fieldLabel": "Client secret",
+                                      "sling:resourceType": "granite/ui/components/coral/foundation/form/password",
+                                      "fieldDescription": "Client secret from Akamai",
+                                      "granite:data": {
+                                        "jcr:primaryType": "nt:unstructured",
+                                        "cq-msm-lockable": "akamaiCdnClientSecret"
+                                      }
+                                    },
+                                    "encryptCdnClientSecret": {
+                                      "jcr:primaryType": "nt:unstructured",
+                                      "name": "./akamaiCdnClientSecret@Encrypted",
+                                      "value": "",
+                                      "sling:resourceType": "granite/ui/components/coral/foundation/form/hidden"
+                                    },
+                                    "cdnClientToken": {
+                                      "jcr:primaryType": "nt:unstructured",
+                                      "name": "./akamaiCdnClientToken",
+                                      "fieldLabel": "Client token",
+                                      "sling:resourceType": "granite/ui/components/coral/foundation/form/password",
+                                      "fieldDescription": "Client token from Akamai",
+                                      "granite:data": {
+                                        "jcr:primaryType": "nt:unstructured",
+                                        "cq-msm-lockable": "akamaiCdnClientToken"
+                                      }
+                                    },
+                                    "encryptCdnClientToken": {
+                                      "jcr:primaryType": "nt:unstructured",
+                                      "name": "./akamaiCdnClientToken@Encrypted",
+                                      "value": "",
+                                      "sling:resourceType": "granite/ui/components/coral/foundation/form/hidden"
+                                    },
+                                    "cdnAccessToken": {
+                                      "jcr:primaryType": "nt:unstructured",
+                                      "name": "./akamaiCdnAccessToken",
+                                      "fieldLabel": "Access token",
+                                      "sling:resourceType": "granite/ui/components/coral/foundation/form/password",
+                                      "fieldDescription": "Access token from Akamai",
+                                      "granite:data": {
+                                        "jcr:primaryType": "nt:unstructured",
+                                        "cq-msm-lockable": "akamaiCdnAccessToken"
+                                      }
+                                    },
+                                    "encryptCdnAccessToken": {
+                                      "jcr:primaryType": "nt:unstructured",
+                                      "name": "./akamaiCdnAccessToken@Encrypted",
+                                      "value": "",
+                                      "sling:resourceType": "granite/ui/components/coral/foundation/form/hidden"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "cdnCloudflare": {
+                              "jcr:primaryType": "nt:unstructured",
+                              "granite:class": "hide cdn-showhide-target",
+                              "sling:resourceType": "granite/ui/components/coral/foundation/container",
+                              "granite:data": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "showhidetargetvalue": "cloudflare"
+                              },
+                              "items": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "heading": {
+                                  "jcr:primaryType": "nt:unstructured",
+                                  "granite:class": "coral-Heading coral-Heading--4",
+                                  "text": "Cloudflare Options",
+                                  "level": 4,
+                                  "sling:resourceType": "granite/ui/components/coral/foundation/heading"
+                                },
+                                "well": {
+                                  "jcr:primaryType": "nt:unstructured",
+                                  "sling:resourceType": "granite/ui/components/coral/foundation/well",
+                                  "items": {
+                                    "jcr:primaryType": "nt:unstructured",
+                                    "cdnHost": {
+                                      "jcr:primaryType": "nt:unstructured",
+                                      "name": "./cloudflareCdnHost",
+                                      "fieldLabel": "Host name",
+                                      "sling:resourceType": "granite/ui/components/coral/foundation/form/textfield",
+                                      "fieldDescription": "Host name of production site, e.g. www.yourdomain.com",
+                                      "granite:data": {
+                                        "jcr:primaryType": "nt:unstructured",
+                                        "cq-msm-lockable": "cloudflareCdnHost"
+                                      }
+                                    },
+                                    "cdnPlan": {
+                                      "jcr:primaryType": "nt:unstructured",
+                                      "name": "./cloudflareCdnPlan",
+                                      "fieldLabel": "Plan",
+                                      "sling:resourceType": "granite/ui/components/coral/foundation/form/select",
+                                      "fieldDescription": "Plan from Cloudflare",
+                                      "granite:data": {
+                                        "jcr:primaryType": "nt:unstructured",
+                                        "cq-msm-lockable": "cloudflareCdnPlan"
+                                      },
+                                      "items": {
+                                        "jcr:primaryType": "nt:unstructured",
+                                        "free": {
+                                          "jcr:primaryType": "nt:unstructured",
+                                          "text": "Free",
+                                          "value": "free"
+                                        },
+                                        "pro": {
+                                          "jcr:primaryType": "nt:unstructured",
+                                          "text": "Pro",
+                                          "value": "pro"
+                                        },
+                                        "business": {
+                                          "jcr:primaryType": "nt:unstructured",
+                                          "text": "Business",
+                                          "value": "business"
+                                        },
+                                        "enterprise": {
+                                          "jcr:primaryType": "nt:unstructured",
+                                          "text": "Enterprise",
+                                          "value": "enterprise"
+                                        }
+                                      }
+                                    },
+                                    "cdnOrigin": {
+                                      "jcr:primaryType": "nt:unstructured",
+                                      "name": "./cloudflareCdnOrigin",
+                                      "fieldLabel": "Origin",
+                                      "sling:resourceType": "granite/ui/components/coral/foundation/form/textfield",
+                                      "fieldDescription": "Origin from Cloudflare",
+                                      "granite:data": {
+                                        "jcr:primaryType": "nt:unstructured",
+                                        "cq-msm-lockable": "cloudflareCdnOrigin"
+                                      }
+                                    },
+                                    "cdnZoneId": {
+                                      "jcr:primaryType": "nt:unstructured",
+                                      "name": "./cloudflareCdnZoneId",
+                                      "fieldLabel": "Zone ID",
+                                      "sling:resourceType": "granite/ui/components/coral/foundation/form/textfield",
+                                      "fieldDescription": "Zone ID from Cloudflare",
+                                      "granite:data": {
+                                        "jcr:primaryType": "nt:unstructured",
+                                        "cq-msm-lockable": "cloudflareCdnZoneId"
+                                      }
+                                    },
+                                    "cdnApiToken": {
+                                      "jcr:primaryType": "nt:unstructured",
+                                      "name": "./cloudflareCdnApiToken",
+                                      "fieldLabel": "API token",
+                                      "sling:resourceType": "granite/ui/components/coral/foundation/form/password",
+                                      "fieldDescription": "API token from Cloudflare",
+                                      "granite:data": {
+                                        "jcr:primaryType": "nt:unstructured",
+                                        "cq-msm-lockable": "cloudflareCdnZoneId"
+                                      }
+                                    },
+                                    "encryptCdnApiToken": {
+                                      "jcr:primaryType": "nt:unstructured",
+                                      "name": "./cloudflareCdnApiToken@Encrypted",
+                                      "value": "",
+                                      "sling:resourceType": "granite/ui/components/coral/foundation/form/hidden"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "cdnCloudfront": {
+                              "jcr:primaryType": "nt:unstructured",
+                              "granite:class": "hide cdn-showhide-target",
+                              "sling:resourceType": "granite/ui/components/coral/foundation/container",
+                              "granite:data": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "showhidetargetvalue": "cloudfront"
+                              },
+                              "items": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "heading": {
+                                  "jcr:primaryType": "nt:unstructured",
+                                  "granite:class": "coral-Heading coral-Heading--4",
+                                  "text": "Cloudfront Options",
+                                  "level": 4,
+                                  "sling:resourceType": "granite/ui/components/coral/foundation/heading"
+                                },
+                                "well": {
+                                  "jcr:primaryType": "nt:unstructured",
+                                  "sling:resourceType": "granite/ui/components/coral/foundation/well",
+                                  "items": {
+                                    "jcr:primaryType": "nt:unstructured",
+                                    "cdnHost": {
+                                      "jcr:primaryType": "nt:unstructured",
+                                      "name": "./cloudfrontCdnHost",
+                                      "fieldLabel": "Host name",
+                                      "sling:resourceType": "granite/ui/components/coral/foundation/form/textfield",
+                                      "fieldDescription": "Host name of production site, e.g. www.yourdomain.com",
+                                      "granite:data": {
+                                        "jcr:primaryType": "nt:unstructured",
+                                        "cq-msm-lockable": "cloudfrontCdnHost"
+                                      }
+                                    },
+                                    "cdnDistributionId": {
+                                      "jcr:primaryType": "nt:unstructured",
+                                      "name": "./cloudfrontCdnDistributionId",
+                                      "fieldLabel": "Distribution ID",
+                                      "sling:resourceType": "granite/ui/components/coral/foundation/form/textfield",
+                                      "fieldDescription": "Distribution ID from Cloudfront",
+                                      "granite:data": {
+                                        "jcr:primaryType": "nt:unstructured",
+                                        "cq-msm-lockable": "cloudfrontCdnDistributionId"
+                                      }
+                                    },
+                                    "cdnAccessKeyId": {
+                                      "jcr:primaryType": "nt:unstructured",
+                                      "name": "./cloudfrontCdnAccessKeyId",
+                                      "fieldLabel": "Access key ID",
+                                      "sling:resourceType": "granite/ui/components/coral/foundation/form/textfield",
+                                      "fieldDescription": "Access key ID from Cloudfront",
+                                      "granite:data": {
+                                        "jcr:primaryType": "nt:unstructured",
+                                        "cq-msm-lockable": "cloudfrontCdnAccessKeyId"
+                                      }
+                                    },
+                                    "encryptCdnAccessKeyId": {
+                                      "jcr:primaryType": "nt:unstructured",
+                                      "name": "./cloudfrontCdnAccessKeyId@Encrypted",
+                                      "value": "",
+                                      "sling:resourceType": "granite/ui/components/coral/foundation/form/hidden"
+                                    },
+                                    "cdnSecretAccessKey": {
+                                      "jcr:primaryType": "nt:unstructured",
+                                      "name": "./cloudfrontCdnSecretAccessKey",
+                                      "fieldLabel": "Secret access key",
+                                      "sling:resourceType": "granite/ui/components/coral/foundation/form/password",
+                                      "fieldDescription": "Secret access key from Cloudfront",
+                                      "granite:data": {
+                                        "jcr:primaryType": "nt:unstructured",
+                                        "cq-msm-lockable": "cloudfrontCdnSecretAccessKey"
+                                      }
+                                    },
+                                    "encryptCdnSecretAccessKey": {
+                                      "jcr:primaryType": "nt:unstructured",
+                                      "name": "./cloudfrontCdnSecretAccessKey@Encrypted",
+                                      "value": "",
+                                      "sling:resourceType": "granite/ui/components/coral/foundation/form/hidden"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "cdnManaged": {
+                              "jcr:primaryType": "nt:unstructured",
+                              "granite:class": "hide cdn-showhide-target",
+                              "sling:resourceType": "granite/ui/components/coral/foundation/container",
+                              "granite:data": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "showhidetargetvalue": "managed"
+                              },
+                              "items": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "heading": {
+                                  "jcr:primaryType": "nt:unstructured",
+                                  "granite:class": "coral-Heading coral-Heading--4",
+                                  "text": "Adobe Managed CDN Options",
+                                  "level": 4,
+                                  "sling:resourceType": "granite/ui/components/coral/foundation/heading"
+                                },
+                                "well": {
+                                  "jcr:primaryType": "nt:unstructured",
+                                  "sling:resourceType": "granite/ui/components/coral/foundation/well",
+                                  "items": {
+                                    "jcr:primaryType": "nt:unstructured",
+                                    "cdnHost": {
+                                      "jcr:primaryType": "nt:unstructured",
+                                      "name": "./managedCdnHost",
+                                      "fieldLabel": "Host name",
+                                      "sling:resourceType": "granite/ui/components/coral/foundation/form/textfield",
+                                      "fieldDescription": "Host name of production site, e.g. www.yourdomain.com",
+                                      "granite:data": {
+                                        "jcr:primaryType": "nt:unstructured",
+                                        "cq-msm-lockable": "managedCdnHost"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "resources": {
+                      "jcr:primaryType": "nt:unstructured",
+                      "cq:showOnCreate": false,
+                      "jcr:title": "Additional Resources",
+                      "sling:resourceType": "granite/ui/components/coral/foundation/fixedcolumns",
+                      "items": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "column": {
+                          "jcr:primaryType": "nt:unstructured",
+                          "sling:resourceType": "granite/ui/components/coral/foundation/container",
+                          "items": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "addionalMetadata": {
+                              "jcr:primaryType": "nt:unstructured",
+                              "fieldLabel": "Additional Metadata",
+                              "sling:resourceType": "granite/ui/components/coral/foundation/form/multifield",
+                              "fieldDescription": "Path to additional metadata sheets.",
+                              "granite:data": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "cq-msm-lockable": "metadata"
+                              },
+                              "field": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "name": "./metadata",
+                                "sling:resourceType": "granite/ui/components/coral/foundation/form/textfield"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "livecopy": {
+                      "jcr:primaryType": "nt:unstructured"
+                    },
+                    "blueprint": {
+                      "jcr:primaryType": "nt:unstructured"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "clientlib": {
+            "jcr:primaryType": "cq:ClientLibraryFolder",
+            "jcr:createdBy": "admin",
+            "allowProxy": true,
+            "cssProcessor": [
+              "default:none",
+              "min:none"
+            ],
+            "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+            "categories": [
+              "core.franklin.configuration.v1"
+            ],
+            "css.txt": {
+              "jcr:primaryType": "nt:file",
+              "jcr:createdBy": "admin",
+              "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+              "jcr:content": {
+                "jcr:primaryType": "nt:resource",
+                "jcr:lastModifiedBy": "admin",
+                "jcr:mimeType": "text/plain",
+                "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                ":jcr:data": 11,
+                "jcr:uuid": "115667ee-32bc-4851-918a-8d2285450252"
+              }
+            },
+            "styles.css": {
+              "jcr:primaryType": "nt:file",
+              "jcr:createdBy": "admin",
+              "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+              "jcr:content": {
+                "jcr:primaryType": "nt:resource",
+                "jcr:lastModifiedBy": "admin",
+                "jcr:mimeType": "text/css",
+                "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                ":jcr:data": 916,
+                "jcr:uuid": "a3426650-5c40-4528-a897-e742ef8b5319"
+              }
+            }
+          },
+          "hlx.json.GET.servlet": {
+            "sling:resourceSuperType": "sling/bundle/resource",
+            "servletClass": "com.adobe.aem.wcm.franklin.internal.spreadsheets.HelixConfigServlet",
+            "sling:resourceType": "/libs/core/franklin/components/configuration/v1/configuration/hlx.json.GET.servlet",
+            "servletName": "com.adobe.aem.wcm.franklin.internal.spreadsheets.HelixConfigServlet"
+          }
+        }
+      }
+    },
+    "block": {
+      "jcr:primaryType": "sling:Folder",
+      "jcr:createdBy": "admin",
+      "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+      "v1": {
+        "jcr:primaryType": "sling:Folder",
+        "jcr:createdBy": "admin",
+        "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+        "block": {
+          "jcr:primaryType": "cq:Component",
+          "jcr:createdBy": "admin",
+          "jcr:title": "Block",
+          "cq:isContainer": "true",
+          "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+          "componentGroup": "Franklin",
+          "item": {
+            "jcr:primaryType": "cq:Component",
+            "jcr:createdBy": "admin",
+            "jcr:title": "Block Item",
+            "cq:isContainer": "true",
+            "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+            "componentGroup": "Franklin"
+          },
+          "block.html": {
+            "jcr:primaryType": "nt:file",
+            "jcr:createdBy": "admin",
+            "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+            "jcr:content": {
+              "jcr:primaryType": "nt:resource",
+              "jcr:lastModifiedBy": "admin",
+              "jcr:mimeType": "text/html",
+              "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+              ":jcr:data": 1512,
+              "jcr:uuid": "06b5c983-6f06-4159-9028-c1e196263f3c"
+            }
+          }
+        }
+      }
+    },
+    "title": {
+      "jcr:primaryType": "sling:Folder",
+      "jcr:createdBy": "admin",
+      "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+      "v1": {
+        "jcr:primaryType": "sling:Folder",
+        "jcr:createdBy": "admin",
+        "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+        "title": {
+          "jcr:primaryType": "cq:Component",
+          "jcr:createdBy": "admin",
+          "jcr:title": "Title",
+          "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+          "componentGroup": "Franklin",
+          "title.html": {
+            "jcr:primaryType": "nt:file",
+            "jcr:createdBy": "admin",
+            "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+            "jcr:content": {
+              "jcr:primaryType": "nt:resource",
+              "jcr:lastModifiedBy": "admin",
+              "jcr:mimeType": "text/html",
+              "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+              ":jcr:data": 1054,
+              "jcr:uuid": "f227366a-0d6c-467a-ac6a-9bdede88ef32"
+            }
+          }
+        }
+      }
+    },
+    "spreadsheet": {
+      "jcr:primaryType": "nt:folder",
+      "jcr:createdBy": "admin",
+      "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+      "v2": {
+        "jcr:primaryType": "nt:folder",
+        "jcr:createdBy": "admin",
+        "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+        "spreadsheet": {
+          "jcr:primaryType": "cq:Component",
+          "jcr:createdBy": "admin",
+          "jcr:title": "Spreadsheet",
+          "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+          "sling:resourceSuperType": "core/franklin/components/spreadsheet/v1/spreadsheet",
+          "cq:icon": "page",
+          "cq:defaultView": "html",
+          "componentGroup": ".franklin",
+          "hlx.POST.servlet": {
+            "sling:resourceSuperType": "sling/bundle/resource",
+            "servletClass": "com.adobe.aem.wcm.franklin.internal.spreadsheets.SpreadsheetWriteServlet",
+            "sling:resourceType": "/libs/core/franklin/components/spreadsheet/v2/spreadsheet/hlx.POST.servlet",
+            "servletName": "com.adobe.aem.wcm.franklin.internal.spreadsheets.SpreadsheetWriteServlet"
+          },
+          "spreadsheet.html": {
+            "sling:resourceSuperType": "core/franklin/components/spreadsheet/v1/spreadsheet",
+            "servletClass": "org.apache.sling.servlets.resolver.internal.bundle.BundledScriptServlet",
+            "sling:resourceType": "/libs/core/franklin/components/spreadsheet/v2/spreadsheet/spreadsheet.html.servlet",
+            "servletName": "BundledScriptServlet (/libs/core/franklin/components/spreadsheet/v1/spreadsheet/spreadsheet.html)"
+          },
+          "hlx.json.GET.servlet": {
+            "sling:resourceSuperType": "sling/bundle/resource",
+            "servletClass": "com.adobe.aem.wcm.franklin.internal.spreadsheets.SpreadsheetServlet",
+            "sling:resourceType": "/libs/core/franklin/components/spreadsheet/v2/spreadsheet/hlx.json.GET.servlet",
+            "servletName": "com.adobe.aem.wcm.franklin.internal.spreadsheets.SpreadsheetServlet"
+          },
+          "hlx.csv.GET.servlet": {
+            "sling:resourceSuperType": "sling/bundle/resource",
+            "servletClass": "com.adobe.aem.wcm.franklin.internal.spreadsheets.SpreadsheetServlet",
+            "sling:resourceType": "/libs/core/franklin/components/spreadsheet/v2/spreadsheet/hlx.csv.GET.servlet",
+            "servletName": "com.adobe.aem.wcm.franklin.internal.spreadsheets.SpreadsheetServlet"
+          }
+        }
+      },
+      "v1": {
+        "jcr:primaryType": "nt:folder",
+        "jcr:createdBy": "admin",
+        "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+        "spreadsheet": {
+          "jcr:primaryType": "cq:Component",
+          "jcr:createdBy": "admin",
+          "jcr:title": "Spreadsheet (v1)",
+          "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+          "sling:resourceSuperType": "wcm/foundation/components/basicpage/v1/basicpage",
+          "cq:icon": "page",
+          "cq:defaultView": "html",
+          "componentGroup": ".franklin",
+          "cq:dialog": {
+            "jcr:primaryType": "nt:unstructured",
+            "jcr:title": "Spreadsheet",
+            "extraClientlibs": [
+              "cq.common.wcm",
+              "cq.siteadmin.admin.properties",
+              "cq.wcm.msm.properties",
+              "granite.contexthub.configuration"
+            ],
+            "mode": "edit",
+            "sling:resourceType": "cq/gui/components/authoring/dialog",
+            "content": {
+              "jcr:primaryType": "nt:unstructured",
+              "class": "cq-dialog-content-page",
+              "sling:resourceType": "granite/ui/components/foundation/container",
+              "items": {
+                "jcr:primaryType": "nt:unstructured",
+                "tabs": {
+                  "jcr:primaryType": "nt:unstructured",
+                  "granite:class": "cq-siteadmin-admin-properties-tabs",
+                  "size": "L",
+                  "maximized": true,
+                  "sling:resourceType": "granite/ui/components/coral/foundation/tabs",
+                  "items": {
+                    "jcr:primaryType": "nt:unstructured",
+                    "sling:hideChildren": [
+                      "advanced",
+                      "thumbnail",
+                      "cloudservices",
+                      "personalization",
+                      "permissions",
+                      "previewurl"
+                    ],
+                    "basic": {
+                      "jcr:primaryType": "nt:unstructured",
+                      "jcr:title": "Basic",
+                      "sling:resourceType": "granite/ui/components/coral/foundation/fixedcolumns",
+                      "items": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "column": {
+                          "jcr:primaryType": "nt:unstructured",
+                          "sling:resourceType": "granite/ui/components/coral/foundation/container",
+                          "granite:rendercondition": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "expression": false,
+                            "sling:resourceType": "core/franklin/components/datasource/multisheet/v1/multisheet-condition"
+                          },
+                          "items": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "title": {
+                              "jcr:primaryType": "nt:unstructured",
+                              "required": true,
+                              "name": "./jcr:title",
+                              "fieldLabel": "Title",
+                              "sling:resourceType": "granite/ui/components/coral/foundation/form/textfield",
+                              "renderReadOnly": false,
+                              "fieldDescription": "Defines the page meta title for SEO, as well as a title displayable in the page content (unless an overriding 'Page Title' is defined).",
+                              "granite:data": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "cq-msm-lockable": "jcr:title"
+                              }
+                            },
+                            "columns": {
+                              "jcr:primaryType": "nt:unstructured",
+                              "required": true,
+                              "cq-msm-lockable": "columns",
+                              "fieldLabel": "Columns",
+                              "sling:resourceType": "granite/ui/components/coral/foundation/form/multifield",
+                              "renderReadOnly": false,
+                              "granite:data": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "cq-msm-lockable": "columns"
+                              },
+                              "field": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "required": true,
+                                "name": "./columns",
+                                "sling:resourceType": "granite/ui/components/coral/foundation/form/textfield"
+                              }
+                            }
+                          }
+                        },
+                        "multisheet": {
+                          "jcr:primaryType": "nt:unstructured",
+                          "sling:resourceType": "granite/ui/components/coral/foundation/container",
+                          "granite:rendercondition": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "expression": true,
+                            "sling:resourceType": "core/franklin/components/datasource/multisheet/v1/multisheet-condition"
+                          },
+                          "items": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "title": {
+                              "jcr:primaryType": "nt:unstructured",
+                              "required": true,
+                              "name": "./jcr:title",
+                              "fieldLabel": "Title",
+                              "sling:resourceType": "granite/ui/components/coral/foundation/form/textfield",
+                              "renderReadOnly": false,
+                              "fieldDescription": "Defines the page meta title for SEO, as well as a title displayable in the page content (unless an overriding 'Page Title' is defined).",
+                              "granite:data": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "cq-msm-lockable": "jcr:title"
+                              }
+                            },
+                            "sheets": {
+                              "jcr:primaryType": "nt:unstructured",
+                              "jcr:title": "Sheets",
+                              "sling:resourceType": "granite/ui/components/coral/foundation/form/fieldset",
+                              "items": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "accordion": {
+                                  "jcr:primaryType": "nt:unstructured",
+                                  "sling:resourceType": "granite/ui/components/coral/foundation/accordion",
+                                  "datasource": {
+                                    "jcr:primaryType": "nt:unstructured",
+                                    "sling:resourceType": "core/franklin/components/datasource/multisheet/v1/multisheet-datasource"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "spreadsheet.html": {
+            "jcr:primaryType": "nt:file",
+            "jcr:createdBy": "admin",
+            "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+            "jcr:content": {
+              "jcr:primaryType": "nt:resource",
+              "jcr:lastModifiedBy": "admin",
+              "jcr:mimeType": "text/html",
+              "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+              ":jcr:data": 532,
+              "jcr:uuid": "562eb9a1-ab0c-41c6-bdca-2cd3a5b52259"
+            }
+          },
+          "clientlib": {
+            "jcr:primaryType": "cq:ClientLibraryFolder",
+            "jcr:createdBy": "admin",
+            "jsProcessor": [
+              "default:none",
+              "min:none"
+            ],
+            "allowProxy": true,
+            "cssProcessor": [
+              "default:none",
+              "min:none"
+            ],
+            "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+            "categories": [
+              "core.franklin.spreadsheet.v1"
+            ],
+            "css.txt": {
+              "jcr:primaryType": "nt:file",
+              "jcr:createdBy": "admin",
+              "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+              "jcr:content": {
+                "jcr:primaryType": "nt:resource",
+                "jcr:lastModifiedBy": "admin",
+                "jcr:mimeType": "text/plain",
+                "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                ":jcr:data": 22,
+                "jcr:uuid": "56bab6a0-7da8-40d9-8a22-0415054eeaef"
+              }
+            },
+            "dist": {
+              "jcr:primaryType": "nt:folder",
+              "jcr:createdBy": "admin",
+              "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+              "output.js": {
+                "jcr:primaryType": "nt:file",
+                "jcr:createdBy": "admin",
+                "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                "jcr:content": {
+                  "jcr:primaryType": "nt:resource",
+                  "jcr:lastModifiedBy": "admin",
+                  "jcr:mimeType": "application/javascript",
+                  "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                  ":jcr:data": 436754,
+                  "jcr:uuid": "8acf17da-6457-43f1-96af-47f987d08d1a"
+                }
+              },
+              "style.css": {
+                "jcr:primaryType": "nt:file",
+                "jcr:createdBy": "admin",
+                "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                "jcr:content": {
+                  "jcr:primaryType": "nt:resource",
+                  "jcr:lastModifiedBy": "admin",
+                  "jcr:mimeType": "text/css",
+                  "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                  ":jcr:data": 1056578,
+                  "jcr:uuid": "d0577a78-431a-4d86-bf99-588ab9ba5d1b"
+                }
+              }
+            },
+            "js.txt": {
+              "jcr:primaryType": "nt:file",
+              "jcr:createdBy": "admin",
+              "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+              "jcr:content": {
+                "jcr:primaryType": "nt:resource",
+                "jcr:lastModifiedBy": "admin",
+                "jcr:mimeType": "text/plain",
+                "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                ":jcr:data": 15,
+                "jcr:uuid": "9c3cf4ea-0859-457d-b5b7-3759143f98ea"
+              }
+            },
+            "fix.css": {
+              "jcr:primaryType": "nt:file",
+              "jcr:createdBy": "admin",
+              "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+              "jcr:content": {
+                "jcr:primaryType": "nt:resource",
+                "jcr:lastModifiedBy": "admin",
+                "jcr:mimeType": "text/css",
+                "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                ":jcr:data": 213,
+                "jcr:uuid": "f4d14e2f-ad9a-4b6e-a70e-ebe223d895d6"
+              }
+            }
+          },
+          "hlx.POST.servlet": {
+            "sling:resourceSuperType": "sling/bundle/resource",
+            "servletClass": "com.adobe.aem.wcm.franklin.internal.spreadsheets.SpreadsheetWriteServlet",
+            "sling:resourceType": "/libs/core/franklin/components/spreadsheet/v1/spreadsheet/hlx.POST.servlet",
+            "servletName": "com.adobe.aem.wcm.franklin.internal.spreadsheets.SpreadsheetWriteServlet"
+          },
+          "hlx.csv.GET.servlet": {
+            "sling:resourceSuperType": "sling/bundle/resource",
+            "servletClass": "com.adobe.aem.wcm.franklin.internal.spreadsheets.SpreadsheetServlet",
+            "sling:resourceType": "/libs/core/franklin/components/spreadsheet/v1/spreadsheet/hlx.csv.GET.servlet",
+            "servletName": "com.adobe.aem.wcm.franklin.internal.spreadsheets.SpreadsheetServlet"
+          },
+          "hlx.json.GET.servlet": {
+            "sling:resourceSuperType": "sling/bundle/resource",
+            "servletClass": "com.adobe.aem.wcm.franklin.internal.spreadsheets.SpreadsheetServlet",
+            "sling:resourceType": "/libs/core/franklin/components/spreadsheet/v1/spreadsheet/hlx.json.GET.servlet",
+            "servletName": "com.adobe.aem.wcm.franklin.internal.spreadsheets.SpreadsheetServlet"
+          }
+        }
+      }
+    },
+    "root": {
+      "jcr:primaryType": "sling:Folder",
+      "jcr:createdBy": "admin",
+      "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+      "v1": {
+        "jcr:primaryType": "sling:Folder",
+        "jcr:createdBy": "admin",
+        "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+        "root": {
+          "jcr:primaryType": "cq:Component",
+          "jcr:createdBy": "admin",
+          "jcr:title": "Root",
+          "cq:isContainer": "true",
+          "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+          "componentGroup": ".franklin",
+          "root.html": {
+            "jcr:primaryType": "nt:file",
+            "jcr:createdBy": "admin",
+            "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+            "jcr:content": {
+              "jcr:primaryType": "nt:resource",
+              "jcr:lastModifiedBy": "admin",
+              "jcr:mimeType": "text/html",
+              "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+              ":jcr:data": 815,
+              "jcr:uuid": "e3a23937-662f-4767-b635-2979d5ac2cc0"
+            }
+          },
+          "plain.html": {
+            "jcr:primaryType": "nt:file",
+            "jcr:createdBy": "admin",
+            "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+            "jcr:content": {
+              "jcr:primaryType": "nt:resource",
+              "jcr:lastModifiedBy": "admin",
+              "jcr:mimeType": "text/html",
+              "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+              ":jcr:data": 762,
+              "jcr:uuid": "c59ee06e-4200-4e12-bf38-c573dbb8f9a3"
+            }
+          }
+        }
+      }
+    },
+    "taxonomy": {
+      "jcr:primaryType": "nt:folder",
+      "jcr:createdBy": "admin",
+      "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+      "v1": {
+        "jcr:primaryType": "nt:folder",
+        "jcr:createdBy": "admin",
+        "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+        "taxonomy": {
+          "jcr:primaryType": "cq:Component",
+          "jcr:createdBy": "admin",
+          "jcr:title": "Taxonomy",
+          "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+          "cq:icon": "page",
+          "componentGroup": ".franklin",
+          "cq:dialog": {
+            "jcr:primaryType": "nt:unstructured",
+            "jcr:title": "Taxonomy",
+            "extraClientlibs": [
+              "cq.common.wcm",
+              "cq.siteadmin.admin.properties",
+              "cq.wcm.msm.properties",
+              "granite.contexthub.configuration"
+            ],
+            "mode": "edit",
+            "sling:resourceType": "cq/gui/components/authoring/dialog",
+            "content": {
+              "jcr:primaryType": "nt:unstructured",
+              "class": "cq-dialog-content-page",
+              "sling:resourceType": "granite/ui/components/foundation/container",
+              "items": {
+                "jcr:primaryType": "nt:unstructured",
+                "tabs": {
+                  "jcr:primaryType": "nt:unstructured",
+                  "granite:class": "cq-siteadmin-admin-properties-tabs",
+                  "size": "L",
+                  "maximized": true,
+                  "sling:resourceType": "granite/ui/components/coral/foundation/tabs",
+                  "items": {
+                    "jcr:primaryType": "nt:unstructured",
+                    "basic": {
+                      "jcr:primaryType": "nt:unstructured",
+                      "jcr:title": "Basic",
+                      "sling:resourceType": "granite/ui/components/coral/foundation/fixedcolumns",
+                      "items": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "column": {
+                          "jcr:primaryType": "nt:unstructured",
+                          "sling:resourceType": "granite/ui/components/coral/foundation/container",
+                          "items": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "title": {
+                              "jcr:primaryType": "nt:unstructured",
+                              "required": true,
+                              "name": "./jcr:title",
+                              "fieldLabel": "Title",
+                              "sling:resourceType": "granite/ui/components/coral/foundation/form/textfield",
+                              "renderReadOnly": false,
+                              "fieldDescription": "Defines the page meta title for SEO, as well as a title displayable in the page content (unless an overriding 'Page Title' is defined).",
+                              "granite:data": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "cq-msm-lockable": "jcr:title"
+                              }
+                            },
+                            "tags": {
+                              "jcr:primaryType": "nt:unstructured",
+                              "cq:showOnCreate": true,
+                              "allowBulkEdit": true,
+                              "name": "./cq:tags",
+                              "fieldLabel": "Tags",
+                              "multiple": true,
+                              "sling:resourceType": "cq/gui/components/coral/common/form/tagfield",
+                              "autocreateTag": true,
+                              "fieldDescription": "Defines the tags for the Spreadsheet.",
+                              "granite:data": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "cq-msm-lockable": "cq:tags"
+                              }
+                            },
+                            "additionalProperties": {
+                              "jcr:primaryType": "nt:unstructured",
+                              "fieldLabel": "Additional Properties",
+                              "sling:resourceType": "granite/ui/components/coral/foundation/form/multifield",
+                              "fieldDescription": "Optional tag properties which should be included into the Spreadsheet (e.g. jcr:description)",
+                              "field": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "name": "./additionalProperties",
+                                "sling:resourceType": "granite/ui/components/coral/foundation/form/textfield",
+                                "granite:data": {
+                                  "jcr:primaryType": "nt:unstructured",
+                                  "cq-msm-lockable": "additionalProperties"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "taxonomy.html": {
+            "jcr:primaryType": "nt:file",
+            "jcr:createdBy": "admin",
+            "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+            "jcr:content": {
+              "jcr:primaryType": "nt:resource",
+              "jcr:lastModifiedBy": "admin",
+              "jcr:mimeType": "text/html",
+              "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+              ":jcr:data": 1614,
+              "jcr:uuid": "24bb721d-07e9-4442-8c99-40796257e0df"
+            }
+          },
+          "clientlib": {
+            "jcr:primaryType": "cq:ClientLibraryFolder",
+            "jcr:createdBy": "admin",
+            "allowProxy": true,
+            "cssProcessor": [
+              "default:none",
+              "min:none"
+            ],
+            "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+            "categories": [
+              "core.franklin.taxonomy.v1"
+            ],
+            "css.txt": {
+              "jcr:primaryType": "nt:file",
+              "jcr:createdBy": "admin",
+              "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+              "jcr:content": {
+                "jcr:primaryType": "nt:resource",
+                "jcr:lastModifiedBy": "admin",
+                "jcr:mimeType": "text/plain",
+                "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                ":jcr:data": 11,
+                "jcr:uuid": "4cea0e0a-dbe5-40a1-ad8b-0ea25988d6a6"
+              }
+            },
+            "styles.css": {
+              "jcr:primaryType": "nt:file",
+              "jcr:createdBy": "admin",
+              "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+              "jcr:content": {
+                "jcr:primaryType": "nt:resource",
+                "jcr:lastModifiedBy": "admin",
+                "jcr:mimeType": "text/css",
+                "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                ":jcr:data": 726,
+                "jcr:uuid": "68ac7f56-91a5-4e71-add1-0728fa01b310"
+              }
+            }
+          },
+          "hlx.json.GET.servlet": {
+            "sling:resourceSuperType": "sling/bundle/resource",
+            "servletClass": "com.adobe.aem.wcm.franklin.internal.spreadsheets.TagsSpreadsheetServlet",
+            "sling:resourceType": "/libs/core/franklin/components/taxonomy/v1/taxonomy/hlx.json.GET.servlet",
+            "servletName": "com.adobe.aem.wcm.franklin.internal.spreadsheets.TagsSpreadsheetServlet"
+          }
+        }
+      }
+    },
+    "section": {
+      "jcr:primaryType": "sling:Folder",
+      "jcr:createdBy": "admin",
+      "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+      "v1": {
+        "jcr:primaryType": "sling:Folder",
+        "jcr:createdBy": "admin",
+        "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+        "section": {
+          "jcr:primaryType": "cq:Component",
+          "jcr:createdBy": "admin",
+          "jcr:title": "Section",
+          "cq:isContainer": "true",
+          "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+          "componentGroup": "Franklin",
+          "section.html": {
+            "jcr:primaryType": "nt:file",
+            "jcr:createdBy": "admin",
+            "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+            "jcr:content": {
+              "jcr:primaryType": "nt:resource",
+              "jcr:lastModifiedBy": "admin",
+              "jcr:mimeType": "text/html",
+              "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+              ":jcr:data": 1197,
+              "jcr:uuid": "237e7dee-24f9-424d-95a1-dfe55b92408c"
+            }
+          }
+        }
+      }
+    },
+    "columns": {
+      "jcr:primaryType": "sling:Folder",
+      "jcr:createdBy": "admin",
+      "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+      "v1": {
+        "jcr:primaryType": "sling:Folder",
+        "jcr:createdBy": "admin",
+        "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+        "columns": {
+          "jcr:primaryType": "cq:Component",
+          "jcr:createdBy": "admin",
+          "jcr:title": "Columns",
+          "cq:isContainer": "true",
+          "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+          "componentGroup": "Franklin",
+          "column": {
+            "jcr:primaryType": "cq:Component",
+            "jcr:createdBy": "admin",
+            "jcr:title": "Column",
+            "cq:isContainer": "true",
+            "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+            "componentGroup": ".franklin",
+            "column.html": {
+              "jcr:primaryType": "nt:file",
+              "jcr:createdBy": "admin",
+              "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+              "jcr:content": {
+                "jcr:primaryType": "nt:resource",
+                "jcr:lastModifiedBy": "admin",
+                "jcr:mimeType": "text/html",
+                "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                ":jcr:data": 761,
+                "jcr:uuid": "475de995-7297-4c22-a627-08a96f91e732"
+              }
+            }
+          },
+          "columns.html": {
+            "jcr:primaryType": "nt:file",
+            "jcr:createdBy": "admin",
+            "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+            "jcr:content": {
+              "jcr:primaryType": "nt:resource",
+              "jcr:lastModifiedBy": "admin",
+              "jcr:mimeType": "text/html",
+              "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+              ":jcr:data": 1336,
+              "jcr:uuid": "0143d99e-ec9b-40de-aecf-c4f71c70ae7f"
+            }
+          }
+        }
+      }
+    },
+    "button": {
+      "jcr:primaryType": "sling:Folder",
+      "jcr:createdBy": "admin",
+      "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+      "v1": {
+        "jcr:primaryType": "sling:Folder",
+        "jcr:createdBy": "admin",
+        "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+        "button": {
+          "jcr:primaryType": "cq:Component",
+          "jcr:createdBy": "admin",
+          "jcr:title": "Button",
+          "cq:isContainer": "true",
+          "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+          "componentGroup": "Franklin",
+          "button.html": {
+            "jcr:primaryType": "nt:file",
+            "jcr:createdBy": "admin",
+            "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+            "jcr:content": {
+              "jcr:primaryType": "nt:resource",
+              "jcr:lastModifiedBy": "admin",
+              "jcr:mimeType": "text/html",
+              "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+              ":jcr:data": 1736,
+              "jcr:uuid": "9e6152d8-b172-47f5-8ee8-8c82ea3707f4"
+            }
+          }
+        }
+      }
+    },
+    "page": {
+      "jcr:primaryType": "sling:Folder",
+      "jcr:createdBy": "admin",
+      "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+      "v1": {
+        "jcr:primaryType": "sling:Folder",
+        "jcr:createdBy": "admin",
+        "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+        "page": {
+          "jcr:primaryType": "cq:Component",
+          "jcr:createdBy": "admin",
+          "jcr:title": "Page",
+          "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+          "sling:resourceSuperType": "wcm/foundation/components/basicpage/v1/basicpage",
+          "cq:icon": "page",
+          "componentGroup": ".franklin",
+          "cq:infoProviders": {
+            "jcr:primaryType": "nt:unstructured",
+            "edgeDeliveryContext": {
+              "jcr:primaryType": "nt:unstructured",
+              "className": "com.adobe.aem.wcm.franklin.internal.FranklinPageInfoProvider"
+            }
+          },
+          "cq:dialog": {
+            "jcr:primaryType": "nt:unstructured",
+            "jcr:title": "Page",
+            "trackingFeature": "franklin:page:v1",
+            "extraClientlibs": [
+              "cq.common.wcm",
+              "cq.siteadmin.admin.properties",
+              "cq.wcm.msm.properties",
+              "core.franklin.pageproperties"
+            ],
+            "mode": "edit",
+            "sling:resourceType": "cq/gui/components/authoring/dialog",
+            "content": {
+              "jcr:primaryType": "nt:unstructured",
+              "granite:class": "cq-dialog-content-page",
+              "sling:resourceType": "granite/ui/components/coral/foundation/container",
+              "items": {
+                "jcr:primaryType": "nt:unstructured",
+                "clientlibs": {
+                  "jcr:primaryType": "nt:unstructured",
+                  "sling:resourceType": "granite/ui/components/coral/foundation/includeclientlibs",
+                  "categories": [
+                    "core.franklin.pageproperties"
+                  ]
+                },
+                "tabs": {
+                  "jcr:primaryType": "nt:unstructured",
+                  "granite:class": "cq-siteadmin-admin-properties-tabs",
+                  "size": "L",
+                  "sling:resourceType": "granite/ui/components/coral/foundation/tabs",
+                  "items": {
+                    "jcr:primaryType": "nt:unstructured",
+                    "sling:hideChildren": [
+                      "cloudservices",
+                      "personalization",
+                      "previewurl"
+                    ],
+                    "basic": {
+                      "jcr:primaryType": "nt:unstructured",
+                      "path": "/mnt/override/libs/core/franklin/components/page/v1/page/tabs/basic",
+                      "sling:resourceType": "granite/ui/components/coral/foundation/include"
+                    },
+                    "advanced": {
+                      "jcr:primaryType": "nt:unstructured",
+                      "cq:showOnCreate": false,
+                      "path": "/mnt/override/libs/core/franklin/components/page/v1/page/tabs/advanced",
+                      "sling:resourceType": "granite/ui/components/coral/foundation/include"
+                    },
+                    "thumbnail": {
+                      "jcr:primaryType": "nt:unstructured",
+                      "path": "/mnt/override/libs/core/franklin/components/page/v1/page/tabs/thumbnail",
+                      "sling:resourceType": "granite/ui/components/coral/foundation/include"
+                    },
+                    "permissions": {
+                      "jcr:primaryType": "nt:unstructured",
+                      "path": "/mnt/override/libs/core/franklin/components/page/v1/page/tabs/permissions",
+                      "sling:resourceType": "granite/ui/components/coral/foundation/include"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "tabs": {
+            "jcr:primaryType": "sling:Folder",
+            "jcr:createdBy": "admin",
+            "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+            "basic": {
+              "jcr:primaryType": "nt:unstructured",
+              "items": {
+                "jcr:primaryType": "nt:unstructured",
+                "column": {
+                  "jcr:primaryType": "nt:unstructured",
+                  "items": {
+                    "jcr:primaryType": "nt:unstructured",
+                    "sling:hideChildren": [
+                      "vanityurl",
+                      "onofftime"
+                    ],
+                    "title": {
+                      "jcr:primaryType": "nt:unstructured",
+                      "items": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "sling:hideChildren": [
+                          "hideinnav"
+                        ],
+                        "title": {
+                          "jcr:primaryType": "nt:unstructured",
+                          "fieldDescription": "Defines the page title for authoring environment, as well as the page meta title for SEO (unless an overriding 'Page Title' is defined)."
+                        }
+                      }
+                    },
+                    "moretitles": {
+                      "jcr:primaryType": "nt:unstructured",
+                      "jcr:title": "Metadata, Title and Description",
+                      "items": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "sling:hideChildren": [
+                          "navigationtitle",
+                          "subtitle"
+                        ],
+                        "pagetitle": {
+                          "jcr:primaryType": "nt:unstructured",
+                          "fieldDescription": "Defines the page meta title for SEO."
+                        },
+                        "unsetTitle": {
+                          "jcr:primaryType": "nt:unstructured",
+                          "uncheckedValue": false,
+                          "name": "./unsetTitle",
+                          "text": "Unset title",
+                          "value": true,
+                          "sling:resourceType": "granite/ui/components/coral/foundation/form/checkbox",
+                          "fieldDescription": "Check to have an empty title on the page.",
+                          "granite:data": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "cq-msm-lockable": "unsetTitle"
+                          }
+                        },
+                        "description": {
+                          "jcr:primaryType": "nt:unstructured",
+                          "cq:showOnCreate": true,
+                          "fieldDescription": "Defines the page meta descriptions for SEO."
+                        },
+                        "keywords": {
+                          "jcr:primaryType": "nt:unstructured",
+                          "fieldLabel": "Keywords",
+                          "sling:resourceType": "granite/ui/components/coral/foundation/form/multifield",
+                          "field": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "name": "./keywords",
+                            "sling:resourceType": "granite/ui/components/coral/foundation/form/textfield"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "thumbnail": {
+              "jcr:primaryType": "nt:unstructured",
+              "jcr:title": "Image",
+              "items": {
+                "jcr:primaryType": "nt:unstructured",
+                "column": {
+                  "jcr:primaryType": "nt:unstructured",
+                  "items": {
+                    "jcr:primaryType": "nt:unstructured",
+                    "thumbnail": {
+                      "jcr:primaryType": "nt:unstructured",
+                      "sling:resourceType": "granite/ui/components/coral/foundation/container",
+                      "items": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "thumbnail": {
+                          "jcr:primaryType": "nt:unstructured",
+                          "sling:resourceType": "granite/ui/components/coral/foundation/container",
+                          "granite:rendercondition": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "sling:resourceType": "granite/ui/components/foundation/renderconditions/not",
+                            "CTSITES37558": {
+                              "jcr:primaryType": "nt:unstructured",
+                              "toggleName": "CT_SITES-37558",
+                              "sling:resourceType": "granite/ui/components/renderconditions/featuretoggle"
+                            }
+                          },
+                          "items": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "thumbnail": {
+                              "jcr:primaryType": "nt:unstructured",
+                              "page": "${empty param.item ? requestPathInfo.suffix : param.item}",
+                              "quuit": true,
+                              "sling:resourceType": "cq/gui/components/common/wcm/pagethumbnail",
+                              "assetpicker": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "granite:class": "js-browse-activator",
+                                "text": "Select Image",
+                                "sling:resourceType": "granite/ui/components/coral/foundation/button"
+                              }
+                            }
+                          }
+                        },
+                        "image": {
+                          "jcr:primaryType": "nt:unstructured",
+                          "sling:resourceType": "granite/ui/components/coral/foundation/container",
+                          "granite:rendercondition": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "toggleName": "CT_SITES-37558",
+                            "sling:resourceType": "granite/ui/components/renderconditions/featuretoggle"
+                          },
+                          "items": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "image": {
+                              "jcr:primaryType": "nt:unstructured",
+                              "fileReferenceParameter": "./image/fileReference",
+                              "mimeTypes": [
+                                "image/jpeg",
+                                "image/png"
+                              ],
+                              "name": "./image/file",
+                              "allowDrop": false,
+                              "fieldLabel": "Image",
+                              "allowUpload": false,
+                              "sling:resourceType": "cq/gui/components/authoring/dialog/fileupload",
+                              "fieldDescription": "Used as thumbnail and social image.",
+                              "granite:data": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "cq-msm-lockable": "./image/fileReference"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "thumbnailAlt": {
+                      "jcr:primaryType": "nt:unstructured",
+                      "name": "./image/alt",
+                      "fieldLabel": "Alternative Text",
+                      "sling:resourceType": "granite/ui/components/coral/foundation/form/textfield",
+                      "fieldDescription": "Textual alternative of the meaning or function of the image, for visually impaired readers.",
+                      "granite:data": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "cq-msm-lockable": "./image/alt"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "advanced": {
+              "jcr:primaryType": "nt:unstructured",
+              "cq:showOnCreate": false,
+              "items": {
+                "jcr:primaryType": "nt:unstructured",
+                "column": {
+                  "jcr:primaryType": "nt:unstructured",
+                  "items": {
+                    "jcr:primaryType": "nt:unstructured",
+                    "sling:hideChildren": [
+                      "spa",
+                      "dr_number",
+                      "authenticationrequirement",
+                      "export"
+                    ],
+                    "section1": {
+                      "jcr:primaryType": "nt:unstructured",
+                      "items": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "sling:hideChildren": [
+                          "redirect",
+                          "redirectPermanent",
+                          "designs"
+                        ],
+                        "alias": {
+                          "jcr:primaryType": "nt:unstructured",
+                          "granite:rendercondition": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "toggleName": "FT_SITES-26532",
+                            "sling:resourceType": "granite/ui/components/renderconditions/featuretoggle"
+                          }
+                        },
+                        "aliasWarning": {
+                          "jcr:primaryType": "nt:unstructured",
+                          "text": "Warning: updating the alias is similar to a move operation. After updating the alias, you should republish the page and all its descendants.",
+                          "sling:resourceType": "granite/ui/components/coral/foundation/text",
+                          "granite:rendercondition": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "toggleName": "FT_SITES-26532",
+                            "sling:resourceType": "granite/ui/components/renderconditions/featuretoggle"
+                          }
+                        }
+                      }
+                    },
+                    "configuration": {
+                      "jcr:primaryType": "nt:unstructured"
+                    },
+                    "templates": {
+                      "jcr:primaryType": "nt:unstructured",
+                      "items": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "initialContentRefTarget": {
+                          "jcr:primaryType": "nt:unstructured",
+                          "uncheckedValue": false,
+                          "name": "./initialContentRefTarget",
+                          "text": "Use Page as Template",
+                          "value": true,
+                          "sling:resourceType": "granite/ui/components/coral/foundation/form/checkbox"
+                        }
+                      }
+                    },
+                    "seo": {
+                      "jcr:primaryType": "nt:unstructured",
+                      "items": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "sling:hideChildren": [
+                          "sitemapRoot"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "permissions": {
+              "jcr:primaryType": "nt:unstructured",
+              "sling:resourceSuperType": "/libs/wcm/core/content/sites/properties/tabs/permissions",
+              "items": {
+                "jcr:primaryType": "nt:unstructured",
+                "sling:hideChildren": [
+                  "closedUserGroupList",
+                  "editCUGDialog"
+                ]
+              }
+            }
+          },
+          "clientlibs": {
+            "jcr:primaryType": "nt:folder",
+            "jcr:createdBy": "admin",
+            "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+            "serviceworker": {
+              "jcr:primaryType": "cq:ClientLibraryFolder",
+              "jcr:createdBy": "admin",
+              "jsProcessor": [
+                "default:none",
+                "min:none"
+              ],
+              "allowProxy": true,
+              "cssProcessor": [
+                "default:none",
+                "min:none"
+              ],
+              "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+              "categories": [
+                "core.franklin.service-worker.v1"
+              ],
+              "serviceWorker.js": {
+                "jcr:primaryType": "nt:file",
+                "jcr:createdBy": "admin",
+                "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                "jcr:content": {
+                  "jcr:primaryType": "nt:resource",
+                  "jcr:lastModifiedBy": "admin",
+                  "jcr:mimeType": "application/javascript",
+                  "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                  ":jcr:data": 5567,
+                  "jcr:uuid": "b4a0ed17-0948-45f9-abb5-697b5b27ade9"
+                }
+              },
+              "js.txt": {
+                "jcr:primaryType": "nt:file",
+                "jcr:createdBy": "admin",
+                "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                "jcr:content": {
+                  "jcr:primaryType": "nt:resource",
+                  "jcr:lastModifiedBy": "admin",
+                  "jcr:mimeType": "text/plain",
+                  "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                  ":jcr:data": 16,
+                  "jcr:uuid": "2a451bd5-e4e8-4d2f-a349-286a7a867909"
+                }
+              }
+            },
+            "pageproperties": {
+              "jcr:primaryType": "cq:ClientLibraryFolder",
+              "jcr:createdBy": "admin",
+              "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+              "categories": [
+                "core.franklin.pageproperties"
+              ],
+              "pageproperties.css": {
+                "jcr:primaryType": "nt:file",
+                "jcr:createdBy": "admin",
+                "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                "jcr:content": {
+                  "jcr:primaryType": "nt:resource",
+                  "jcr:lastModifiedBy": "admin",
+                  "jcr:mimeType": "text/css",
+                  "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                  ":jcr:data": 158,
+                  "jcr:uuid": "01d75e31-ebc9-4fa1-bc74-0d17b592cbcb"
+                }
+              },
+              "validate-page-name.js": {
+                "jcr:primaryType": "nt:file",
+                "jcr:createdBy": "admin",
+                "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                "jcr:content": {
+                  "jcr:primaryType": "nt:resource",
+                  "jcr:lastModifiedBy": "admin",
+                  "jcr:mimeType": "application/javascript",
+                  "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                  ":jcr:data": 3269,
+                  "jcr:uuid": "68a0d8ed-d5f4-46a2-ad1d-fdbf0141a7d8"
+                }
+              },
+              "css.txt": {
+                "jcr:primaryType": "nt:file",
+                "jcr:createdBy": "admin",
+                "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                "jcr:content": {
+                  "jcr:primaryType": "nt:resource",
+                  "jcr:lastModifiedBy": "admin",
+                  "jcr:mimeType": "text/plain",
+                  "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                  ":jcr:data": 18,
+                  "jcr:uuid": "6518dff5-6db0-45dd-b70f-b53a5f7ebcea"
+                }
+              },
+              "hide-cug-button.js": {
+                "jcr:primaryType": "nt:file",
+                "jcr:createdBy": "admin",
+                "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                "jcr:content": {
+                  "jcr:primaryType": "nt:resource",
+                  "jcr:lastModifiedBy": "admin",
+                  "jcr:mimeType": "application/javascript",
+                  "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                  ":jcr:data": 1091,
+                  "jcr:uuid": "db07a977-f5e1-4bd8-a430-1fe81c75f47a"
+                }
+              },
+              "js.txt": {
+                "jcr:primaryType": "nt:file",
+                "jcr:createdBy": "admin",
+                "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                "jcr:content": {
+                  "jcr:primaryType": "nt:resource",
+                  "jcr:lastModifiedBy": "admin",
+                  "jcr:mimeType": "text/plain",
+                  "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                  ":jcr:data": 55,
+                  "jcr:uuid": "26848c4f-489a-483c-b1fa-2ed81775e26a"
+                }
+              },
+              "unset-title.js": {
+                "jcr:primaryType": "nt:file",
+                "jcr:createdBy": "admin",
+                "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                "jcr:content": {
+                  "jcr:primaryType": "nt:resource",
+                  "jcr:lastModifiedBy": "admin",
+                  "jcr:mimeType": "application/javascript",
+                  "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                  ":jcr:data": 1798,
+                  "jcr:uuid": "02908192-f1cc-4194-9050-a61b8511d8eb"
+                }
+              }
+            },
+            "errorpage": {
+              "jcr:primaryType": "cq:ClientLibraryFolder",
+              "jcr:createdBy": "admin",
+              "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+              "categories": [
+                "core.franklin.errorpage"
+              ],
+              "errorpage.css": {
+                "jcr:primaryType": "nt:file",
+                "jcr:createdBy": "admin",
+                "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                "jcr:content": {
+                  "jcr:primaryType": "nt:resource",
+                  "jcr:lastModifiedBy": "admin",
+                  "jcr:mimeType": "text/css",
+                  "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                  ":jcr:data": 891,
+                  "jcr:uuid": "edf54038-87fa-483a-a93c-3c1259e708fb"
+                }
+              },
+              "css.txt": {
+                "jcr:primaryType": "nt:file",
+                "jcr:createdBy": "admin",
+                "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                "jcr:content": {
+                  "jcr:primaryType": "nt:resource",
+                  "jcr:lastModifiedBy": "admin",
+                  "jcr:mimeType": "text/plain",
+                  "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                  ":jcr:data": 13,
+                  "jcr:uuid": "1a48c98e-9200-4aea-b03f-e3a61f2bfd49"
+                }
+              }
+            },
+            "serviceworker5": {
+              "jcr:primaryType": "cq:ClientLibraryFolder",
+              "jcr:createdBy": "admin",
+              "jsProcessor": [
+                "default:none",
+                "min:none"
+              ],
+              "allowProxy": true,
+              "cssProcessor": [
+                "default:none",
+                "min:none"
+              ],
+              "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+              "categories": [
+                "core.franklin.service-worker.v2"
+              ],
+              "serviceWorker5.js": {
+                "jcr:primaryType": "nt:file",
+                "jcr:createdBy": "admin",
+                "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                "jcr:content": {
+                  "jcr:primaryType": "nt:resource",
+                  "jcr:lastModifiedBy": "admin",
+                  "jcr:mimeType": "application/javascript",
+                  "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                  ":jcr:data": 5636,
+                  "jcr:uuid": "73dd6413-11eb-4dcb-8551-78573814fec6"
+                }
+              },
+              "js.txt": {
+                "jcr:primaryType": "nt:file",
+                "jcr:createdBy": "admin",
+                "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                "jcr:content": {
+                  "jcr:primaryType": "nt:resource",
+                  "jcr:lastModifiedBy": "admin",
+                  "jcr:mimeType": "text/plain",
+                  "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+                  ":jcr:data": 110,
+                  "jcr:uuid": "e7b29bcd-79eb-4f64-bb13-19318d041c7f"
+                }
+              }
+            }
+          },
+          "error.html": {
+            "jcr:primaryType": "nt:file",
+            "jcr:createdBy": "admin",
+            "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+            "jcr:content": {
+              "jcr:primaryType": "nt:resource",
+              "jcr:lastModifiedBy": "admin",
+              "jcr:mimeType": "text/html",
+              "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+              ":jcr:data": 1173,
+              "jcr:uuid": "7d7711f2-52fe-4b48-85f9-5c05747589fc"
+            }
+          },
+          "page.html": {
+            "jcr:primaryType": "nt:file",
+            "jcr:createdBy": "admin",
+            "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+            "jcr:content": {
+              "jcr:primaryType": "nt:resource",
+              "jcr:lastModifiedBy": "admin",
+              "jcr:mimeType": "text/html",
+              "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+              ":jcr:data": 3273,
+              "jcr:uuid": "227bcc84-81e6-4cf9-9d46-559993fbac0a"
+            }
+          },
+          "plain.html": {
+            "jcr:primaryType": "nt:file",
+            "jcr:createdBy": "admin",
+            "jcr:created": "Mon Jun 22 2026 08:55:34 GMT+0000",
+            "jcr:content": {
+              "jcr:primaryType": "nt:resource",
+              "jcr:lastModifiedBy": "admin",
+              "jcr:mimeType": "text/html",
+              "jcr:lastModified": "Mon Jun 22 2026 08:55:34 GMT+0000",
+              ":jcr:data": 678,
+              "jcr:uuid": "28c70c05-dd3b-48b9-9e55-d70b6ae4a0f0"
+            }
+          },
+          "resource.GET.servlet": {
+            "sling:resourceSuperType": "sling/bundle/resource",
+            "servletClass": "com.adobe.aem.wcm.franklin.internal.servlets.ResourceProxy",
+            "sling:resourceType": "/libs/core/franklin/components/page/v1/page/resource.GET.servlet",
+            "servletName": "com.adobe.aem.wcm.franklin.internal.servlets.ResourceProxy"
+          }
+        }
+      }
+    },
+    "datasource": {
+      "multisheet": {
+        "v1": {
+          "multisheet-datasource": {
+            "html.GET.servlet": {
+              "sling:resourceSuperType": "sling/bundle/resource",
+              "servletClass": "com.adobe.aem.wcm.franklin.internal.spreadsheets.MultisheetDatasourceServlet",
+              "sling:resourceType": "/libs/core/franklin/components/datasource/multisheet/v1/multisheet-datasource/html.GET.servlet",
+              "servletName": "com.adobe.aem.wcm.franklin.internal.spreadsheets.MultisheetDatasourceServlet"
+            }
+          },
+          "multisheet-condition": {
+            "html.GET.servlet": {
+              "sling:resourceSuperType": "sling/bundle/resource",
+              "servletClass": "com.adobe.aem.wcm.franklin.internal.spreadsheets.MultisheetCondition",
+              "sling:resourceType": "/libs/core/franklin/components/datasource/multisheet/v1/multisheet-condition/html.GET.servlet",
+              "servletName": "com.adobe.aem.wcm.franklin.internal.spreadsheets.MultisheetCondition"
+            }
+          }
+        }
+      }
+    }
+  }

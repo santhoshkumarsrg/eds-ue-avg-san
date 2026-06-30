@@ -1,5 +1,5 @@
 footer {
-  background-color: #1c222e;
+  background-color: var(--avg-ink);
   color: #fff;
   font-family: var(--body-font-family);
   font-size: 14px;
@@ -85,7 +85,7 @@ footer .footer-legal {
 
 footer .footer-legal p {
   margin: 0;
-  color: #9aa3b5;
+  color: var(--avg-gray-muted);
   font-size: 12px;
   line-height: 1.5;
 }
@@ -107,7 +107,7 @@ footer .footer-links ul {
 footer .footer-links li {
   display: inline-flex;
   align-items: center;
-  color: #9aa3b5;
+  color: var(--avg-gray-muted);
   font-size: 12px;
   line-height: 1.5;
 }
@@ -115,7 +115,7 @@ footer .footer-links li {
 footer .footer-links li:not(:last-child)::after {
   content: '|';
   margin-left: 8px;
-  color: #697284;
+  color: var(--avg-gray);
 }
 
 /* Anchors — ordered by ascending specificity for the linter */
@@ -148,7 +148,7 @@ footer .footer-inner a:any-link {
 }
 
 footer .footer-inner a:hover {
-  color: #ced4e0;
+  color: var(--avg-gray-hover);
 }
 
 footer .footer-account a:any-link {
@@ -161,7 +161,7 @@ footer .footer-account a:hover {
 }
 
 footer .footer-links a:any-link {
-  color: #9aa3b5;
+  color: var(--avg-gray-muted);
 }
 
 footer .footer-links a:hover {

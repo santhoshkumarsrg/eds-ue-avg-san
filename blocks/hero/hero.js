@@ -43,5 +43,8 @@ export default function decorate(block) {
 
   block.querySelectorAll('a.button').forEach((btn) => {
     btn.classList.add('avg');
+    // core Button component wraps in p.button-container; normalize to the
+    // project's button-wrapper so hero spacing rules apply consistently
+    btn.closest('p')?.classList.add('button-wrapper');
   });
 }

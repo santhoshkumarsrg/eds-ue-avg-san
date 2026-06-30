@@ -146,6 +146,23 @@
     ]
   },
   {
+    "id": "cards",
+    "fields": [
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "label": "Style",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Icons",
+            "value": "icons"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "card",
     "fields": [
       {
@@ -168,6 +185,22 @@
     "id": "columns",
     "fields": [
       {
+        "component": "multiselect",
+        "name": "classes",
+        "label": "Style",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Prose",
+            "value": "prose"
+          },
+          {
+            "name": "Image Right",
+            "value": "image-right"
+          }
+        ]
+      },
+      {
         "component": "text",
         "valueType": "number",
         "name": "columns",
@@ -184,102 +217,12 @@
     ]
   },
   {
-    "id": "feature",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Icon",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "imageAlt",
-        "label": "Icon Alt",
-        "value": ""
-      },
-      {
-        "component": "richtext",
-        "name": "text",
-        "value": "",
-        "label": "Text",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
     "id": "fragment",
     "fields": [
       {
         "component": "aem-content",
         "name": "reference",
         "label": "Reference"
-      }
-    ]
-  },
-  {
-    "id": "hero",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "imageAlt",
-        "label": "Alt",
-        "value": ""
-      },
-      {
-        "component": "richtext",
-        "name": "text",
-        "value": "",
-        "label": "Text",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "media-text",
-    "fields": [
-      {
-        "component": "multiselect",
-        "name": "classes",
-        "label": "Style",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "Image Right",
-            "value": "image-right"
-          }
-        ]
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "imageAlt",
-        "label": "Image Alt",
-        "value": ""
-      },
-      {
-        "component": "richtext",
-        "name": "text",
-        "value": "",
-        "label": "Text",
-        "valueType": "string"
       }
     ]
   }
