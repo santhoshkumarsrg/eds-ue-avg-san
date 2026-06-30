@@ -118,6 +118,16 @@ Always exhaust reuse before creating anything custom. Work down this ladder and 
 3. **AEM Block Collection blueprint?** Before building a genuinely new custom block, check the **AEM Block Collection** at <https://www.aem.live/developer/block-collection> (and Block Party) for a vetted content-structure blueprint (Hero, Columns, Cards, Accordion, Carousel, Tabs, Quote, Embed, Fragment, Table, Video, etc.). Start from its content model instead of inventing one.
 4. **Only then** create a custom block — using `core/franklin/components/block/v1/block`, never a made-up resourceType.
 
+#### A new option appears? Add a field to the existing block first
+
+When a design introduces a **new variation or piece of authorable content** (e.g. a button gains a left/right icon, a card gains a badge, a section gains an eyebrow), prefer **adding an authoring field (or `classes` option) to the existing block/component** over building a new block:
+
+1. **Reuse the existing block + new field.** If the difference is minor, extend the block's `_<block>.json` model with the new field (e.g. a `reference` image field, a `text` field, or a new `classes` multiselect value), regenerate JSON (`npm run build:json`), and render it in `decorate()`. Keep field order stable so positional decoration stays valid.
+2. **Reuse the field if differences are tiny.** If an existing field already covers the need with a small tweak, reuse it rather than adding a near-duplicate.
+3. **If you're not sure the existing block can absorb the new option, ASK the user** (AskQuestion) before creating anything new — e.g. "Can I add these fields to the existing `<block>`, or do you want a separate block?" This is especially important when the existing component is a **core Franklin component you don't control** (e.g. the core Button renders server-side as a plain link, so extra model fields like images are stored but **won't render** — supporting them requires a custom block, which is a decision the user should confirm).
+
+> Worked example: hero "left/right button images" → added two `reference` fields (`buttonImageLeft`, `buttonImageRight`) to `blocks/hero/_hero.json` and rendered them inside the CTA anchor in `hero.js` (replacing a hardcoded CSS `::before` icon), instead of creating a new component.
+
 #### Prefer core Franklin components over custom markup/code
 
 Before hand-rolling structure (buttons via formatted links, columns via custom split code), check whether a **core Franklin component** already does it (per the ladder above). They give authors first-class, discoverable UI and avoid bespoke decoration logic. Common ones (resourceTypes under `core/franklin/components/*`): `button`, `title`, `text`, `image`, and `columns`.
@@ -167,6 +177,7 @@ Run CDD Steps 6–8. Before finishing, **delete temporary screenshots** written 
 - ❌ Hand-rolling buttons (formatted links) or column-splitting code when a core Franklin component (`button`, `columns`, …) already does it — prefer core components
 - ❌ Creating a custom block/type without first checking `references/franklin-components.json`, existing `blocks/`, and the AEM Block Collection — reuse before you build
 - ❌ Forking a near-duplicate block when an existing block + a new style variation (`classes`) would do
+- ❌ Building a new block/component when a new design option could be an added authoring field on an existing block — extend the existing block first; ask the user if unsure whether it can absorb the new field(s)
 - ❌ Eyeballing colors/sizes when `get_variable_defs` provides exact tokens
 - ❌ Hardcoding hex/`rgb()` color codes in block CSS — always reference an `--avg-*` token (define it once in `styles/styles.css` `:root` if missing); use `rgb(from var(--avg-…) r g b / N%)` for transparency
 - ❌ Writing per-breakpoint `font-size`/`line-height` when an AVG type token (`--tp-fs-*`/`--tp-lh-*`) already encodes the responsive value

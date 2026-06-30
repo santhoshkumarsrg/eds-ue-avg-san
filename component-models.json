@@ -263,6 +263,18 @@
         "valueType": "string",
         "name": "linkText",
         "label": "Button Label"
+      },
+      {
+        "component": "reference",
+        "name": "buttonImageLeft",
+        "label": "Button Image (Left)",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "name": "buttonImageRight",
+        "label": "Button Image (Right)",
+        "multi": false
       }
     ]
   }

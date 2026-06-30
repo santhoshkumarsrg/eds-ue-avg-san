@@ -114,12 +114,11 @@ body:has(.hero-container) header .nav-brand a {
     0 8px 32px -12px rgb(from var(--avg-green) r g b / 56%);
 }
 
-.hero a.button.avg::before {
-  content: '';
+.hero a.button.avg .button-icon {
   flex-shrink: 0;
   width: 24px;
   height: 24px;
-  background: url('/icons/chrome.svg') center / contain no-repeat;
+  object-fit: contain;
 }
 
 .hero a.button.avg:hover,
