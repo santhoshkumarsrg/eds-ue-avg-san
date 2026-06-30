@@ -118,8 +118,39 @@
   margin-top: 16px;
 }
 
-/* Buttons inside a prose column are authored with the icon-button block, which
-   brings its own AVG styling and authorable icons (see blocks/icon-button). */
+/* AVG green CTA. On preview/live the delivery pipeline flattens a nested
+   icon-button into a plain button + a standalone image, so columns.js pulls the
+   image back into the anchor as .button-icon. These rules style both the author
+   (icon-button block) and the reconstructed preview button identically. */
+.columns.prose a.button.avg {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: 8px;
+  background-color: var(--avg-green);
+  color: var(--avg-white);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+}
+
+.columns.prose a.button.avg:hover,
+.columns.prose a.button.avg:focus-visible {
+  background-color: var(--avg-alt-green);
+  color: var(--avg-white);
+}
+
+.columns.prose a.button.avg .button-icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
 
 .columns.prose > div > div > p:has(a[href*="support"]) {
   margin-top: 40px;

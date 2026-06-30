@@ -127,8 +127,8 @@ Add these components **inside** the second column, in this order:
    - `Pick the item you want to buy`
    - `We'll automatically scan the Internet to find the best prices for you`
 4. **Button (Icons)** component — insert it from the **+** menu inside the column
-   (it's the custom `icon-button` block, now allowed inside Columns). In its
-   **Properties** panel set:
+   (it's the custom `icon-button` block, allowed inside Columns), and place it
+   **above** the support line below. In its **Properties** panel set:
 
    | Field             | Value                                  |
    | ----------------- | -------------------------------------- |
@@ -139,10 +139,14 @@ Add these components **inside** the second column, in this order:
    | Button Image (Left) | select/upload `chrome.svg`           |
    | Button Image (Right) | leave empty                         |
 
-   > The block renders the green AVG CTA and places the left image **inside** the
-   > button before the label (the right image, if set, goes after the label). The
-   > Chrome icon is now an authored asset instead of being hardcoded in CSS, so
-   > you can swap it per page.
+   > In the editor the icon-button renders as a real block with the left image
+   > **inside** the button. On the **published site** (preview/live) the Edge
+   > Delivery pipeline flattens any block nested inside a Columns column into
+   > plain content — the button and the icon arrive as separate elements. The
+   > Columns prose block detects this and pulls the icon back into the green AVG
+   > button automatically, so author and live render the same. (This is why a
+   > nested block can't be styled by its own `icon-button.css` on the live site;
+   > the styling/merge lives in the Columns block instead.)
 5. Text (support line): `Problems with the addon? Visit our Support Center.`
    - Link the words **Visit our Support Center** to:
      `https://support.avg.com/SupportArticleView?l=en&urlName=AVG-SafePrice-Frequently-Asked-Questions&q=Safeprice&supportType=home`
