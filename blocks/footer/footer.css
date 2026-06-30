@@ -1,6 +1,6 @@
 footer {
-  background-color: var(--avg-ink);
-  color: #fff;
+  background-color: var(--avg-black);
+  color: var(--avg-white);
   font-family: var(--body-font-family);
   font-size: 14px;
   line-height: 1.43;
@@ -24,7 +24,7 @@ footer .footer-top {
   gap: 24px;
   align-items: flex-start;
   padding-bottom: 24px;
-  border-bottom: 1px solid rgb(255 255 255 / 14%);
+  border-bottom: 1px solid rgb(from var(--avg-white) r g b / 14%);
 }
 
 footer .footer-brand picture,
@@ -85,7 +85,7 @@ footer .footer-legal {
 
 footer .footer-legal p {
   margin: 0;
-  color: var(--avg-gray-muted);
+  color: var(--avg-gray4);
   font-size: 12px;
   line-height: 1.5;
 }
@@ -107,7 +107,7 @@ footer .footer-links ul {
 footer .footer-links li {
   display: inline-flex;
   align-items: center;
-  color: var(--avg-gray-muted);
+  color: var(--avg-gray4);
   font-size: 12px;
   line-height: 1.5;
 }
@@ -115,7 +115,7 @@ footer .footer-links li {
 footer .footer-links li:not(:last-child)::after {
   content: '|';
   margin-left: 8px;
-  color: var(--avg-gray);
+  color: var(--avg-gray3);
 }
 
 /* Anchors — ordered by ascending specificity for the linter */
@@ -143,12 +143,12 @@ footer .footer-region a::after {
 }
 
 footer .footer-inner a:any-link {
-  color: #fff;
+  color: var(--avg-white);
   text-decoration: none;
 }
 
 footer .footer-inner a:hover {
-  color: var(--avg-gray-hover);
+  color: var(--avg-gray5);
 }
 
 footer .footer-account a:any-link {
@@ -161,11 +161,11 @@ footer .footer-account a:hover {
 }
 
 footer .footer-links a:any-link {
-  color: var(--avg-gray-muted);
+  color: var(--avg-gray4);
 }
 
 footer .footer-links a:hover {
-  color: #fff;
+  color: var(--avg-white);
   text-decoration: underline;
 }
 

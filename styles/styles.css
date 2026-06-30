@@ -19,17 +19,78 @@
   --link-color: #3b63fb;
   --link-hover-color: #1d3ecf;
 
-  /* AVG brand palette (shared across blocks) */
+  /* AVG brand palette — source: avg/ui.frontend theme/css/variables/_colors.scss */
   --avg-green: #008941;
-  --avg-green-dark: #007a3a;
-  --avg-ink: #1c222e;
-  --avg-gray: #697284;
-  --avg-gray-muted: #9aa3b5;
-  --avg-gray-hover: #ced4e0;
+  --avg-alt-green: #00783b;
+  --avg-green-inverse: #24aa63;
+  --avg-pale-green: #d1edde;
+  --avg-faint-green: #e6f4ed;
+  --avg-off-white-green: #f2faf6;
+  --avg-bright-green: #9ae437;
+  --avg-blue: #2276d9;
+  --avg-alt-blue: #1d67bf;
+  --avg-blue-inverse: #4d99f0;
+  --avg-mid-blue: #93c1f5;
+  --avg-light-blue: #b6d5f7;
+  --avg-pale-blue: #d9e8fa;
+  --avg-faint-blue: #ebf4ff;
+  --avg-off-white-blue: #f2f8ff;
+  --avg-red: #db3559;
+  --avg-red-hover: #bd3352;
+  --avg-yellow: #ffb600;
+  --avg-pale-yellow: #ffe29e;
+  --avg-faint-yellow: #fff2d4;
+  --avg-off-white-yellow: #fff9ed;
+  --avg-black: #1c222e;
+  --avg-gray1: #2b323f;
+  --avg-gray2: #3a4252;
+  --avg-gray3: #697284;
+  --avg-gray4: #9aa3b5;
+  --avg-gray5: #ced4e0;
+  --avg-gray6: #e4e8f0;
+  --avg-gray7: #edf0f7;
+  --avg-gray8: #f7f9fc;
+  --avg-white: #fff;
 
   /* fonts */
   --body-font-family: roboto, roboto-fallback, sans-serif;
   --heading-font-family: roboto-condensed, roboto-condensed-fallback, sans-serif;
+
+  /*
+   * AVG typography scale — source: theme/css/variables/_typo-vars.scss
+   * Mobile-first defaults; desktop values overridden at >= 900px below.
+   * fs = font-size, lh = line-height, ls = letter-spacing.
+   */
+  --tp-fs-h1: 42px;
+  --tp-lh-h1: 54px;
+  --tp-fs-h2: 34px;
+  --tp-lh-h2: 44px;
+  --tp-fs-h3: 26px;
+  --tp-lh-h3: 34px;
+  --tp-fs-h4: 21px;
+  --tp-lh-h4: 27px;
+  --tp-fs-h5: 18px;
+  --tp-lh-h5: 24px;
+  --tp-fs-h6: 16px;
+  --tp-lh-h6: 20px;
+  --tp-fs-h7: 14px;
+  --tp-lh-h7: 18px;
+  --tp-fs-body1: 18px;
+  --tp-lh-body1: 24px;
+  --tp-fs-body2: 16px;
+  --tp-lh-body2: 22px;
+  --tp-fs-body3: 14px;
+  --tp-lh-body3: 20px;
+  --tp-fs-body4: 12px;
+  --tp-lh-body4: 18px;
+  --tp-fs-body5: 11px;
+  --tp-lh-body5: 16px;
+  --tp-fs-button-l: 16px;
+  --tp-lh-button-l: 20px;
+  --tp-ls-button-l: 0.8px;
+  --tp-fs-button-m: 14px;
+  --tp-lh-button-m: 16px;
+  --tp-ls-button-m: 0.6px;
 
   /* body sizes */
   --body-font-size-m: 22px;
@@ -75,6 +136,38 @@
     --heading-font-size-m: 22px;
     --heading-font-size-s: 20px;
     --heading-font-size-xs: 18px;
+
+    /* AVG typography scale — desktop values (source _typo-vars.scss $font-sizes-desktop) */
+    --tp-fs-h1: 56px;
+    --tp-lh-h1: 72px;
+    --tp-fs-h2: 46px;
+    --tp-lh-h2: 60px;
+    --tp-fs-h3: 34px;
+    --tp-lh-h3: 44px;
+    --tp-fs-h4: 28px;
+    --tp-lh-h4: 36px;
+    --tp-fs-h5: 24px;
+    --tp-lh-h5: 32px;
+    --tp-fs-h6: 20px;
+    --tp-lh-h6: 26px;
+    --tp-fs-h7: 16px;
+    --tp-lh-h7: 22px;
+    --tp-fs-body1: 20px;
+    --tp-lh-body1: 26px;
+    --tp-fs-body2: 18px;
+    --tp-lh-body2: 24px;
+    --tp-fs-body3: 16px;
+    --tp-lh-body3: 22px;
+    --tp-fs-body4: 14px;
+    --tp-lh-body4: 20px;
+    --tp-fs-body5: 12px;
+    --tp-lh-body5: 18px;
+    --tp-fs-button-l: 20px;
+    --tp-lh-button-l: 24px;
+    --tp-ls-button-l: 1px;
+    --tp-fs-button-m: 16px;
+    --tp-lh-button-m: 20px;
+    --tp-ls-button-m: 0.8px;
   }
 }
 

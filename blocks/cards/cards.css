@@ -8,7 +8,7 @@
 }
 
 .cards > ul > li {
-  border: 1px solid #dadada;
+  border: 1px solid var(--avg-gray5);
   background-color: var(--background-color);
 }
 
@@ -66,7 +66,7 @@
 
 .cards.icons .cards-card-body h3 {
   margin: 16px 0 0;
-  color: #1c222e;
+  color: var(--avg-black);
   font-family: var(--body-font-family);
   font-size: 20px;
   font-weight: 900;
@@ -75,7 +75,7 @@
 
 .cards.icons .cards-card-body p {
   margin: 16px 0 0;
-  color: #697284;
+  color: var(--avg-gray3);
   font-size: 16px;
   line-height: 1.375;
 }

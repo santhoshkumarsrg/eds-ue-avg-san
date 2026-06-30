@@ -23,7 +23,7 @@ body:has(.hero-container) header .nav-tools {
 }
 
 body:has(.hero-container) header .nav-brand a {
-  color: #fff;
+  color: var(--avg-white);
   font-weight: 700;
 }
 
@@ -56,7 +56,7 @@ body:has(.hero-container) header .nav-brand a {
   position: absolute;
   z-index: 1;
   inset: 0;
-  background: rgb(28 34 46 / 45%);
+  background: rgb(from var(--avg-black) r g b / 45%);
 }
 
 .hero-content {
@@ -71,20 +71,20 @@ body:has(.hero-container) header .nav-brand a {
 
 .hero h1 {
   margin: 0;
-  color: #fff;
+  color: var(--avg-white);
   font-family: var(--body-font-family);
-  font-size: 42px;
+  font-size: var(--tp-fs-h1);
   font-weight: 900;
-  line-height: 1.29;
-  text-shadow: 0 1px 16px rgb(28 34 46 / 45%);
+  line-height: var(--tp-lh-h1);
+  text-shadow: 0 1px 16px rgb(from var(--avg-black) r g b / 45%);
 }
 
 .hero .hero-content p:not(.button-wrapper) {
   margin: 12px 0 0;
-  color: #fff;
-  font-size: 16px;
-  line-height: 1.375;
-  text-shadow: 0 1px 12px rgb(28 34 46 / 55%);
+  color: var(--avg-white);
+  font-size: var(--tp-fs-body2);
+  line-height: var(--tp-lh-body2);
+  text-shadow: 0 1px 12px rgb(from var(--avg-black) r g b / 55%);
 }
 
 .hero .button-wrapper {
@@ -104,14 +104,14 @@ body:has(.hero-container) header .nav-brand a {
   padding: 0 24px;
   border: 0;
   border-radius: 8px;
-  background-color: #008941;
-  color: #fff;
+  background-color: var(--avg-green);
+  color: var(--avg-white);
   font-size: 16px;
   font-weight: 700;
   letter-spacing: 0.05em;
   box-shadow:
-    0 16px 32px -16px rgb(30 34 42 / 16%),
-    0 8px 32px -12px rgb(0 137 65 / 56%);
+    0 16px 32px -16px rgb(from var(--avg-black) r g b / 16%),
+    0 8px 32px -12px rgb(from var(--avg-green) r g b / 56%);
 }
 
 .hero a.button.avg::before {
@@ -124,8 +124,8 @@ body:has(.hero-container) header .nav-brand a {
 
 .hero a.button.avg:hover,
 .hero a.button.avg:focus-visible {
-  background-color: #007a3a;
-  color: #fff;
+  background-color: var(--avg-alt-green);
+  color: var(--avg-white);
 }
 
 @media (width >= 600px) {
@@ -153,15 +153,8 @@ body:has(.hero-container) header .nav-brand a {
     padding: 40px 120px 56px;
   }
 
-  .hero h1 {
-    font-size: 56px;
-    line-height: 1.29;
-  }
-
   .hero .hero-content p:not(.button-wrapper) {
     margin-top: 16px;
-    font-size: 18px;
-    line-height: 1.33;
   }
 
   .hero .button-wrapper {

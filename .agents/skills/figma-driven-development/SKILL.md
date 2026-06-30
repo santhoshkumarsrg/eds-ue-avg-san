@@ -90,7 +90,11 @@ For **each** breakpoint frame:
 
 1. **Structure**: `get_metadata` to map sections/child node IDs.
 2. **Design + code reference**: `get_design_context` for layout, text, and a screenshot.
-3. **Tokens**: `get_variable_defs` to get exact colors, fonts, sizes, spacing (e.g. `Green=#008941`, `Black=#1C222E`, `Grays/Gray 3=#697284`, heading/body font scales). Map these to the project's CSS variables/values — never eyeball hex codes when a token exists. Define brand colors **once** as custom properties in `styles/styles.css` `:root` (e.g. `--avg-green`, `--avg-ink`, `--avg-gray`) and reuse them across blocks instead of re-hardcoding the same hex in every block.
+3. **Tokens**: `get_variable_defs` to get exact colors, fonts, sizes, spacing (e.g. `Green=#008941`, `Black=#1C222E`, `Grays/Gray 3=#697284`, heading/body font scales). **Map every Figma token to an existing AVG theme token — never eyeball or hardcode hex codes.** The project already ports the AVG design system (colors + typography scale) from `avg/ui.frontend` into `styles/styles.css` `:root`:
+   - **Colors** → `var(--avg-…)` (e.g. `--avg-green`, `--avg-alt-green`, `--avg-black`, `--avg-gray3`, `--avg-gray4`, `--avg-white`). The Figma `Green/Black/Gray N` values correspond 1:1 to these.
+   - **Typography** → `var(--tp-fs-<name>)` / `var(--tp-lh-<name>)` (e.g. `h1`, `h2`, `body2`). These are responsive (mobile default, desktop overridden at `>= 900px`), so a heading set to `--tp-fs-h2`/`--tp-lh-h2` resizes automatically — don't write per-breakpoint `font-size`.
+   - **Block CSS must contain zero raw color codes.** Use `var(--avg-…)`. For semi-transparent brand colors (overlays/shadows) use relative color syntax against a token: `rgb(from var(--avg-black) r g b / 45%)`.
+   - If a needed brand value is missing from `:root`, add it there **once** (using the AVG name) and reference it from every block. See [references/avg-theme-tokens.md](references/avg-theme-tokens.md) for the full catalog and the source SCSS files.
 4. **Original assets**: prefer the real Figma assets over placeholders. Use `download_assets` on the section node:
    - **Raster photos** (hero/banner) come back under `rawImages`; pick the correct one by dimensions, convert large PNGs to JPEG (`sips -s format jpeg -s formatOptions 80 in.png --out out.jpg`).
    - **Vector illustrations** with a single asset → download the SVG directly.
@@ -164,12 +168,15 @@ Run CDD Steps 6–8. Before finishing, **delete temporary screenshots** written 
 - ❌ Creating a custom block/type without first checking `references/franklin-components.json`, existing `blocks/`, and the AEM Block Collection — reuse before you build
 - ❌ Forking a near-duplicate block when an existing block + a new style variation (`classes`) would do
 - ❌ Eyeballing colors/sizes when `get_variable_defs` provides exact tokens
+- ❌ Hardcoding hex/`rgb()` color codes in block CSS — always reference an `--avg-*` token (define it once in `styles/styles.css` `:root` if missing); use `rgb(from var(--avg-…) r g b / N%)` for transparency
+- ❌ Writing per-breakpoint `font-size`/`line-height` when an AVG type token (`--tp-fs-*`/`--tp-lh-*`) already encodes the responsive value
 - ❌ Declaring "pixel perfect" from the desktop view alone — verify mobile too
 - ❌ Leaving `preserveAspectRatio="none"` + `width/height="100%"` on exported SVGs (causes stretching)
 - ❌ Committing temporary screenshots from `drafts/tmp/`
 
 ## Resources
 
+- [references/avg-theme-tokens.md](references/avg-theme-tokens.md) — AVG color palette + typography scale tokens (ported from `avg/ui.frontend`); map Figma tokens to these and never hardcode colors in block CSS
 - [references/franklin-components.json](references/franklin-components.json) — registered `core/franklin/components/*` to reuse before creating a custom type
 - [AEM Block Collection](https://www.aem.live/developer/block-collection) — vetted block blueprints to reuse before building a new custom block
 - [references/asset-extraction.md](references/asset-extraction.md) — exact Figma asset/token extraction commands and known pitfalls

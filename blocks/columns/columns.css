@@ -59,26 +59,26 @@
 }
 
 .columns.prose > div > div {
-  color: #1c222e;
+  color: var(--avg-black);
 }
 
 .columns.prose h2 {
   margin: 0 0 16px;
   font-family: var(--body-font-family);
-  font-size: 32px;
+  font-size: var(--tp-fs-h2);
   font-weight: 900;
-  line-height: 1.2;
+  line-height: var(--tp-lh-h2);
 }
 
 .columns.prose > div > div > p {
   margin: 0 0 16px;
-  color: #697284;
-  font-size: 16px;
-  line-height: 1.5;
+  color: var(--avg-gray3);
+  font-size: var(--tp-fs-body2);
+  line-height: var(--tp-lh-body2);
 }
 
 .columns.prose > div > div > p strong {
-  color: #1c222e;
+  color: var(--avg-black);
 }
 
 .columns.prose ul {
@@ -91,7 +91,7 @@
   position: relative;
   margin: 0 0 8px;
   padding-left: 24px;
-  color: #697284;
+  color: var(--avg-gray3);
   font-size: 16px;
   line-height: 1.375;
 }
@@ -103,7 +103,7 @@
   left: 0;
   width: 16px;
   height: 16px;
-  background-color: #008941;
+  background-color: var(--avg-green);
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='black' d='M6.2 11.6 2.8 8.2l-.9.9 4.3 4.3 8.4-8.4-.9-.9z'/%3E%3C/svg%3E");
   mask-repeat: no-repeat;
   mask-position: center;
@@ -124,8 +124,8 @@
   padding: 0 24px;
   border: 0;
   border-radius: 8px;
-  background-color: #008941;
-  color: #fff;
+  background-color: var(--avg-green);
+  color: var(--avg-white);
   font-size: 16px;
   font-weight: 700;
   letter-spacing: 0.05em;
@@ -141,19 +141,19 @@
 
 .columns.prose a.button.avg:hover,
 .columns.prose a.button.avg:focus-visible {
-  background-color: #007a3a;
-  color: #fff;
+  background-color: var(--avg-alt-green);
+  color: var(--avg-white);
 }
 
 .columns.prose > div > div > p:has(a[href*="support"]) {
   margin-top: 40px;
-  color: #697284;
+  color: var(--avg-gray3);
   font-size: 14px;
   line-height: 1.43;
 }
 
 .columns.prose > div > div > p:has(a[href*="support"]) a {
-  color: #1d67bf;
+  color: var(--avg-alt-blue);
 }
 
 @media (width >= 900px) {
@@ -167,15 +167,5 @@
 
   .columns.prose.image-right > div {
     flex-direction: row-reverse;
-  }
-
-  .columns.prose h2 {
-    font-size: 46px;
-    line-height: 1.3;
-  }
-
-  .columns.prose > div > div > p {
-    font-size: 18px;
-    line-height: 1.33;
   }
 }
