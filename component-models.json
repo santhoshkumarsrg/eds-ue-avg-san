@@ -277,5 +277,58 @@
         "multi": false
       }
     ]
+  },
+  {
+    "id": "icon-button",
+    "fields": [
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "linkText",
+        "label": "Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "linkTitle",
+        "label": "Title"
+      },
+      {
+        "component": "select",
+        "name": "linkType",
+        "label": "Type",
+        "options": [
+          {
+            "name": "primary",
+            "value": "primary"
+          },
+          {
+            "name": "secondary",
+            "value": "secondary"
+          },
+          {
+            "name": "default",
+            "value": ""
+          }
+        ]
+      },
+      {
+        "component": "reference",
+        "name": "buttonImageLeft",
+        "label": "Button Image (Left)",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "name": "buttonImageRight",
+        "label": "Button Image (Right)",
+        "multi": false
+      }
+    ]
   }
 ]
