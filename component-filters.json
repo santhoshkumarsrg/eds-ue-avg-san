@@ -14,15 +14,35 @@
       "icon-button",
       "title",
       "hero",
+      "product-hero",
+      "pricing",
+      "feature-bar",
+      "steps",
+      "awards",
+      "tabs",
+      "carousel",
+      "promo",
       "cards",
       "columns",
       "fragment"
     ]
   },
   {
+    "id": "awards",
+    "components": [
+      "award"
+    ]
+  },
+  {
     "id": "cards",
     "components": [
       "card"
+    ]
+  },
+  {
+    "id": "carousel",
+    "components": [
+      "slide"
     ]
   },
   {
@@ -39,6 +59,45 @@
       "button",
       "icon-button",
       "title"
+    ]
+  },
+  {
+    "id": "feature-bar",
+    "components": [
+      "feature-bar-item"
+    ]
+  },
+  {
+    "id": "pricing",
+    "components": [
+      "pricing-plan"
+    ]
+  },
+  {
+    "id": "product-hero",
+    "components": [
+      "image",
+      "title",
+      "text",
+      "button"
+    ]
+  },
+  {
+    "id": "promo",
+    "components": [
+      "promo-card"
+    ]
+  },
+  {
+    "id": "steps",
+    "components": [
+      "step"
+    ]
+  },
+  {
+    "id": "tabs",
+    "components": [
+      "tab"
     ]
   }
 ]

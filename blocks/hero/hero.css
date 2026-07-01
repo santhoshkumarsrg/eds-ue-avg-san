@@ -127,7 +127,7 @@ body:has(.hero-container) header .nav-brand a {
   color: var(--avg-white);
 }
 
-@media (width >= 600px) {
+@media (width >= 768px) {
   .hero {
     align-items: center;
     text-align: center;
@@ -146,7 +146,7 @@ body:has(.hero-container) header .nav-brand a {
   }
 }
 
-@media (width >= 900px) {
+@media (width >= 992px) {
   .hero {
     min-height: 420px;
     padding: 40px 120px 56px;

@@ -1,0 +1,84 @@
+{
+  "definitions": [
+    {
+      "title": "Pricing",
+      "id": "pricing",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Pricing",
+              "model": "pricing",
+              "filter": "pricing"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Pricing Plan",
+      "id": "pricing-plan",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Pricing Plan",
+              "model": "pricing-plan"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "pricing",
+      "fields": [
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "features",
+          "label": "Features"
+        }
+      ]
+    },
+    {
+      "id": "pricing-plan",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "device",
+          "label": "Device Tier"
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "details",
+          "label": "Plan Details"
+        },
+        {
+          "component": "aem-content",
+          "name": "link",
+          "label": "Buy Link"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "linkText",
+          "label": "Buy Label"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "pricing",
+      "components": [
+        "pricing-plan"
+      ]
+    }
+  ]
+}

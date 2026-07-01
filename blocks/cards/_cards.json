@@ -45,6 +45,14 @@
             {
               "name": "Icons",
               "value": "icons"
+            },
+            {
+              "name": "Boxed",
+              "value": "boxed"
+            },
+            {
+              "name": "Testimonial",
+              "value": "testimonial"
             }
           ]
         }

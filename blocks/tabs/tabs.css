@@ -1,0 +1,97 @@
+.tabs {
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.tabs-nav {
+  display: flex;
+  margin: 32px auto 0;
+  padding: 4px;
+  border-radius: 28px;
+  background-color: var(--avg-gray6);
+  overflow: hidden;
+}
+
+.tabs-tab {
+  flex: 1;
+  border: 0;
+  border-radius: 24px;
+  padding: 12px 16px;
+  background-color: transparent;
+  color: var(--avg-gray3);
+  font-size: var(--tp-fs-body3);
+  font-weight: 700;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.tabs-tab[aria-selected="true"] {
+  background-color: var(--avg-white);
+  color: var(--avg-black);
+  box-shadow: 0 4px 12px -4px rgb(from var(--avg-black) r g b / 24%);
+}
+
+.tabs-panel h3 {
+  margin: 36px 0 0;
+  color: var(--avg-black);
+  font-family: var(--body-font-family);
+  font-size: var(--tp-fs-h5);
+  font-weight: 900;
+  text-align: center;
+}
+
+.tabs-accordion {
+  margin: 24px 0 0;
+  border-radius: 12px;
+  background-color: var(--avg-white);
+  box-shadow: 0 16px 40px -28px rgb(from var(--avg-black) r g b / 40%);
+  overflow: hidden;
+}
+
+.tabs-faq + .tabs-faq {
+  border-top: 1px solid var(--avg-gray6);
+}
+
+.tabs-faq-q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  border: 0;
+  padding: 22px 24px;
+  background-color: transparent;
+  color: var(--avg-black);
+  font-size: var(--tp-fs-body3);
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.tabs-faq-q::after {
+  content: '';
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--avg-green);
+  border-radius: 8px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='9' y='15' width='14' height='2' rx='1' fill='%23008941'/%3E%3Crect x='15' y='9' width='2' height='14' rx='1' fill='%23008941'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: transform 0.2s ease;
+}
+
+.tabs-faq-q[aria-expanded="true"]::after {
+  transform: rotate(45deg);
+}
+
+.tabs-faq-a {
+  padding: 0 24px 22px;
+  color: var(--avg-gray3);
+  font-size: var(--tp-fs-body3);
+  line-height: var(--tp-lh-body3);
+}
+
+.tabs-faq-a p {
+  margin: 0;
+}

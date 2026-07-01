@@ -122,7 +122,7 @@
   src: local('Arial');
 }
 
-@media (width >= 900px) {
+@media (width >= 992px) {
   :root {
     /* body sizes */
     --body-font-size-m: 18px;
@@ -379,6 +379,29 @@ button.button.accent:disabled:focus-visible {
   color: var(--dark-color);
 }
 
+/* AVG green CTA (base — blocks may override with their own scoped rules) */
+a.button.avg {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 0 32px;
+  border: 0;
+  border-radius: 8px;
+  background-color: var(--avg-green);
+  color: var(--avg-white);
+  font-size: var(--tp-fs-button-l);
+  font-weight: 700;
+  letter-spacing: var(--tp-ls-button-l);
+}
+
+a.button.avg:hover,
+a.button.avg:focus-visible {
+  background-color: var(--avg-alt-green);
+  color: var(--avg-white);
+}
+
 main img {
   max-width: 100%;
   width: auto;
@@ -396,6 +419,11 @@ main img {
   width: 100%;
 }
 
+a.button.avg img {
+  width: 24px;
+  height: 24px;
+}
+
 /* sections */
 main > .section {
   margin: 40px 0;
@@ -411,7 +439,7 @@ main > .section:first-of-type {
   margin-top: 0;
 }
 
-@media (width >= 900px) {
+@media (width >= 992px) {
   main > .section > div {
     padding: 0 32px;
   }
@@ -450,7 +478,7 @@ main .section.avg-grey > div > p {
   text-align: center;
 }
 
-@media (width >= 900px) {
+@media (width >= 992px) {
   main .section.avg-grey {
     padding-top: 88px;
   }
@@ -463,5 +491,205 @@ main .section.avg-grey > div > p {
   main .section.avg-grey > div > p {
     font-size: 18px;
     line-height: 1.33;
+  }
+}
+
+/* Background utility section styles (pair with .centered for marketing blocks) */
+main .section.bg-blue,
+main .section.bg-grey {
+  margin: 0;
+  padding: 56px 0;
+}
+
+main .section.bg-blue {
+  background-color: var(--avg-off-white-blue);
+}
+
+main .section.bg-grey {
+  background-color: var(--avg-gray8);
+}
+
+@media (width >= 992px) {
+  main .section.bg-blue,
+  main .section.bg-grey {
+    padding: 80px 0;
+  }
+}
+
+/* Dark sections (cross-promo, carousel) — navy background, light text */
+main .section.dark {
+  margin: 0;
+  padding: 56px 0;
+  background-color: var(--avg-black);
+  color: var(--avg-white);
+}
+
+main .section.dark > div > h2,
+main .section.dark > div > h3 {
+  color: var(--avg-white);
+  font-family: var(--body-font-family);
+  font-weight: 900;
+  text-align: center;
+}
+
+main .section.dark > div > p {
+  color: var(--avg-gray5);
+  text-align: center;
+}
+
+/* Hero section — dark navy with the network background image */
+main .section.hero {
+  position: relative;
+  margin: 0;
+  padding: 0 0 88px;
+  background:
+    linear-gradient(180deg, rgb(from var(--avg-black) r g b / 82%) 0%, rgb(from var(--avg-black) r g b / 30%) 100%),
+    #0a1a2b url("/media/antitrack-hero-bg.jpg") center bottom / cover no-repeat;
+  color: var(--avg-white);
+  overflow: hidden;
+}
+
+main .section.hero > div {
+  max-width: 960px;
+}
+
+main .section.hero > div > p {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 24px;
+  margin: 24px 0 0;
+  color: var(--avg-gray5);
+  font-size: var(--tp-fs-body4);
+  text-align: center;
+}
+
+/* Centered marketing intros (eyebrow + heading + lead) */
+main .section.centered > div {
+  max-width: 900px;
+  text-align: center;
+}
+
+main .section.centered > div > h2 {
+  margin: 8px 0 0;
+  color: var(--avg-black);
+  font-family: var(--body-font-family);
+  font-size: var(--tp-fs-h2);
+  font-weight: 900;
+  line-height: var(--tp-lh-h2);
+}
+
+main .section.centered > div > h3 {
+  margin: 8px 0 0;
+  color: var(--avg-black);
+  font-family: var(--body-font-family);
+  font-size: var(--tp-fs-h3);
+  font-weight: 900;
+  line-height: var(--tp-lh-h3);
+}
+
+main .section.centered > div > p {
+  margin: 16px auto 0;
+  max-width: 760px;
+  color: var(--avg-gray3);
+  font-size: var(--tp-fs-body2);
+  line-height: var(--tp-lh-body2);
+}
+
+/* Eyebrow: shield icon + label above a heading */
+main .section.centered > div > p.eyebrow,
+main .section .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: var(--avg-black);
+  font-size: var(--tp-fs-h7);
+  font-weight: 700;
+}
+
+main .section .eyebrow img {
+  width: 28px;
+  height: 28px;
+}
+
+main .section.hero > div > p img {
+  width: 22px;
+  height: 22px;
+  vertical-align: middle;
+}
+
+main .section.centered > div > h2 img {
+  width: 40px;
+  height: 40px;
+  margin-right: 12px;
+  vertical-align: middle;
+}
+
+/* Product UI illustration (Product UI section) */
+main .section.centered > div > p > img[src$="laptop.svg"] {
+  width: 100%;
+  max-width: 640px;
+  height: auto;
+  aspect-ratio: 660 / 300;
+}
+
+/* Support line below a block (e.g. FAQ support link) */
+main .section .support-line {
+  margin: 24px 0 0;
+  color: var(--avg-gray3);
+  font-size: var(--tp-fs-body4);
+  text-align: center;
+}
+
+main .section .support-line a {
+  color: var(--avg-alt-blue);
+  text-decoration: underline;
+}
+
+/* Bait bands (alternating media + text rows) — contiguous, with alternating
+   backgrounds. Scoped to the .bait style class so only pages that opt in are
+   affected; the columns.prose block supplies the internal vertical padding. */
+main .section.bait {
+  margin: 0;
+}
+
+main .section.bait.bait-blue {
+  background-color: var(--avg-off-white-blue);
+}
+
+/* Dark bait — text panel over the network "wave" background */
+main .section.bait.bait-dark {
+  background: #0a1a2b url("/media/antitrack-hero-bg.jpg") center / cover no-repeat;
+}
+
+main .section.bait.bait-dark .columns.prose .columns-img-col {
+  display: none;
+}
+
+main .section.bait.bait-dark .columns.prose > div {
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+main .section.bait.bait-dark .columns.prose > div > div {
+  flex: 0 1 560px;
+  padding: 40px;
+  border-radius: 12px;
+  background-color: var(--avg-blue);
+  color: var(--avg-white);
+}
+
+main .section.bait.bait-dark .columns.prose h2,
+main .section.bait.bait-dark .columns.prose > div > div > p,
+main .section.bait.bait-dark .columns.prose > div > div > p strong,
+main .section.bait.bait-dark .columns.prose ul li {
+  color: var(--avg-white);
+}
+
+@media (width >= 992px) {
+  main .section.dark {
+    padding: 88px 0;
   }
 }

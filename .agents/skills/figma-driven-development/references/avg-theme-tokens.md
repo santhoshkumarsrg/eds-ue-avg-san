@@ -7,14 +7,14 @@ AVG `ui.frontend` design system into native CSS custom properties.
   and `…/_typo-vars.scss` (Sass `$variables`).
 - **Where they live in this project:** `styles/styles.css` `:root` (mobile-first defaults),
   with the desktop typography values overridden inside the existing
-  `@media (width >= 900px) { :root { … } }` block.
+  `@media (width >= 992px) { :root { … } }` block.
 - **Rule:** never hardcode a hex/`rgb()` color in a block CSS file. Reference a token
   (`var(--avg-…)`). For semi-transparent brand colors (overlays, shadows) use relative color
   syntax against a token, e.g. `rgb(from var(--avg-black) r g b / 45%)` — no raw hex.
 
-> Note: the AVG design system switches its type scale at `lg = 992px`. This project uses the
-> EDS-standard `900px` desktop breakpoint for the token override to stay consistent with the
-> blocks' own media queries. The token *values* are identical to AVG's.
+> Note: the AVG design system switches its type scale at `lg = 992px`. This project's token
+> override matches it (`@media (width >= 992px)`), consistent with the blocks' own media
+> queries. The token *values* are identical to AVG's.
 
 ## Color tokens (`--avg-*`)
 
@@ -57,7 +57,7 @@ Mirror the AVG SCSS names with an `--avg-` prefix.
 ## Typography scale (`--tp-fs-*`, `--tp-lh-*`, `--tp-ls-*`)
 
 Responsive font-size / line-height / letter-spacing tokens. Mobile values are the `:root`
-defaults; desktop values come from the `@media (width >= 900px)` override. Apply the pair that
+defaults; desktop values come from the `@media (width >= 992px)` override. Apply the pair that
 matches the element's role; the value is automatically responsive:
 
 ```css

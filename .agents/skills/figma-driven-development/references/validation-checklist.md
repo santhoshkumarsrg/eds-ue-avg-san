@@ -1,6 +1,6 @@
 # Pixel-Perfect Validation Checklist
 
-Run this for **each** breakpoint (mobile 390×844 and desktop 1440×1024; add tablet 768 if designed). Compare the chrome-devtools screenshot to the matching Figma frame.
+Run this for **each** breakpoint (mobile 360×844 and desktop 1600×900; add tablet 768×1024 if designed). Desktop styles start at `992px` (AVG `lg`); mobile & tablet share the base below `992px`. Compare the chrome-devtools screenshot to the matching Figma frame.
 
 ## Setup per breakpoint
 

@@ -1,0 +1,203 @@
+.pricing {
+  max-width: 820px;
+  margin: 0 auto;
+  border-radius: 16px;
+  background-color: var(--avg-white);
+  box-shadow: 0 16px 32px 0 rgb(from var(--avg-black) r g b / 8%);
+  overflow: hidden;
+  text-align: left;
+}
+
+.pricing .pricing-row:first-child {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Features column */
+.pricing-features {
+  padding: 28px 24px;
+  background-color: #eef1fb;
+}
+
+.pricing-features p {
+  margin: 0 0 16px;
+  color: var(--avg-black);
+  font-size: var(--tp-fs-body3);
+  font-weight: 700;
+  line-height: var(--tp-lh-body3);
+}
+
+.pricing-features ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pricing-features ul li {
+  position: relative;
+  margin: 0 0 12px;
+  padding-left: 26px;
+  color: var(--avg-gray3);
+  font-size: var(--tp-fs-body4);
+  line-height: var(--tp-lh-body4);
+}
+
+.pricing-features ul li::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  background-color: var(--avg-green);
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='black' d='M6.2 11.6 2.8 8.2l-.9.9 4.3 4.3 8.4-8.4-.9-.9z'/%3E%3C/svg%3E");
+  mask-repeat: no-repeat;
+  mask-size: contain;
+}
+
+.pricing-features a {
+  color: var(--avg-alt-blue);
+  font-size: var(--tp-fs-body4);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+/* Plan cards */
+.pricing-plan {
+  flex: 1;
+  padding: 28px 20px;
+  text-align: center;
+}
+
+.pricing-plan + .pricing-plan {
+  border-top: 1px solid var(--avg-gray6);
+}
+
+.pricing-plan .pricing-device {
+  margin: 0;
+  color: var(--avg-black);
+  font-size: var(--tp-fs-h6);
+  font-weight: 900;
+}
+
+.pricing-plan .pricing-platforms {
+  margin: 12px 0 0;
+  line-height: 0;
+}
+
+.pricing-plan .pricing-platforms img {
+  height: 16px;
+  width: auto;
+}
+
+.pricing-plan .pricing-save {
+  display: inline-block;
+  margin: 14px 0 0;
+  padding: 4px 14px;
+  border-radius: 20px;
+  background-color: var(--avg-pale-green);
+  color: var(--avg-alt-green);
+  font-size: var(--tp-fs-body4);
+  font-weight: 700;
+}
+
+.pricing-plan .pricing-was {
+  margin: 14px 0 0;
+  color: var(--avg-gray3);
+  font-size: var(--tp-fs-body4);
+}
+
+.pricing-plan .pricing-was s {
+  color: var(--avg-gray4);
+}
+
+.pricing-plan .pricing-worksout {
+  margin: 12px 0 0;
+  color: var(--avg-gray3);
+  font-size: var(--tp-fs-body4);
+}
+
+.pricing-plan .pricing-price {
+  margin: 2px 0 0;
+  color: var(--avg-black);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.pricing-plan .pricing-price .amt {
+  font-size: 40px;
+}
+
+.pricing-plan .pricing-price .cur {
+  font-size: 20px;
+  vertical-align: top;
+}
+
+.pricing-plan .pricing-price .per {
+  font-size: 14px;
+  color: var(--avg-gray3);
+}
+
+.pricing-plan .pricing-buy-wrapper {
+  margin: 18px 0 0;
+}
+
+.pricing a.button.pricing-buy {
+  min-width: 130px;
+  min-height: 40px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: 8px;
+  background-color: var(--avg-blue);
+  color: var(--avg-white);
+  font-size: var(--tp-fs-body3);
+  font-weight: 700;
+}
+
+.pricing a.button.pricing-buy:hover,
+.pricing a.button.pricing-buy:focus-visible {
+  background-color: var(--avg-alt-blue);
+  color: var(--avg-white);
+}
+
+.pricing-plan .pricing-note {
+  margin: 16px 0 0;
+  color: var(--avg-gray4);
+  font-size: var(--tp-fs-body5);
+  line-height: var(--tp-lh-body5);
+}
+
+/* Footer row */
+.pricing-footer {
+  padding: 18px 20px;
+  border-top: 1px solid var(--avg-gray6);
+  text-align: center;
+  color: var(--avg-gray4);
+  font-size: var(--tp-fs-body4);
+}
+
+.pricing-footer a {
+  color: var(--avg-alt-blue);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+@media (width >= 992px) {
+  .pricing .pricing-row:first-child {
+    flex-direction: row;
+  }
+
+  .pricing-features {
+    flex: 0 0 34%;
+    padding: 32px 28px;
+  }
+
+  .pricing-plan {
+    padding: 32px 24px;
+  }
+
+  .pricing-plan + .pricing-plan {
+    border-top: 0;
+    border-left: 1px solid var(--avg-gray6);
+  }
+}

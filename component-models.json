@@ -140,8 +140,49 @@
           {
             "name": "AVG Grey",
             "value": "avg-grey"
+          },
+          {
+            "name": "Dark",
+            "value": "dark"
+          },
+          {
+            "name": "Hero",
+            "value": "hero"
+          },
+          {
+            "name": "Centered",
+            "value": "centered"
+          },
+          {
+            "name": "Blue Background",
+            "value": "bg-blue"
+          },
+          {
+            "name": "Grey Background",
+            "value": "bg-grey"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "awards",
+    "fields": []
+  },
+  {
+    "id": "award",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Logo",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "text",
+        "label": "Year + Name"
       }
     ]
   },
@@ -157,6 +198,14 @@
           {
             "name": "Icons",
             "value": "icons"
+          },
+          {
+            "name": "Boxed",
+            "value": "boxed"
+          },
+          {
+            "name": "Testimonial",
+            "value": "testimonial"
           }
         ]
       }
@@ -178,6 +227,27 @@
         "value": "",
         "label": "Text",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "carousel",
+    "fields": []
+  },
+  {
+    "id": "slide",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "text",
+        "label": "Text"
       }
     ]
   },
@@ -213,6 +283,34 @@
         "name": "rows",
         "value": "",
         "label": "Rows"
+      }
+    ]
+  },
+  {
+    "id": "feature-bar",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "tab",
+        "label": "Intro Tab"
+      }
+    ]
+  },
+  {
+    "id": "feature-bar-item",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Icon",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "text",
+        "label": "Label"
       }
     ]
   },
@@ -328,6 +426,108 @@
         "name": "buttonImageRight",
         "label": "Button Image (Right)",
         "multi": false
+      }
+    ]
+  },
+  {
+    "id": "pricing",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "features",
+        "label": "Features"
+      }
+    ]
+  },
+  {
+    "id": "pricing-plan",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "device",
+        "label": "Device Tier"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "details",
+        "label": "Plan Details"
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Buy Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "linkText",
+        "label": "Buy Label"
+      }
+    ]
+  },
+  {
+    "id": "promo",
+    "fields": []
+  },
+  {
+    "id": "promo-card",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Icon",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "text",
+        "label": "Text"
+      }
+    ]
+  },
+  {
+    "id": "steps",
+    "fields": []
+  },
+  {
+    "id": "step",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Icon",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "text",
+        "label": "Text"
+      }
+    ]
+  },
+  {
+    "id": "tabs",
+    "fields": []
+  },
+  {
+    "id": "tab",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Tab Label"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "content",
+        "label": "Panel Content"
       }
     ]
   }

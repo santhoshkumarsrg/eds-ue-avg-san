@@ -184,14 +184,14 @@ main .my-block .item {
 }
 
 /* Tablet and up */
-@media (width >= 600px) {
+@media (width >= 768px) {
   main .my-block {
     padding: 2rem;
   }
 }
 
 /* Desktop and up */
-@media (width >= 900px) {
+@media (width >= 992px) {
   main .my-block {
     flex-direction: row;
     padding: 4rem;

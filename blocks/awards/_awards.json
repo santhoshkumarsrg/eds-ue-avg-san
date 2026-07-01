@@ -1,0 +1,66 @@
+{
+  "definitions": [
+    {
+      "title": "Awards",
+      "id": "awards",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Awards",
+              "model": "awards",
+              "filter": "awards"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Award",
+      "id": "award",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Award",
+              "model": "award"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "awards",
+      "fields": []
+    },
+    {
+      "id": "award",
+      "fields": [
+        {
+          "component": "reference",
+          "name": "image",
+          "label": "Logo",
+          "multi": false
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "text",
+          "label": "Year + Name"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "awards",
+      "components": [
+        "award"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+.steps ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  margin: 40px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.steps-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 300px;
+  text-align: center;
+}
+
+.steps-step img {
+  width: 64px;
+  height: 64px;
+}
+
+.steps-step h3 {
+  margin: 20px 0 0;
+  color: var(--avg-black);
+  font-family: var(--body-font-family);
+  font-size: var(--tp-fs-h6);
+  font-weight: 900;
+  line-height: var(--tp-lh-h6);
+}
+
+.steps-step p {
+  margin: 12px 0 0;
+  color: var(--avg-gray4);
+  font-size: var(--tp-fs-body3);
+  line-height: var(--tp-lh-body3);
+}
+
+@media (width >= 992px) {
+  .steps ul {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 24px;
+  }
+
+  .steps-step {
+    position: relative;
+    flex: 1;
+    max-width: 300px;
+  }
+
+  .steps-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 24px;
+    right: -24px;
+    width: 12px;
+    height: 20px;
+    background-color: var(--avg-gray4);
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 20'%3E%3Cpath fill='black' d='M1.4 0 0 1.4 8.2 10 0 18.6 1.4 20l9.6-10z'/%3E%3C/svg%3E");
+    mask-repeat: no-repeat;
+    mask-size: contain;
+  }
+}

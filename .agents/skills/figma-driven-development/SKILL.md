@@ -20,6 +20,8 @@ This skill **wraps** the `content-driven-development` (CDD) skill. CDD owns the 
 - The user asks for a "pixel perfect" match, or to match a design on desktop and mobile
 - Building or restyling a block/page where a design is the source of truth
 
+**Not Figma-sourced?** If the source of truth is an **existing/original page** (a migration or import) rather than a Figma design, use `page-import-critique` instead — it runs the same screenshot/compare/iterate loop against the original page URL.
+
 ## Required Tools
 
 - **Figma MCP** (`plugin-figma-figma` / `user-Figma`): `get_design_context`, `get_metadata`, `get_screenshot`, `get_variable_defs`, `download_assets`
@@ -47,10 +49,11 @@ Match the project's mobile-first breakpoints. Validate at minimum:
 
 | Breakpoint | Width × Height | Source design |
 |------------|----------------|---------------|
-| Mobile     | 390 × 844      | Mobile Figma frame |
-| Desktop    | 1440 × 1024    | Desktop Figma frame |
+| Mobile     | 360 × 844      | Mobile Figma frame |
+| Tablet     | 768 × 1024     | Tablet Figma frame (spot-check) |
+| Desktop    | 1600 × 900     | Desktop Figma frame |
 
-Also spot-check tablet (768) if the design defines one.
+Mobile and tablet share the base styles below `992px`; desktop styles apply at `992px` (AVG `lg`) and above. These are the AVG breakpoints (`md = 768px`, `lg = 992px`).
 
 ---
 
@@ -92,7 +95,7 @@ For **each** breakpoint frame:
 2. **Design + code reference**: `get_design_context` for layout, text, and a screenshot.
 3. **Tokens**: `get_variable_defs` to get exact colors, fonts, sizes, spacing (e.g. `Green=#008941`, `Black=#1C222E`, `Grays/Gray 3=#697284`, heading/body font scales). **Map every Figma token to an existing AVG theme token — never eyeball or hardcode hex codes.** The project already ports the AVG design system (colors + typography scale) from `avg/ui.frontend` into `styles/styles.css` `:root`:
    - **Colors** → `var(--avg-…)` (e.g. `--avg-green`, `--avg-alt-green`, `--avg-black`, `--avg-gray3`, `--avg-gray4`, `--avg-white`). The Figma `Green/Black/Gray N` values correspond 1:1 to these.
-   - **Typography** → `var(--tp-fs-<name>)` / `var(--tp-lh-<name>)` (e.g. `h1`, `h2`, `body2`). These are responsive (mobile default, desktop overridden at `>= 900px`), so a heading set to `--tp-fs-h2`/`--tp-lh-h2` resizes automatically — don't write per-breakpoint `font-size`.
+   - **Typography** → `var(--tp-fs-<name>)` / `var(--tp-lh-<name>)` (e.g. `h1`, `h2`, `body2`). These are responsive (mobile default, desktop overridden at `>= 992px`), so a heading set to `--tp-fs-h2`/`--tp-lh-h2` resizes automatically — don't write per-breakpoint `font-size`.
    - **Block CSS must contain zero raw color codes.** Use `var(--avg-…)`. For semi-transparent brand colors (overlays/shadows) use relative color syntax against a token: `rgb(from var(--avg-black) r g b / 45%)`.
    - If a needed brand value is missing from `:root`, add it there **once** (using the AVG name) and reference it from every block. See [references/avg-theme-tokens.md](references/avg-theme-tokens.md) for the full catalog and the source SCSS files.
 4. **Original assets**: prefer the real Figma assets over placeholders. Use `download_assets` on the section node:
@@ -192,4 +195,4 @@ Run CDD Steps 6–8. Before finishing, **delete temporary screenshots** written 
 - [AEM Block Collection](https://www.aem.live/developer/block-collection) — vetted block blueprints to reuse before building a new custom block
 - [references/asset-extraction.md](references/asset-extraction.md) — exact Figma asset/token extraction commands and known pitfalls
 - [references/validation-checklist.md](references/validation-checklist.md) — per-breakpoint pixel-perfect checklist
-- Related skills: `content-driven-development`, `building-blocks`, `analyze-and-plan`, `content-modeling`, `testing-blocks`
+- Related skills: `content-driven-development`, `building-blocks`, `analyze-and-plan`, `content-modeling`, `testing-blocks`, `page-import-critique` (the original-page analog of this skill's visual-critique loop)

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="291" viewBox="0 0 660 300">
+  <path d="M150 285c-55-25-70-135 20-170 70-27 130 12 190 12s120-38 185-8c85 40 60 140 15 166z" fill="#2276d9"/>
+  <rect x="180" y="45" width="300" height="200" rx="12" fill="#6b7688" stroke="#3a4252" stroke-width="5"/>
+  <text x="330" y="140" font-family="Roboto, Arial, sans-serif" font-weight="700" font-size="18" fill="#1c222e" text-anchor="middle">Laptop Screen</text>
+  <text x="330" y="166" font-family="Roboto, Arial, sans-serif" font-weight="700" font-size="18" fill="#1c222e" text-anchor="middle">1920 x 1280 (3:2)</text>
+</svg>

@@ -37,6 +37,26 @@
             {
               "name": "AVG Grey",
               "value": "avg-grey"
+            },
+            {
+              "name": "Dark",
+              "value": "dark"
+            },
+            {
+              "name": "Hero",
+              "value": "hero"
+            },
+            {
+              "name": "Centered",
+              "value": "centered"
+            },
+            {
+              "name": "Blue Background",
+              "value": "bg-blue"
+            },
+            {
+              "name": "Grey Background",
+              "value": "bg-grey"
             }
           ]
         }
@@ -53,6 +73,14 @@
         "icon-button",
         "title",
         "hero",
+        "product-hero",
+        "pricing",
+        "feature-bar",
+        "steps",
+        "awards",
+        "tabs",
+        "carousel",
+        "promo",
         "cards",
         "columns",
         "fragment"

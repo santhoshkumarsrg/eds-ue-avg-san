@@ -151,14 +151,14 @@ main .my-block {
 }
 
 /* Tablet and up */
-@media (width >= 600px) {
+@media (width >= 768px) {
   main .my-block {
     padding: 2rem;
   }
 }
 
 /* Desktop and up */
-@media (width >= 900px) {
+@media (width >= 992px) {
   main .my-block {
     flex-direction: row;
     padding: 4rem;
@@ -167,12 +167,12 @@ main .my-block {
 ```
 
 **Standard breakpoints:**
-- Mobile: default (< 600px)
-- Tablet: `@media (width >= 600px)`
-- Desktop: `@media (width >= 900px)`
+- Mobile: default (< 768px)
+- Tablet: `@media (width >= 768px)`
+- Desktop: `@media (width >= 992px)`
 
 **Modern syntax:**
-- Use range syntax: `(width >= 600px)` instead of `(min-width: 600px)`
+- Use range syntax: `(width >= 768px)` instead of `(min-width: 768px)`
 - Use logical properties where appropriate
 
 ## Modern CSS Features

@@ -1,0 +1,55 @@
+.awards ul {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 32px;
+  margin: 32px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.awards-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 160px;
+  text-align: center;
+}
+
+.awards-badge img {
+  width: 72px;
+  height: 72px;
+}
+
+.awards-badge p {
+  margin: 8px 0 0;
+  color: var(--avg-black);
+  font-size: var(--tp-fs-body4);
+  line-height: 1.3;
+}
+
+.awards-badge p strong {
+  display: block;
+  font-weight: 700;
+}
+
+/* Decorative laurels either side of the badges (desktop) */
+@media (width >= 992px) {
+  .awards ul::before,
+  .awards ul::after {
+    content: '';
+    align-self: center;
+    width: 56px;
+    height: 110px;
+    background-image: url("/icons/laurel.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+  }
+
+  .awards ul::after {
+    transform: scaleX(-1);
+  }
+}
