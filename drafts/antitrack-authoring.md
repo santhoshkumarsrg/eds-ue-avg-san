@@ -93,7 +93,6 @@ Add **2 Pricing Plan** items with these discrete fields:
 | Price Currency  | *(leave empty)*                       | *(leave empty)*                                  |
 | Price Amount    | `{monthly_price}`                     | `{monthly_price}`                                |
 | Price Period    | `/month`                              | `/month`                                         |
-| Buy Link        | `{buy_link}` (or a static checkout URL) | `{buy_link}` (or a static checkout URL)        |
 | Buy Label       | `Buy now`                             | `Buy now`                                        |
 | Fine Print      | `Savings compared to renewal price {strike_price}/year. Subscription details` | same     |
 | SKU (internal id) | `AGDI-00-001-12`                    | `AGDI-00-010-12`                                 |
@@ -121,12 +120,15 @@ and swaps these placeholder tokens wherever they appear in the plan:
 | `{future_price}`   | `futureRealPriceFormatted`              |
 | `{future_strike}`  | `futurePriceFormatted`                  |
 | `{discount}`       | `discountPercentFormatted` (else `discountFormatted`) |
-| `{buy_link}`       | `link` (set as the buy button's href)   |
+| `{buy_link}`       | `link` (set automatically as the buy button's href) |
 
 Author the plain token in any price field, e.g. **Was / Intro Price** =
 `{strike_price} {sale_price}`, **Save Badge** = `Save {discount}`, **Price
-Amount** = `{monthly_price}`. Set **Buy Link** to `{buy_link}` to use the live
-checkout URL from the API.
+Amount** = `{monthly_price}`.
+
+There is no Buy Link field to author: the block always renders the buy button
+with the hidden `{buy_link}` placeholder as its href, and the API's `link` field
+is swapped in at runtime. Authors only set the **Buy Label**.
 
 Notes:
 - The API's formatted values **already include the currency symbol** (e.g.

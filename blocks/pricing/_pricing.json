@@ -112,16 +112,11 @@
           "description": "e.g. /month"
         },
         {
-          "component": "aem-content",
-          "name": "link",
-          "label": "Buy Link"
-        },
-        {
           "component": "text",
           "valueType": "string",
-          "name": "linkText",
+          "name": "buyLabel",
           "label": "Buy Label",
-          "description": "e.g. Buy now"
+          "description": "e.g. Buy now. The buy URL is set automatically to the {buy_link} placeholder and resolved from the pricing API."
         },
         {
           "component": "richtext",

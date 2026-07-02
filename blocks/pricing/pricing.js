@@ -106,13 +106,19 @@ function buildPlan(row) {
     plan.append(markToken(price, curText + amtText + perText));
   }
 
-  const buyLink = buy?.querySelector('a');
-  if (buyLink) {
-    buyLink.classList.add('button', 'pricing-buy');
+  // The buy URL is not authored: it is always the {buy_link} placeholder, which
+  // pricing-api.js swaps for the live checkout URL (or "#" as a fallback). The
+  // author only controls the button label.
+  const buyLabel = buy?.textContent.trim();
+  if (buyLabel) {
+    const anchor = buy.querySelector('a') || document.createElement('a');
+    anchor.classList.add('button', 'pricing-buy');
+    anchor.setAttribute('href', '{buy_link}');
+    if (!anchor.textContent.trim()) anchor.textContent = buyLabel;
     const wrapper = document.createElement('p');
     wrapper.className = 'pricing-buy-wrapper';
     moveInstrumentation(buy, wrapper);
-    wrapper.append(buyLink);
+    wrapper.append(anchor);
     plan.append(wrapper);
   }
 
