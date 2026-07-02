@@ -40,7 +40,15 @@
           "component": "richtext",
           "valueType": "string",
           "name": "features",
-          "label": "Features"
+          "label": "Features",
+          "description": "Left column: intro line, feature bullet list and a 'See all features' link"
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "footer",
+          "label": "Footer Line",
+          "description": "Full-width line under the plans, e.g. the free-trial CTA"
         }
       ]
     },
@@ -51,13 +59,57 @@
           "component": "text",
           "valueType": "string",
           "name": "device",
-          "label": "Device Tier"
+          "label": "Device Tier",
+          "description": "e.g. 1 device"
+        },
+        {
+          "component": "reference",
+          "name": "platforms",
+          "label": "Platform Icon",
+          "multi": false,
+          "description": "Small icon showing the supported platforms"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "save",
+          "label": "Save Badge",
+          "description": "Optional green pill, e.g. Save XX%"
         },
         {
           "component": "richtext",
           "valueType": "string",
-          "name": "details",
-          "label": "Plan Details"
+          "name": "priceWas",
+          "label": "Was / Intro Price",
+          "description": "e.g. strike-through the renewal price then the intro price ($XX.XX/first yr)"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "worksout",
+          "label": "Works-out Label",
+          "description": "e.g. It works out as"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "priceCurrency",
+          "label": "Price Currency",
+          "description": "e.g. $"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "priceAmount",
+          "label": "Price Amount",
+          "description": "The large monthly figure, e.g. X.XX"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "pricePeriod",
+          "label": "Price Period",
+          "description": "e.g. /month"
         },
         {
           "component": "aem-content",
@@ -68,7 +120,15 @@
           "component": "text",
           "valueType": "string",
           "name": "linkText",
-          "label": "Buy Label"
+          "label": "Buy Label",
+          "description": "e.g. Buy now"
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "note",
+          "label": "Fine Print",
+          "description": "Small print under the button (may include a link)"
         }
       ]
     }
