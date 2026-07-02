@@ -3,10 +3,11 @@
  *
  * Pricing Plan cards can carry a hidden `data-sku` (the pricing API internal id)
  * and an optional `data-campaign`. When present, this module fetches the current
- * pricelist and resolves the authored `{…}` price/discount placeholder tokens.
- * Every known token is always resolved: to the formatted API value when
- * available, otherwise to a single global fallback (`X.XX`). This guarantees a
- * raw token is never left visible, even when the API is unreachable.
+ * pricelist and resolves the authored `{…}` price/discount placeholder tokens in
+ * text, plus the `{buy_link}` token in the buy button's href. Every known token
+ * is always resolved: to the API value when available, otherwise to a fallback
+ * (`X.XX` for prices, `#` for the buy link). This guarantees a raw token is never
+ * left visible, even when the API is unreachable.
  *
  * Field mapping mirrors the AEM/pluto flow (PimNodeUpdaterServiceImpl +
  * PimEntitlement.formatPricingTags).
@@ -16,6 +17,11 @@ const API_BASE = 'https://pricing-api.svc.int.avast.com/api/v2/pricing/pricelist
 const PLATFORM = 'web';
 const DEFAULT_LOCALE = 'en-ww';
 const FALLBACK = 'X.XX';
+const BUY_LINK_TOKEN = '{buy_link}';
+const BUY_LINK_FALLBACK = '#';
+
+/** Cache of in-flight/resolved pricelist requests, keyed by request URL. */
+const inflight = new Map();
 
 /**
  * Placeholder token name -> pricing API response field. The API's formatted
@@ -87,6 +93,19 @@ function resolvePlan(plan, values) {
 }
 
 /**
+ * Resolves the `{buy_link}` token in the plan's buy button href, using the API
+ * `link` field when available, otherwise `#`. Runs regardless of API success.
+ * @param {Element} plan
+ * @param {object|null} data pricing API entry for one internal id
+ */
+function resolveBuyLink(plan, data) {
+  const link = data && !data.error && data.link ? String(data.link) : BUY_LINK_FALLBACK;
+  plan.querySelectorAll('a[href*="{buy_link}"]').forEach((anchor) => {
+    anchor.setAttribute('href', anchor.getAttribute('href').split(BUY_LINK_TOKEN).join(link));
+  });
+}
+
+/**
  * Fetches the pricelist for one campaign + set of SKUs.
  * @param {string} campaign
  * @param {string[]} skus
@@ -98,16 +117,27 @@ async function fetchPricelist(campaign, skus, locale) {
     platform: PLATFORM,
     locale,
     internalIds: skus.join(','),
+    replaceAll: 1,
   });
   if (campaign) params.set('campaign', campaign);
-  try {
-    const resp = await fetch(`${API_BASE}?${params.toString()}`);
-    if (!resp.ok) return null;
-    return await resp.json();
-  } catch (e) {
-    // Network/CORS failure: plans resolve to the fallback value.
-    return null;
-  }
+  const url = `${API_BASE}?${params.toString()}`;
+
+  // De-duplicate identical requests: multiple pricing blocks (or plans) that
+  // resolve to the same URL share a single in-flight/cached promise, so the API
+  // is only called once per unique campaign+locale+skus combination.
+  if (inflight.has(url)) return inflight.get(url);
+  const request = (async () => {
+    try {
+      const resp = await fetch(url);
+      if (!resp.ok) return null;
+      return await resp.json();
+    } catch (e) {
+      // Network/CORS failure: plans resolve to the fallback value.
+      return null;
+    }
+  })();
+  inflight.set(url, request);
+  return request;
 }
 
 /**
@@ -130,11 +160,12 @@ export default async function loadPricing(root = document) {
   });
 
   await Promise.all([...byCampaign.entries()].map(async ([campaign, campaignPlans]) => {
-    const skus = [...new Set(campaignPlans.map((plan) => plan.dataset.sku))];
+    const skus = [...new Set(campaignPlans.map((plan) => plan.dataset.sku))].sort();
     const pricelist = await fetchPricelist(campaign, skus, locale);
     campaignPlans.forEach((plan) => {
       const data = pricelist ? pricelist[plan.dataset.sku] : null;
       resolvePlan(plan, buildValues(data));
+      resolveBuyLink(plan, data);
     });
   }));
 }

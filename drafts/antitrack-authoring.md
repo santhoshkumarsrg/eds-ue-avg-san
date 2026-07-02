@@ -93,7 +93,7 @@ Add **2 Pricing Plan** items with these discrete fields:
 | Price Currency  | *(leave empty)*                       | *(leave empty)*                                  |
 | Price Amount    | `{monthly_price}`                     | `{monthly_price}`                                |
 | Price Period    | `/month`                              | `/month`                                         |
-| Buy Link        | the checkout URL                      | the checkout URL                                 |
+| Buy Link        | `{buy_link}` (or a static checkout URL) | `{buy_link}` (or a static checkout URL)        |
 | Buy Label       | `Buy now`                             | `Buy now`                                        |
 | Fine Print      | `Savings compared to renewal price {strike_price}/year. Subscription details` | same     |
 | SKU (internal id) | `AGDI-00-001-12`                    | `AGDI-00-010-12`                                 |
@@ -108,9 +108,9 @@ Add **2 Pricing Plan** items with these discrete fields:
 
 **SKU** and **Campaign Code** are hidden — they render only as `data-sku` /
 `data-campaign` attributes on the plan, never as visible text. When a **SKU** is
-set, `scripts/pricing-api.js` (delayed phase) calls the pricing API
-(`platform=web`, locale from the URL, `campaign`, `internalIds=<sku>`) and swaps
-these placeholder tokens wherever they appear in the plan's text fields:
+set, `scripts/pricing-api.js` (triggered when the block is decorated) calls the
+pricing API (`platform=web`, locale from the URL, `campaign`, `internalIds=<sku>`)
+and swaps these placeholder tokens wherever they appear in the plan:
 
 | Token              | Replaced with (API field)               |
 | ------------------ | --------------------------------------- |
@@ -121,17 +121,20 @@ these placeholder tokens wherever they appear in the plan's text fields:
 | `{future_price}`   | `futureRealPriceFormatted`              |
 | `{future_strike}`  | `futurePriceFormatted`                  |
 | `{discount}`       | `discountPercentFormatted` (else `discountFormatted`) |
+| `{buy_link}`       | `link` (set as the buy button's href)   |
 
 Author the plain token in any price field, e.g. **Was / Intro Price** =
 `{strike_price} {sale_price}`, **Save Badge** = `Save {discount}`, **Price
-Amount** = `{monthly_price}`.
+Amount** = `{monthly_price}`. Set **Buy Link** to `{buy_link}` to use the live
+checkout URL from the API.
 
 Notes:
 - The API's formatted values **already include the currency symbol** (e.g.
   `$7.50`), so do **not** add a separate `$` — leave the **Price Currency**
   field empty when using a token.
-- Every known token is always resolved. If the API is unreachable or a field is
-  missing, the token falls back to `X.XX` (so a raw `{token}` is never shown).
+- Every known text token is always resolved. If the API is unreachable or a
+  field is missing, price tokens fall back to `X.XX` and `{buy_link}` falls back
+  to `#` (so a raw `{token}` is never shown).
 
 ### 1c. "Also available" line (default content)
 
