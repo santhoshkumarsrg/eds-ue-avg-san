@@ -1,4 +1,17 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
+import loadPricing from '../../scripts/pricing-api.js';
+
+/**
+ * Flags an element as holding a live-pricing token so the loading shimmer can
+ * mask it (hiding the raw `{token}` text) until the API resolves.
+ * @param {Element} el rendered element
+ * @param {string} source source text that may contain a token
+ * @returns {Element} the same element, for chaining
+ */
+function markToken(el, source) {
+  if (source && source.includes('{')) el.classList.add('pricing-has-token');
+  return el;
+}
 
 /**
  * Rich-text field cells wrap their content in a single <p>. Return the inner
@@ -67,11 +80,11 @@ function buildPlan(row) {
   }
 
   if (save?.textContent.trim()) {
-    plan.append(para('pricing-save', save, save.textContent.trim()));
+    plan.append(markToken(para('pricing-save', save, save.textContent.trim()), save.textContent));
   }
 
   if (priceWas?.textContent.trim()) {
-    plan.append(para('pricing-was', priceWas));
+    plan.append(markToken(para('pricing-was', priceWas), priceWas.textContent));
   }
 
   if (worksout?.textContent.trim()) {
@@ -90,7 +103,7 @@ function buildPlan(row) {
       span.textContent = text;
       price.append(span);
     });
-    plan.append(price);
+    plan.append(markToken(price, curText + amtText + perText));
   }
 
   const buyLink = buy?.querySelector('a');
@@ -104,7 +117,7 @@ function buildPlan(row) {
   }
 
   if (note?.textContent.trim()) {
-    plan.append(para('pricing-note', note));
+    plan.append(markToken(para('pricing-note', note), note.textContent));
   }
 
   return plan;
@@ -161,5 +174,16 @@ export default function decorate(block) {
     footerRow.className = 'pricing-row';
     footerRow.append(footer);
     block.append(footerRow);
+  }
+
+  // Kick off the live-pricing lookup as soon as the block is decorated (lazy
+  // phase) rather than waiting for the delayed phase. Token-bearing elements
+  // are masked with a shimmer until the API resolves so raw {tokens} never show.
+  const pricedPlans = plans.filter((plan) => plan.dataset.sku);
+  if (pricedPlans.length) {
+    pricedPlans.forEach((plan) => plan.classList.add('is-loading'));
+    loadPricing(block).finally(() => {
+      pricedPlans.forEach((plan) => plan.classList.remove('is-loading'));
+    });
   }
 }

@@ -111,11 +111,12 @@ async function fetchPricelist(campaign, skus, locale) {
 }
 
 /**
- * Finds every priced plan, batches one request per campaign, and resolves the
- * placeholder tokens in place (live value or fallback).
+ * Finds every priced plan under `root`, batches one request per campaign, and
+ * resolves the placeholder tokens in place (live value or fallback).
+ * @param {ParentNode} [root] scope to search for plans (defaults to the document)
  */
-export default async function loadPricing() {
-  const plans = [...document.querySelectorAll('.pricing-plan[data-sku]')];
+export default async function loadPricing(root = document) {
+  const plans = [...root.querySelectorAll('.pricing-plan[data-sku]')];
   if (!plans.length) return;
 
   const locale = getLocale();

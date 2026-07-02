@@ -1,5 +1,3 @@
 // add delayed functionality here
-import loadPricing from './pricing-api.js';
-
-// Replace live pricing placeholders on any Pricing block once the page is idle.
-loadPricing();
+// Note: live pricing is now loaded from the pricing block's decorate (lazy
+// phase) so the price shimmer resolves sooner; see blocks/pricing/pricing.js.
