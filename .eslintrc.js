@@ -21,7 +21,8 @@ module.exports = {
     // raise the default 4-cell limit for two blocks: the hero (background image,
     // heading, subheading, CTA link, left/right button icons) and the pricing
     // plan card (device, platform icon, save badge, was/intro price, works-out
-    // label, price currency/amount/period, buy link + label, note)
-    'xwalk/max-cells': ['error', { hero: 6, 'pricing-plan': 11 }],
+    // label, price currency/amount/period, buy link + label, note, plus the
+    // hidden sku + campaign code used for live pricing lookups)
+    'xwalk/max-cells': ['error', { hero: 6, 'pricing-plan': 13 }],
   },
 };

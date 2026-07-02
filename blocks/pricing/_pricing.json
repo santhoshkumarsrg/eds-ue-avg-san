@@ -129,6 +129,20 @@
           "name": "note",
           "label": "Fine Print",
           "description": "Small print under the button (may include a link)"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "sku",
+          "label": "SKU (internal id)",
+          "description": "Pricing API internal id, e.g. AGDI-00-001-12. When set, live prices are fetched and {price} tokens are replaced. Rendered as a hidden data attribute."
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "campaignCode",
+          "label": "Campaign Code",
+          "description": "Pricing API campaign, e.g. WD-HOLIDAYPROMO21. Rendered as a hidden data attribute."
         }
       ]
     }

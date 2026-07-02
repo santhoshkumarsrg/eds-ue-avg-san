@@ -31,17 +31,27 @@ function para(className, cell, html) {
 /**
  * Builds one plan card from a Pricing Plan item row. Fields render as cells in
  * model order: device, platform icon, save badge, was/intro price, works-out
- * label, price currency/amount/period, buy link, fine print.
+ * label, price currency/amount/period, buy link, fine print, then the hidden
+ * sku + campaign code (surfaced as data attributes for the pricing API lookup).
  * @param {Element} row
  * @returns {HTMLDivElement}
  */
 function buildPlan(row) {
   const cells = [...row.children];
-  const [device, platforms, save, priceWas, worksout, cur, amt, per, buy, note] = cells;
+  const [
+    device, platforms, save, priceWas, worksout, cur, amt, per, buy, note, sku, campaign,
+  ] = cells;
 
   const plan = document.createElement('div');
   plan.className = 'pricing-plan';
   moveInstrumentation(row, plan);
+
+  const skuValue = sku?.textContent.trim();
+  if (skuValue) {
+    plan.dataset.sku = skuValue;
+    const campaignValue = campaign?.textContent.trim();
+    if (campaignValue) plan.dataset.campaign = campaignValue;
+  }
 
   if (device?.textContent.trim()) {
     plan.append(para('pricing-device', device, device.textContent.trim()));

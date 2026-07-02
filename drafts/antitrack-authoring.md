@@ -87,20 +87,51 @@ Add **2 Pricing Plan** items with these discrete fields:
 | --------------- | ------------------------------------- | ----------------------------------------------- |
 | Device Tier     | `1 device`                            | `10 devices`                                    |
 | Platform Icon   | `windows-dark.svg`                    | `platforms.svg`                                 |
-| Save Badge      | `Save XX%`                            | `Save XX%`                                       |
-| Was / Intro Price | `$YY.YY` (strike-through) ` $XX.XX/first yr` | same                                     |
+| Save Badge      | `Save {discount}`                     | `Save {discount}`                                |
+| Was / Intro Price | `{strike_price}` (strike-through) ` {sale_price}/first yr` | same                        |
 | Works-out Label | `It works out as`                     | `It works out as`                                |
-| Price Currency  | `$`                                   | `$`                                              |
-| Price Amount    | `X.XX`                                | `X.XX`                                           |
+| Price Currency  | *(leave empty)*                       | *(leave empty)*                                  |
+| Price Amount    | `{monthly_price}`                     | `{monthly_price}`                                |
 | Price Period    | `/month`                              | `/month`                                         |
 | Buy Link        | the checkout URL                      | the checkout URL                                 |
 | Buy Label       | `Buy now`                             | `Buy now`                                        |
-| Fine Print      | `Savings compared to renewal price $YY.YY/year. Subscription details` | same             |
+| Fine Print      | `Savings compared to renewal price {strike_price}/year. Subscription details` | same     |
+| SKU (internal id) | `AGDI-00-001-12`                    | `AGDI-00-010-12`                                 |
+| Campaign Code   | `WD-HOLIDAYPROMO21`                   | `WD-HOLIDAYPROMO21`                              |
 
 > **Was / Intro Price** and **Fine Print** are rich text — use the editor's
 > strike-through on the renewal price, and link `Subscription details` if needed.
 > The block renders the plans side by side (features column on the left) and the
 > **Footer Line** as a full-width row beneath them.
+
+#### Live pricing (SKU + Campaign Code)
+
+**SKU** and **Campaign Code** are hidden — they render only as `data-sku` /
+`data-campaign` attributes on the plan, never as visible text. When a **SKU** is
+set, `scripts/pricing-api.js` (delayed phase) calls the pricing API
+(`platform=web`, locale from the URL, `campaign`, `internalIds=<sku>`) and swaps
+these placeholder tokens wherever they appear in the plan's text fields:
+
+| Token              | Replaced with (API field)               |
+| ------------------ | --------------------------------------- |
+| `{strike_price}`   | `priceFormatted`                        |
+| `{sale_price}`     | `realPriceFormatted`                    |
+| `{monthly_price}`  | `realPriceRoundedPerMonthFormatted`     |
+| `{monthly_strike}` | `priceRoundedPerMonthFormatted`         |
+| `{future_price}`   | `futureRealPriceFormatted`              |
+| `{future_strike}`  | `futurePriceFormatted`                  |
+| `{discount}`       | `discountPercentFormatted` (else `discountFormatted`) |
+
+Author the plain token in any price field, e.g. **Was / Intro Price** =
+`{strike_price} {sale_price}`, **Save Badge** = `Save {discount}`, **Price
+Amount** = `{monthly_price}`.
+
+Notes:
+- The API's formatted values **already include the currency symbol** (e.g.
+  `$7.50`), so do **not** add a separate `$` — leave the **Price Currency**
+  field empty when using a token.
+- Every known token is always resolved. If the API is unreachable or a field is
+  missing, the token falls back to `X.XX` (so a raw `{token}` is never shown).
 
 ### 1c. "Also available" line (default content)
 
