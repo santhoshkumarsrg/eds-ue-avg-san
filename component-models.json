@@ -20,6 +20,47 @@
         "name": "keywords",
         "multi": true,
         "label": "Keywords"
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "robots",
+        "label": "Robots",
+        "description": "Controls search engine indexing. Leave empty for the default (index, follow). Pages with noindex are also excluded from the sitemap.",
+        "options": [
+          {
+            "name": "Default (index, follow)",
+            "value": ""
+          },
+          {
+            "name": "noindex",
+            "value": "noindex"
+          },
+          {
+            "name": "noindex, nofollow",
+            "value": "noindex, nofollow"
+          }
+        ]
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "og:image",
+        "label": "Social Share Image",
+        "multi": false,
+        "description": "Overrides the automatic og:image/twitter:image (the page's first image) for social shares."
+      },
+      {
+        "component": "aem-content",
+        "name": "nav",
+        "label": "Navigation Fragment",
+        "description": "Optional alternative header/nav fragment for this page. Defaults to /nav."
+      },
+      {
+        "component": "aem-content",
+        "name": "footer",
+        "label": "Footer Fragment",
+        "description": "Optional alternative footer fragment for this page. Defaults to /footer."
       }
     ]
   },
