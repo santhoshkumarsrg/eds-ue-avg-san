@@ -632,6 +632,12 @@
         "valueType": "string",
         "name": "label",
         "label": "Tab Label"
+      },
+      {
+        "component": "aem-content",
+        "name": "fragment",
+        "label": "Panel Content (Fragment)",
+        "description": "Reference a fragment page (a document containing any blocks). Its content is loaded into this tab's panel. EDS supports only one level of nesting, so composed block content lives in the referenced fragment."
       }
     ]
   }
