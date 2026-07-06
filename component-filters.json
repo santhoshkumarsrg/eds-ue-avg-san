@@ -99,5 +99,15 @@
     "components": [
       "tab"
     ]
+  },
+  {
+    "id": "tab",
+    "components": [
+      "title",
+      "text",
+      "image",
+      "button",
+      "icon-button"
+    ]
   }
 ]

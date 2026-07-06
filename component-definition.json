@@ -399,7 +399,8 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Tab",
-                  "model": "tab"
+                  "model": "tab",
+                  "filter": "tab"
                 }
               }
             }
