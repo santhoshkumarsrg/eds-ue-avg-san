@@ -13,9 +13,11 @@
  * PimEntitlement.formatPricingTags).
  */
 
-const API_BASE = 'https://pricing-api.svc.int.avast.com/api/v2/pricing/pricelist';
-const PLATFORM = 'web';
-const DEFAULT_LOCALE = 'en-ww';
+import env from './env.js';
+
+const API_BASE = `${env.pricingApiBase}${env.consumerPriceList}`;
+const PLATFORM = env.pricingPlatform;
+const DEFAULT_LOCALE = env.pricingDefaultLocale;
 const FALLBACK = 'X.XX';
 const BUY_LINK_TOKEN = '{buy_link}';
 const BUY_LINK_FALLBACK = '#';
