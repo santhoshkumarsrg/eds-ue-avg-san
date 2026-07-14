@@ -9,6 +9,7 @@ import {
   loadSection,
   loadSections,
   loadCSS,
+  getMetadata,
 } from './aem.js';
 
 /**
@@ -127,10 +128,12 @@ export function decorateMain(main) {
  * @param {Element} doc The container element
  */
 async function loadEager(doc) {
-  // only default to 'en' when metadata (page or bulk) didn't already set lang
-  if (!document.documentElement.lang) {
-    document.documentElement.lang = 'en';
-  }
+  // drive <html lang> from the `lang` metadata (page or bulk sheet), defaulting
+  // to 'en'. the `lang` property is only used for this — remove the redundant
+  // <meta name="lang"> tag it produces so it doesn't leak into the head.
+  const lang = getMetadata('lang');
+  document.documentElement.lang = lang || 'en';
+  document.head.querySelector('meta[name="lang"]')?.remove();
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
   if (main) {

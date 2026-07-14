@@ -1198,12 +1198,15 @@ wins over the sheet.
 This reproduces the traditional-AEM scenario: most pages under a locale
 inherit that locale's language, but one subtree resets it.
 
-**How `<html lang>` is set in EDS.** If a page has `lang` metadata, the
-delivery pipeline renders `<html lang="…">` with that value; if not, no `lang`
-attribute is emitted at all (verified against this project's preview host —
-without any `lang` metadata configured, the root page delivers a bare
-`<html>`). There is no tree-based inheritance; the bulk sheet's path patterns
-are what simulate it.
+**How `<html lang>` is set in EDS.** This is the important gotcha: EDS does
+**not** map any metadata property to the `<html lang>` attribute. A `lang`
+column in the sheet is treated like any other property and only emits a
+`<meta name="lang" content="…">` tag — the `<html lang>` attribute is left
+untouched by the delivery tier (the delivered `<html>` has no `lang` at all).
+Setting `<html lang>` is therefore a **client-side** job: `scripts/scripts.js`
+reads the `lang` metadata and applies it. There is no tree-based inheritance;
+the bulk sheet's path patterns are what simulate it, and the JS just consumes
+the resolved value for the current page.
 
 Given a traditional-AEM tree like `/content/avg/ww/en`, `/content/avg/es/es`,
 and `/content/avg/sa/ar` (with `/content/avg/sa/ar/smb` reset to English), the
@@ -1227,29 +1230,33 @@ the JCR path — is:
   page-property field in `models/_page.json`, which beats the sheet.
 
 **The project-specific fix this required.** `scripts/scripts.js` used to
-hardcode the language on every page load, which would have silently
-overwritten whatever `lang` metadata the pipeline delivered:
+hardcode the language on every page load, ignoring metadata entirely:
 
 ```js
-// before — always overwrote server-rendered lang
+// before — hardcoded, ignored the lang metadata
 document.documentElement.lang = 'en';
 ```
 
-It now only falls back to `en` when the delivery pipeline didn't already set
-one from `lang` metadata:
+It now reads the resolved `lang` metadata (from the page or the bulk sheet),
+applies it to `<html lang>`, and removes the redundant `<meta name="lang">`
+tag EDS emits for that property (the `lang` property exists only to drive the
+attribute — the meta tag itself is non-standard and unwanted):
 
-```129:134:scripts/scripts.js
+```130:137:scripts/scripts.js
 async function loadEager(doc) {
-  // only default to 'en' when metadata (page or bulk) didn't already set lang
-  if (!document.documentElement.lang) {
-    document.documentElement.lang = 'en';
-  }
+  // drive <html lang> from the `lang` metadata (page or bulk sheet), defaulting
+  // to 'en'. the `lang` property is only used for this — remove the redundant
+  // <meta name="lang"> tag it produces so it doesn't leak into the head.
+  const lang = getMetadata('lang');
+  document.documentElement.lang = lang || 'en';
+  document.head.querySelector('meta[name="lang"]')?.remove();
   decorateTemplateAndTheme();
 ```
 
-A `lang` field was also added to the `page-metadata` model
-(`models/_page.json`) for the per-page override case, and the aggregated
-model/definition/filter JSON was rebuilt (`npm run build:json`).
+(`getMetadata` is imported from `scripts/aem.js`.) A `lang` field was also
+added to the `page-metadata` model (`models/_page.json`) for the per-page
+override case, and the aggregated model/definition/filter JSON was rebuilt
+(`npm run build:json`).
 
 **RTL note.** `ar-sa` also implies right-to-left layout. `lang` only drives the
 `lang` attribute; pair it with a `dir="rtl"` rule (either a second bulk-sheet
