@@ -127,7 +127,10 @@ export function decorateMain(main) {
  * @param {Element} doc The container element
  */
 async function loadEager(doc) {
-  document.documentElement.lang = 'en';
+  // only default to 'en' when metadata (page or bulk) didn't already set lang
+  if (!document.documentElement.lang) {
+    document.documentElement.lang = 'en';
+  }
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
   if (main) {

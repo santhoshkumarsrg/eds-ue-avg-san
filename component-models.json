@@ -22,6 +22,13 @@
         "label": "Keywords"
       },
       {
+        "component": "text",
+        "valueType": "string",
+        "name": "lang",
+        "label": "Language",
+        "description": "Overrides the <html lang> attribute for this page (e.g. en, es-es, ar-sa). Usually set via the bulk metadata sheet for whole sections; use this field only to override a single page."
+      },
+      {
         "component": "select",
         "valueType": "string",
         "name": "robots",

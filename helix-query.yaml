@@ -1,12 +1,493 @@
 version: 1
 
 indices:
-  pages:
+  en-ww:
     include:
-      - '/**'
+      - '/en-ww/**'
     exclude:
       - '/**.json'
-    target: /query-index.json
+    target: /en-ww/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  cs-cz:
+    include:
+      - '/cs-cz/**'
+    exclude:
+      - '/**.json'
+    target: /cs-cz/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  de-ch:
+    include:
+      - '/de-ch/**'
+    exclude:
+      - '/**.json'
+    target: /de-ch/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  de-de:
+    include:
+      - '/de-de/**'
+    exclude:
+      - '/**.json'
+    target: /de-de/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  en-au:
+    include:
+      - '/en-au/**'
+    exclude:
+      - '/**.json'
+    target: /en-au/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  en-ca:
+    include:
+      - '/en-ca/**'
+    exclude:
+      - '/**.json'
+    target: /en-ca/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  en-dk:
+    include:
+      - '/en-dk/**'
+    exclude:
+      - '/**.json'
+    target: /en-dk/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  en-gb:
+    include:
+      - '/en-gb/**'
+    exclude:
+      - '/**.json'
+    target: /en-gb/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  en-in:
+    include:
+      - '/en-in/**'
+    exclude:
+      - '/**.json'
+    target: /en-in/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  en-nz:
+    include:
+      - '/en-nz/**'
+    exclude:
+      - '/**.json'
+    target: /en-nz/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  en-se:
+    include:
+      - '/en-se/**'
+    exclude:
+      - '/**.json'
+    target: /en-se/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  en-us:
+    include:
+      - '/en-us/**'
+    exclude:
+      - '/**.json'
+    target: /en-us/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  en-za:
+    include:
+      - '/en-za/**'
+    exclude:
+      - '/**.json'
+    target: /en-za/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  es-ar:
+    include:
+      - '/es-ar/**'
+    exclude:
+      - '/**.json'
+    target: /es-ar/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  es-cl:
+    include:
+      - '/es-cl/**'
+    exclude:
+      - '/**.json'
+    target: /es-cl/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  es-co:
+    include:
+      - '/es-co/**'
+    exclude:
+      - '/**.json'
+    target: /es-co/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  es-es:
+    include:
+      - '/es-es/**'
+    exclude:
+      - '/**.json'
+    target: /es-es/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  es-mx:
+    include:
+      - '/es-mx/**'
+    exclude:
+      - '/**.json'
+    target: /es-mx/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  es-ww:
+    include:
+      - '/es-ww/**'
+    exclude:
+      - '/**.json'
+    target: /es-ww/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  fr-be:
+    include:
+      - '/fr-be/**'
+    exclude:
+      - '/**.json'
+    target: /fr-be/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  fr-ca:
+    include:
+      - '/fr-ca/**'
+    exclude:
+      - '/**.json'
+    target: /fr-ca/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  fr-ch:
+    include:
+      - '/fr-ch/**'
+    exclude:
+      - '/**.json'
+    target: /fr-ch/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  fr-fr:
+    include:
+      - '/fr-fr/**'
+    exclude:
+      - '/**.json'
+    target: /fr-fr/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  id-id:
+    include:
+      - '/id-id/**'
+    exclude:
+      - '/**.json'
+    target: /id-id/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  it-it:
+    include:
+      - '/it-it/**'
+    exclude:
+      - '/**.json'
+    target: /it-it/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  ja-jp:
+    include:
+      - '/ja-jp/**'
+    exclude:
+      - '/**.json'
+    target: /ja-jp/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  ko-kr:
+    include:
+      - '/ko-kr/**'
+    exclude:
+      - '/**.json'
+    target: /ko-kr/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  ms-my:
+    include:
+      - '/ms-my/**'
+    exclude:
+      - '/**.json'
+    target: /ms-my/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  nl-be:
+    include:
+      - '/nl-be/**'
+    exclude:
+      - '/**.json'
+    target: /nl-be/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  nl-nl:
+    include:
+      - '/nl-nl/**'
+    exclude:
+      - '/**.json'
+    target: /nl-nl/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  no-no:
+    include:
+      - '/no-no/**'
+    exclude:
+      - '/**.json'
+    target: /no-no/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  pl-pl:
+    include:
+      - '/pl-pl/**'
+    exclude:
+      - '/**.json'
+    target: /pl-pl/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  pt-br:
+    include:
+      - '/pt-br/**'
+    exclude:
+      - '/**.json'
+    target: /pt-br/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  pt-pt:
+    include:
+      - '/pt-pt/**'
+    exclude:
+      - '/**.json'
+    target: /pt-pt/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  ru-ru:
+    include:
+      - '/ru-ru/**'
+    exclude:
+      - '/**.json'
+    target: /ru-ru/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  sk-sk:
+    include:
+      - '/sk-sk/**'
+    exclude:
+      - '/**.json'
+    target: /sk-sk/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  tr-tr:
+    include:
+      - '/tr-tr/**'
+    exclude:
+      - '/**.json'
+    target: /tr-tr/query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+  zh-tw:
+    include:
+      - '/zh-tw/**'
+    exclude:
+      - '/**.json'
+    target: /zh-tw/query-index.json
     properties:
       lastModified:
         select: none
