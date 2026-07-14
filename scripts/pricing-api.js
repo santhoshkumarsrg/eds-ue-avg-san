@@ -15,8 +15,7 @@
 
 import env from './env.js';
 
-const API_BASE = `${env.pricingApiBase}${env.consumerPriceList}`;
-const PLATFORM = env.pricingPlatform;
+const API_BASE = env.pricingApiBase;
 const DEFAULT_LOCALE = env.pricingDefaultLocale;
 const FALLBACK = 'X.XX';
 const BUY_LINK_TOKEN = '{buy_link}';
@@ -108,7 +107,8 @@ function resolveBuyLink(plan, data) {
 }
 
 /**
- * Fetches the pricelist for one campaign + set of SKUs.
+ * Fetches the pricelist for one campaign + set of SKUs from the Adobe App
+ * Builder pricing action.
  * @param {string} campaign
  * @param {string[]} skus
  * @param {string} locale
@@ -116,10 +116,8 @@ function resolveBuyLink(plan, data) {
  */
 async function fetchPricelist(campaign, skus, locale) {
   const params = new URLSearchParams({
-    platform: PLATFORM,
+    skus: skus.join(','),
     locale,
-    internalIds: skus.join(','),
-    replaceAll: 1,
   });
   if (campaign) params.set('campaign', campaign);
   const url = `${API_BASE}?${params.toString()}`;

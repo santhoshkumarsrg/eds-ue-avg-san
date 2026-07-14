@@ -16,22 +16,24 @@
  * anything that must differ per environment.
  */
 
-/** Values shared across every environment (also the qa defaults). */
+/**
+ * Values shared across every environment (also the qa defaults).
+ *
+ * Pricing is served by the Adobe App Builder (I/O Runtime) `pricing` action,
+ * which proxies the internal pricing API. The non-prod (stage) endpoint is the
+ * default and is used by both qa and stage; live overrides it with prod.
+ */
 const DEFAULTS = {
-  pricingApiBase: 'https://pricing-api.svc.int.avast.com/api/v2/pricing/',
-  consumerPriceList: 'pricelist',
-  pricingPlatform: 'web',
+  pricingApiBase: 'https://47259-avg-stage.adobeioruntime.net/api/v1/web/avg-app-builder/pricing',
   pricingDefaultLocale: 'en-ww',
 };
 
 /** Per-environment overrides (only list keys that differ from DEFAULTS). */
 const OVERRIDES = {
   qa: {},
-  stage: {
-    pricingApiBase: 'https://stage-pricing-api.svc.int.avast.com/api/v2/pricing/',
-  },
+  stage: {},
   live: {
-    pricingApiBase: 'https://www.avast.com/api/v2/pricing/',
+    pricingApiBase: 'https://47259-avg.adobeioruntime.net/api/v1/web/avg-app-builder/pricing',
   },
 };
 
