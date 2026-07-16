@@ -102,21 +102,21 @@
 }
 
 /*
- * Universal Editor: instrumented panels carry data-aue-* (moved from the item
- * row), which is absent on delivered pages. Use it to reveal every panel at
- * once and label each one so all tab items are visible and editable in place.
+ * Universal Editor: editor-support.js adds `adobe-ue-edit` to <html> only in
+ * the authoring context (never on delivered pages). Use it to reveal every
+ * panel at once and label each one so all tab items are visible and editable.
  */
-.tabs .tabs-panel[data-aue-resource] {
+.adobe-ue-edit .tabs .tabs-panel {
   display: block;
 }
 
-.tabs .tabs-panel[data-aue-resource] + .tabs-panel[data-aue-resource] {
+.adobe-ue-edit .tabs .tabs-panel + .tabs-panel {
   margin-top: 24px;
   border-top: 1px solid var(--avg-gray6);
   padding-top: 24px;
 }
 
-.tabs .tabs-panel[data-aue-resource] .tabs-panel-label {
+.adobe-ue-edit .tabs .tabs-panel-label {
   display: block;
   margin: 24px 0 0;
   color: var(--avg-green);

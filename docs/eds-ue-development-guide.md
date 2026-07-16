@@ -17,8 +17,9 @@ code in this repository.
 9. [Error page content (404 and 500)](#9-error-page-content-404-and-500)
 10. [Analytics in EDS](#10-analytics-in-eds)
 11. [Sitemap and robots.txt](#11-sitemap-and-robotstxt)
-12. [Other patterns used in this project](#12-other-patterns-used-in-this-project)
-13. [Bulk metadata and `<html lang>` inheritance](#13-bulk-metadata-and-html-lang-inheritance)
+12. [Bulk metadata and `<html lang>` inheritance](#12-bulk-metadata-and-html-lang-inheritance)
+13. [Path mapping via the Config Service](#13-path-mapping-via-the-config-service)
+14. [Other patterns used in this project](#14-other-patterns-used-in-this-project)
 
 ---
 
@@ -130,7 +131,7 @@ Keywords. To add a property, append a field:
 
 For properties applied across many pages at once (whole locale subtrees, folder
 sections, etc.), use a bulk `metadata` sheet instead of per-page authoring —
-see [section 13](#13-bulk-metadata-and-html-lang-inheritance) for the AEM/UE-specific
+see [section 12](#12-bulk-metadata-and-html-lang-inheritance) for the AEM/UE-specific
 authoring steps and a worked `lang` (`<html lang>`) example.
 
 ### What EDS renders into `<head>` automatically
@@ -852,7 +853,7 @@ Guidelines:
 - Never load analytics in the eager phase; the 100 Lighthouse target
 ([https://www.aem.live/developer/keeping-it-100](https://www.aem.live/developer/keeping-it-100)) depends on it.
 - Use per-environment config from `scripts/env.js` (see
-[section 12](#12-other-patterns-used-in-this-project)) to switch between dev/stage/prod report suites
+[section 14](#14-other-patterns-used-in-this-project)) to switch between dev/stage/prod report suites
 or containers.
 - Note the CSP in `head.html` (`script-src 'nonce-aem' 'strict-dynamic' …`) —
 scripts injected from a nonce'd module script are trusted via `strict-dynamic`.
@@ -1058,64 +1059,7 @@ domain. Don't add `Disallow` rules "for development".
 `robots: noindex` — a `Disallow` blocks the crawler from ever seeing the
 `noindex`, making removal impossible.
 
-
-
-## 12. Other patterns used in this project
-
-Things implemented here that go beyond the boilerplate:
-
-**Environment config —** `scripts/env.js`**.** EDS has no build step, so there are no
-build-time environment variables. `env.js` resolves the environment from the
-hostname (`main--…`/production domains → `live`, `stage--…` → `stage`, everything
-else including localhost → `qa`) and exposes a merged `DEFAULTS + OVERRIDES[env]`
-object. Add any per-environment value (API bases, analytics IDs) there and
-`import env from './env.js'`.
-
-**Live pricing —** `scripts/pricing-api.js` **+ the pricing block.** Pricing Plan
-items carry hidden `data-sku`/`data-campaign` attributes (authored via model
-fields). The module fetches the pricelist for the locale (derived from the first
-URL path segment, e.g. `/en-ww/…`), and resolves `{sale_price}`-style tokens in
-text and the `{buy_link}` token in buy buttons, with guaranteed fallbacks so raw
-tokens never render. It's triggered from the pricing block's `decorate` (lazy
-phase), not `delayed.js`, so the price shimmer resolves sooner. Design notes in
-`docs/pricing-fetch-approaches.md` and `docs/pricing-eds-json-crawl-discovery.md`.
-
-**Content-driven development —** `drafts/`**.** Static test content
-(`*.plain.html` full aem-markup fixtures, plus `*-authoring.md` notes describing
-how authors should build the page in UE) lives in `drafts/`. Start the dev server
-with the folder mounted to work without authored CMS content:
-
-```bash
-npx @adobe/aem-cli up --no-open --forward-browser-logs --html-folder drafts
-```
-
-(`npm run dev` runs `aem up` with system CA support for corporate networks.)
-
-**Universal Editor support scripts.** `scripts/editor-support.js` and
-`scripts/editor-support-rte.js` enhance WYSIWYG editing (rich text decoration,
-re-decoration after edits). They only load inside UE; you rarely touch them, but
-they are why `moveInstrumentation` matters in block code.
-
-**Buttons by authoring convention.** `decorateButtons` in `scripts/scripts.js`
-only turns links into buttons when the author formats them: **bold** link →
-`.button.primary`, *italic* → `.button.secondary`, bold+italic → `.button.accent`.
-Plain links stay links. There is also a dedicated `icon-button` block for
-image-adorned CTAs.
-
-**Three-phase loading.** `scripts/scripts.js` orchestrates eager (decorate +
-first section, fonts on desktop), lazy (remaining sections, header, footer,
-`lazy-styles.css`), and delayed (`delayed.js` after 3s). Respect the phases when
-adding functionality: LCP-critical work in eager, everything else lazy or delayed.
-
-**Multi-field UE support.** `xwalk.json` enables the `multi-field` public flag,
-allowing `multi: true` model fields (used by `keywords`).
-
-**Serving hygiene.** `.hlxignore` keeps non-runtime files off the public site:
-dotfiles, all `*.md` (including this guide and everything in `docs/`), tests,
-`package.json`, and the `_*` partial model files. Anything not listed there is
-served publicly — remember this is all client-side code on the open web.
-
-## 13. Bulk metadata and `<html lang>` inheritance
+## 12. Bulk metadata and `<html lang>` inheritance
 
 Traditional AEM has an inheritance concept: set a property (e.g. language) on
 a parent page and child pages inherit it, with the option to reset it on a
@@ -1306,3 +1250,212 @@ override case, and the aggregated model/definition/filter JSON was rebuilt
 column consumed by a small head/JS snippet, or a CSS `:lang(ar)` selector) if
 the design needs mirrored layout — that's a separate concern from the language
 tag itself.
+
+## 13. Path mapping via the Config Service
+
+Path mapping decouples the **AEM repository path** from the **public EDS URL**,
+so a page authored at `/content/eds-ue-avg-san/fr/fr/smb` can be served at a
+clean locale URL like `/fr-fr/smb` instead of the default `/fr/fr/smb`. There
+are two ways to configure it:
+
+- **File-based (`paths.json`)** — mappings committed to the repo root and
+  versioned with code (the same `paths.json` used to map a spreadsheet to
+  `/metadata.json` in [section 12](#12-bulk-metadata-and-html-lang-inheritance)).
+- **Config Service (`public.json`)** — mappings stored in the site's admin
+  configuration instead of the repo. Use this when AEM's **Path Mapping** is set
+  to **Config Service**. The rest of this section walks through that setup.
+
+### 1. Confirm the source and target paths
+
+| Path             | Value                                 |
+| ---------------- | ------------------------------------- |
+| AEM path         | `/content/eds-ue-avg-san/fr/fr/smb`   |
+| Current EDS path | `/fr/fr/smb`                          |
+| Required EDS path| `/fr-fr/smb`                          |
+
+Folder mappings **must end with `/`** on both sides:
+
+```
+/content/eds-ue-avg-san/fr/fr/:/fr-fr/
+```
+
+### 2. Open the Admin Edit tool
+
+Open <https://tools.aem.live/tools/admin-edit/index.html> and sign in with an
+account that has configuration access.
+
+### 3. Verify the Config Service site exists
+
+In **Admin URL**, enter the following and click **Fetch**:
+
+```
+https://admin.hlx.page/config/santhoshkumarsrg/sites/eds-ue-avg-san.json
+```
+
+- If it returns configuration JSON, continue to step 4.
+- If it returns **404**, create the site by issuing a **POST** to the same URL
+  with the site's code and AEM markup source configuration. Derive the content
+  source from the existing Admin status response's `sourceLocation`, excluding
+  the `markup:` prefix and the page-specific `/index.html` suffix.
+
+### 4. Open or create the public configuration
+
+Change **Admin URL** to:
+
+```
+https://admin.hlx.page/config/santhoshkumarsrg/sites/eds-ue-avg-san/public.json
+```
+
+Click **Fetch**. A **404** here can simply mean `public.json` has not been
+created yet.
+
+### 5. Add the path mapping
+
+Preserve any existing properties and add a `paths` object:
+
+```json
+{
+  "paths": {
+    "mappings": [
+      "/content/eds-ue-avg-san/us/en/:/en-us/",
+      "/content/eds-ue-avg-san/fr/fr/:/fr-fr/",
+      "/content/eds-ue-avg-san/ch/fr/:/fr-ch/",
+      "/content/eds-ue-avg-san/ch/de/:/de-ch/",
+      "/content/eds-ue-avg-san/ch/it/:/it-ch/",
+      "/content/eds-ue-avg-san/es/es/:/es-es/"
+    ],
+    "includes": [
+      "/content/eds-ue-avg-san/us/en/",
+      "/content/eds-ue-avg-san/fr/fr/",
+      "/content/eds-ue-avg-san/ch/fr/",
+      "/content/eds-ue-avg-san/ch/de/",
+      "/content/eds-ue-avg-san/ch/it/",
+      "/content/eds-ue-avg-san/es/es/"
+    ],
+    "excludes": [
+      "/content/eds-ue-avg-san/language-masters/**",
+      "/content/eds-ue-avg-san/**/drafts/**"
+    ]
+  }
+}
+```
+
+Select **POST** and click **Save**.
+
+> **Do not POST this object to the `/status/...` endpoint.** Posting `paths` to
+> the status API fails with: `[admin] bulk-status 'paths' is not an array`.
+
+### 6. Point AEM at the Config Service
+
+In **AEM Author**, go to **Tools → Cloud Services → Edge Delivery Services
+Configuration →** select the project configuration **→ Properties**, and change:
+
+- **Path Mapping:** `File-based configuration (paths.json)` → `Config Service`
+
+Save. The **Project Type** field does not need to change when the dedicated
+**Path Mapping** option is available.
+
+### 7. Verify the effective configuration
+
+Open <https://main--eds-ue-avg-san--santhoshkumarsrg.aem.live/config.json> and
+confirm it contains the expected `paths` object.
+
+### 8. Confirm the actual AEM content path
+
+In **AEM Sites**, confirm the page really lives at
+`/content/eds-ue-avg-san/fr/fr/smb`. The internal path in `mappings` and
+`includes` must match the AEM repository path **exactly**.
+
+### 9. Republish the affected content
+
+Republish the page or the whole locale subtree after changing the
+configuration — existing published resources are **not** moved automatically.
+Then validate both:
+
+```
+https://main--eds-ue-avg-san--santhoshkumarsrg.aem.page/fr-fr/smb
+https://main--eds-ue-avg-san--santhoshkumarsrg.aem.live/fr-fr/smb
+```
+
+In the tested workflow, publishing from AEM made both `.aem.page` and
+`.aem.live` available without a separate preview action.
+
+### 10. Verify the mapped resource via Admin status
+
+```
+https://admin.hlx.page/status/santhoshkumarsrg/eds-ue-avg-san/main/fr-fr/smb
+```
+
+Confirm the response reports:
+
+```json
+{ "webPath": "/fr-fr/smb" }
+```
+
+### 11. Clean up the previous URL
+
+Because path mapping does not delete existing resources, the old URL
+(`/fr/fr/smb`) may keep working. After validating the new URL, add a permanent
+redirect:
+
+```
+/fr/fr/smb → /fr-fr/smb
+```
+
+Also update internal links, canonical URLs, hreflang entries, sitemaps, locale
+switchers, analytics paths, and campaign links to use `/fr-fr/`.
+
+## 14. Other patterns used in this project
+
+Things implemented here that go beyond the boilerplate:
+
+**Environment config —** `scripts/env.js`**.** EDS has no build step, so there are no
+build-time environment variables. `env.js` resolves the environment from the
+hostname (`main--…`/production domains → `live`, `stage--…` → `stage`, everything
+else including localhost → `qa`) and exposes a merged `DEFAULTS + OVERRIDES[env]`
+object. Add any per-environment value (API bases, analytics IDs) there and
+`import env from './env.js'`.
+
+**Live pricing —** `scripts/pricing-api.js` **+ the pricing block.** Pricing Plan
+items carry hidden `data-sku`/`data-campaign` attributes (authored via model
+fields). The module fetches the pricelist for the locale (derived from the first
+URL path segment, e.g. `/en-ww/…`), and resolves `{sale_price}`-style tokens in
+text and the `{buy_link}` token in buy buttons, with guaranteed fallbacks so raw
+tokens never render. It's triggered from the pricing block's `decorate` (lazy
+phase), not `delayed.js`, so the price shimmer resolves sooner. Design notes in
+`docs/pricing-fetch-approaches.md` and `docs/pricing-eds-json-crawl-discovery.md`.
+
+**Content-driven development —** `drafts/`**.** Static test content
+(`*.plain.html` full aem-markup fixtures, plus `*-authoring.md` notes describing
+how authors should build the page in UE) lives in `drafts/`. Start the dev server
+with the folder mounted to work without authored CMS content:
+
+```bash
+npx @adobe/aem-cli up --no-open --forward-browser-logs --html-folder drafts
+```
+
+(`npm run dev` runs `aem up` with system CA support for corporate networks.)
+
+**Universal Editor support scripts.** `scripts/editor-support.js` and
+`scripts/editor-support-rte.js` enhance WYSIWYG editing (rich text decoration,
+re-decoration after edits). They only load inside UE; you rarely touch them, but
+they are why `moveInstrumentation` matters in block code.
+
+**Buttons by authoring convention.** `decorateButtons` in `scripts/scripts.js`
+only turns links into buttons when the author formats them: **bold** link →
+`.button.primary`, *italic* → `.button.secondary`, bold+italic → `.button.accent`.
+Plain links stay links. There is also a dedicated `icon-button` block for
+image-adorned CTAs.
+
+**Three-phase loading.** `scripts/scripts.js` orchestrates eager (decorate +
+first section, fonts on desktop), lazy (remaining sections, header, footer,
+`lazy-styles.css`), and delayed (`delayed.js` after 3s). Respect the phases when
+adding functionality: LCP-critical work in eager, everything else lazy or delayed.
+
+**Multi-field UE support.** `xwalk.json` enables the `multi-field` public flag,
+allowing `multi: true` model fields (used by `keywords`).
+
+**Serving hygiene.** `.hlxignore` keeps non-runtime files off the public site:
+dotfiles, all `*.md` (including this guide and everything in `docs/`), tests,
+`package.json`, and the `_*` partial model files. Anything not listed there is
+served publicly — remember this is all client-side code on the open web.

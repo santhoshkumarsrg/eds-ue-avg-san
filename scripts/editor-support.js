@@ -113,6 +113,11 @@ function attachEventListeners(main) {
   }));
 }
 
+// This script only loads inside Universal Editor, so flag the document as being
+// in the authoring context. Blocks can scope edit-only styling to this class
+// (e.g. tabs reveals all its panels at once — see blocks/tabs/tabs.css).
+document.documentElement.classList.add('adobe-ue-edit');
+
 attachEventListeners(document.querySelector('main'));
 
 // decorate rich text
