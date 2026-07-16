@@ -1136,7 +1136,7 @@ Reference: [aem.live — Bulk Metadata](https://www.aem.live/developer/bulk-meta
 
   | URL | theme | robots | og:image |
   | --- | --- | --- | --- |
-  | `/**` | | | `/default-og.png` |
+  | `/**` | | | `https://www.avg.com/default-og.png` |
   | `/blog/**` | `blog` | | |
   | `/legal/**` | | `noindex` | |
 
@@ -1192,6 +1192,49 @@ You can also expose any of these properties as a **page-property field** in
 `models/_page.json` (the `page-metadata` model) so authors can override the
 bulk value for a single page from Universal Editor — page metadata always
 wins over the sheet.
+
+### This project's metadata sheet (current working example)
+
+The sheet is column-based and can be maintained as an AEM Spreadsheet or a
+committed CSV mapped to `/metadata.json`; the first column is `url`, the rest
+are property names. The current in-project sheet sets three properties across
+three URL patterns:
+
+```csv
+url,lang,robots,og:image
+/**,en-ww,,https://main--eds-ue-avg-san--santhoshkumarsrg.aem.live/media_117f0743f115663cfa8e4553e1de8529a9b7ca052.svg
+/santhosh-test/fragments/**,,"noindex, nofollow",
+/fr/fr/**,fr-fr,,
+```
+
+Read top-to-bottom, that resolves to:
+
+| URL pattern | Effect |
+| --- | --- |
+| `/**` | Site-wide default: `lang` `en-ww` → `<html lang="en-ww">`; a default `og:image` (an absolute `.aem.live` media URL). No `robots` value = the crawler default `index, follow`. |
+| `/santhosh-test/fragments/**` | Fragment pages get `robots` `noindex, nofollow` so they are neither indexed nor crawled (and drop out of the sitemap). `lang`/`og:image` cells are empty, so they inherit the `/**` values. |
+| `/fr/fr/**` | The French locale subtree overrides `lang` to `fr-fr` → `<html lang="fr-fr">`; `robots`/`og:image` inherit from `/**`. |
+
+Points this example illustrates:
+
+- **Empty cell = inherit** the value from the broader (`/**`) row; it does not
+  reset it. Use an explicit `""` only when you want to *remove* an inherited
+  value.
+- **`lang` needs the client-side wiring** described below — the sheet alone
+  produces `<meta name="lang">`, not `<html lang>`.
+- **`robots` empty means `index, follow`** — only fill it in to restrict a
+  subtree. On `*.aem.page`/`*.aem.live` the platform forces `noindex` anyway,
+  so this only bites on the production domain.
+- **`og:image` must be an absolute, publicly fetchable URL** — social crawlers
+  fetch it server-side with no JS and no AEM auth, and a value typed into a
+  sheet cell is emitted verbatim (the EDS media pipeline only optimizes images
+  that appear *in page content*, not sheet values). Reference either a
+  published `.aem.live` media URL (as above) or, for a DAM asset, its Dynamic
+  Media (OpenAPI) delivery URL
+  (`https://delivery-p{prog}-e{env}.adobeaemcloud.com/adobe/assets/{assetId}/as/{seoName}.jpg?width=1200`) —
+  never a raw `/content/dam/…` path. Prefer the `image` property (it populates
+  `og:image`, `og:image:secure_url` *and* `twitter:image`); a bare `og:image`
+  column sets only that one tag.
 
 ### Worked example: `<html lang>` inheritance with a subtree reset
 

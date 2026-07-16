@@ -62,6 +62,16 @@ export default async function decorate(block) {
     }
     if (!button.textContent.trim()) button.textContent = `Tab ${i + 1}`;
     nav.append(button);
+
+    // Mirror the tab label into the panel. Hidden on delivered pages (see
+    // tabs.css); the editor reveals it so every stacked panel reads clearly.
+    // Decorative only — the editable label field stays on the nav button.
+    const panelLabel = document.createElement('p');
+    panelLabel.className = 'tabs-panel-label';
+    panelLabel.setAttribute('aria-hidden', 'true');
+    panelLabel.textContent = button.textContent;
+    panel.prepend(panelLabel);
+
     panels.append(panel);
 
     return { panel, refCell };

@@ -95,3 +95,32 @@
 .tabs-faq-a p {
   margin: 0;
 }
+
+/* The per-panel label mirrors the nav tab; only shown in the editor. */
+.tabs .tabs-panel-label {
+  display: none;
+}
+
+/*
+ * Universal Editor: instrumented panels carry data-aue-* (moved from the item
+ * row), which is absent on delivered pages. Use it to reveal every panel at
+ * once and label each one so all tab items are visible and editable in place.
+ */
+.tabs .tabs-panel[data-aue-resource] {
+  display: block;
+}
+
+.tabs .tabs-panel[data-aue-resource] + .tabs-panel[data-aue-resource] {
+  margin-top: 24px;
+  border-top: 1px solid var(--avg-gray6);
+  padding-top: 24px;
+}
+
+.tabs .tabs-panel[data-aue-resource] .tabs-panel-label {
+  display: block;
+  margin: 24px 0 0;
+  color: var(--avg-green);
+  font-size: var(--tp-fs-body3);
+  font-weight: 700;
+  line-height: 1.2;
+}
