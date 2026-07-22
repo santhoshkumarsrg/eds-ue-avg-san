@@ -164,7 +164,7 @@ export function buildNortonAnalytics() {
   const siteSubSubSection = getMetadata('site-sub-sub-section') || fromPath.siteSubSubSection;
 
   // Limited-locale prepend code (Avast LanguageCountryMapping); empty for most pages.
-  const langCtryCode = getMetadata('lang-ctry-code') || '';
+  const langCtryCode = getMetadata('lang') || '';
 
   return {
     account: env.analyticsAccount,
