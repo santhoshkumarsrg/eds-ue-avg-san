@@ -14,7 +14,8 @@ import env from './env.js';
 
 const MISSING = 'missing';
 const REGEX_PAGE_NAME_INVALID_CHARS = /[^\w\d\s\-&.]/g;
-const REGEX_LOCALE_PATTERN = /\w{2}-\w{2}/;
+/** Full-segment locale only (e.g. en-ww, en-us). Must not match inside "santhosh-test". */
+const REGEX_LOCALE_SEGMENT = /^[a-z]{2}-[a-z]{2,3}$/i;
 const DEFAULT_LOCALE = 'en-ww';
 
 /**
@@ -29,48 +30,65 @@ function normalizeName(value) {
 }
 
 /**
- * Extracts locale from page path using regex pattern \w{2}-\w{2}.
- * Falls back to "en-ww" if no match found.
- * @param {string} pathname
- * @returns {string}
+ * Returns true when value is a full locale token like `en-ww` / `en-us`.
+ * @param {string} value
+ * @returns {boolean}
  */
-function getLocaleFromPath(pathname) {
-  const segments = pathname.split('/').filter(Boolean);
-  if (segments.length > 0) {
-    const match = segments[0].match(REGEX_LOCALE_PATTERN);
-    if (match) {
-      return match[0].toLowerCase();
-    }
-  }
-  return DEFAULT_LOCALE;
+function isLocaleSegment(value) {
+  return REGEX_LOCALE_SEGMENT.test(value || '');
 }
 
 /**
- * Parses site language and country from metadata / `<html lang>` / URL.
+ * Extracts a locale from the first path segment when it is a real locale token.
+ * @param {string} pathname
+ * @returns {string} locale or empty string when the path has no locale prefix
+ */
+function getLocaleFromPath(pathname) {
+  const first = pathname.split('/').filter(Boolean)[0] || '';
+  return isLocaleSegment(first) ? first.toLowerCase() : '';
+}
+
+/**
+ * Parses `lang-country` into language + country parts.
+ * @param {string} locale
+ * @returns {{ siteLanguage: string, siteCountry: string }}
+ */
+function splitLocale(locale) {
+  if (!locale || !locale.includes('-')) {
+    return { siteLanguage: (locale || '').toLowerCase(), siteCountry: '' };
+  }
+  const [lang, country] = locale.toLowerCase().split('-');
+  return { siteLanguage: lang || '', siteCountry: country || '' };
+}
+
+/**
+ * Parses site language and country from lang meta / `<html lang>` (authoritative),
+ * then URL locale prefix, then `en-ww`.
+ *
+ * Lang meta is the true source: a `/fr-fr/...` URL with meta `en-ww` resolves to
+ * `en` / `ww`. `scripts.js` removes `<meta name="lang">` after copying it to
+ * `document.documentElement.lang`, so delayed analytics reads that first.
+ *
  * Applies Avast country remaps: lm+es → lam, uk+en → gb.
+ *
  * @returns {{ siteLanguage: string, siteCountry: string }}
  */
 function resolveLocale() {
-  const langMeta = getMetadata('lang') || '';
-  let siteLanguage = '';
-  let siteCountry = '';
+  // Prefer <html lang> (set in eager); meta[name=lang] is removed by then.
+  const langHint = document.documentElement.lang || getMetadata('lang') || '';
+  let { siteLanguage, siteCountry } = isLocaleSegment(langHint)
+    ? splitLocale(langHint)
+    : { siteLanguage: '', siteCountry: '' };
 
-  if (langMeta.includes('-')) {
-    const [lang, country] = langMeta.toLowerCase().split('-');
-    siteLanguage = lang || '';
-    siteCountry = country || '';
-  } else if (langMeta) {
-    siteLanguage = langMeta.toLowerCase();
-  }
-
-  // Fallback: extract locale from URL path using regex \w{2}-\w{2}
   if (!siteLanguage || !siteCountry) {
     const localeFromPath = getLocaleFromPath(window.location.pathname);
-    if (localeFromPath !== DEFAULT_LOCALE || (!siteLanguage && !siteCountry)) {
-      const [lang, country] = localeFromPath.toLowerCase().split('-');
-      siteLanguage = siteLanguage || lang || '';
-      siteCountry = siteCountry || country || '';
+    if (localeFromPath) {
+      ({ siteLanguage, siteCountry } = splitLocale(localeFromPath));
     }
+  }
+
+  if (!siteLanguage || !siteCountry) {
+    ({ siteLanguage, siteCountry } = splitLocale(DEFAULT_LOCALE));
   }
 
   if (siteCountry === 'lm' && siteLanguage === 'es') {
@@ -79,7 +97,7 @@ function resolveLocale() {
     siteCountry = 'gb';
   }
 
-  return { siteLangCountry: langMeta, siteLanguage, siteCountry };
+  return { siteLanguage, siteCountry };
 }
 
 /**
@@ -89,7 +107,7 @@ function resolveLocale() {
  */
 function getContentSegments(pathname) {
   const segments = pathname.split('/').filter(Boolean);
-  if (segments.length && /^[a-z]{2}-[a-z]{2,3}$/i.test(segments[0])) {
+  if (segments.length && isLocaleSegment(segments[0])) {
     return segments.slice(1);
   }
   return segments;
@@ -131,7 +149,7 @@ function resolveSiteSectionsFromPath(contentSegments) {
  * @returns {object}
  */
 export function buildNortonAnalytics() {
-  const { siteLangCountry, siteLanguage, siteCountry } = resolveLocale();
+  const { siteLanguage, siteCountry } = resolveLocale();
   const contentSegments = getContentSegments(window.location.pathname);
   const fromPath = resolveSiteSectionsFromPath(contentSegments);
 
@@ -145,6 +163,9 @@ export function buildNortonAnalytics() {
   const siteSubSection = getMetadata('site-sub-section') || fromPath.siteSubSection;
   const siteSubSubSection = getMetadata('site-sub-sub-section') || fromPath.siteSubSubSection;
 
+  // Limited-locale prepend code (Avast LanguageCountryMapping); empty for most pages.
+  const langCtryCode = getMetadata('lang-ctry-code') || '';
+
   return {
     account: env.analyticsAccount,
     site_country: siteCountry,
@@ -156,7 +177,7 @@ export function buildNortonAnalytics() {
     site_sub_section: siteSubSection,
     site_sub_sub_section: siteSubSubSection,
     page_name: pageName,
-    lang_ctry_code: siteLangCountry,
+    lang_ctry_code: langCtryCode,
     environment: env.analyticsEnvironment,
   };
 }
