@@ -26,6 +26,8 @@
 const DEFAULTS = {
   pricingApiBase: 'https://47259-avg-stage.adobeioruntime.net/api/v1/web/avg-app-builder/pricing',
   pricingDefaultLocale: 'en-ww',
+  // Mirrors Avast OSGi AnalyticsUtilImpl adobeAnalyticsAccount (non-prod).
+  analyticsAccount: 'veritasdev',
 };
 
 /** Per-environment overrides (only list keys that differ from DEFAULTS). */
@@ -34,6 +36,8 @@ const OVERRIDES = {
   stage: {},
   live: {
     pricingApiBase: 'https://47259-avg.adobeioruntime.net/api/v1/web/avg-app-builder/pricing',
+    // Mirrors Avast OSGi AnalyticsUtilImpl adobeAnalyticsAccount (prod.publish).
+    analyticsAccount: 'symanteccom',
   },
 };
 
@@ -41,7 +45,7 @@ const OVERRIDES = {
  * Resolves the current environment name from the hostname.
  * @returns {'qa'|'stage'|'live'}
  */
-function resolveEnvName() {
+export function resolveEnvName() {
   const { hostname } = window.location;
 
   // Local dev defaults to qa.
@@ -60,6 +64,18 @@ function resolveEnvName() {
   return 'qa';
 }
 
-const env = { ...DEFAULTS, ...OVERRIDES[resolveEnvName()] };
+const envName = resolveEnvName();
+
+const env = {
+  ...DEFAULTS,
+  ...OVERRIDES[envName],
+  /** Active EDS environment name (`qa` | `stage` | `live`). */
+  name: envName,
+  /**
+   * Analytics data-layer environment value.
+   * Mirrors AvastAnalytics: `prod` on live/prod-publish, otherwise `dev`.
+   */
+  analyticsEnvironment: envName === 'live' ? 'prod' : 'dev',
+};
 
 export default env;
