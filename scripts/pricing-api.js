@@ -26,7 +26,7 @@ const inflight = new Map();
 
 /**
  * Placeholder token name -> pricing API response field. The API's formatted
- * fields already include the currency symbol (e.g. "$7.50").
+ * fields already include the currency symbol (e.g. "$7.50", "69,99&nbsp;&euro;").
  */
 const PRICE_FIELDS = {
   strike_price: 'priceFormatted',
@@ -40,6 +40,9 @@ const PRICE_FIELDS = {
 /** All token names this module resolves (price fields plus the discount). */
 const TOKEN_NAMES = [...Object.keys(PRICE_FIELDS), 'discount'];
 
+/** Reused element for decoding HTML entities from pricing API strings. */
+const entityDecoder = document.createElement('textarea');
+
 /**
  * Locale for the pricing request, derived from the first URL path segment when
  * it looks like a locale (e.g. /en-ww/…). Falls back to en-ww.
@@ -52,6 +55,18 @@ function getLocale() {
 }
 
 /**
+ * Decodes HTML entities in pricing API strings (e.g. `&nbsp;`, `&euro;`) so they
+ * render as real characters when written into text nodes.
+ * @param {string} value
+ * @returns {string}
+ */
+function decodeEntities(value) {
+  if (!value || !value.includes('&')) return value;
+  entityDecoder.innerHTML = value;
+  return entityDecoder.value;
+}
+
+/**
  * Builds the token-name -> formatted-value map for one SKU's pricing data.
  * Returns an empty object when there is no usable data (so callers fall back).
  * @param {object|null} data pricing API entry for one internal id
@@ -61,11 +76,13 @@ function buildValues(data) {
   const values = {};
   if (!data || data.error) return values;
   Object.entries(PRICE_FIELDS).forEach(([name, field]) => {
-    if (data[field] != null && data[field] !== '') values[name] = String(data[field]);
+    if (data[field] != null && data[field] !== '') {
+      values[name] = decodeEntities(String(data[field]));
+    }
   });
   // {discount} prefers the percentage form, then the currency form.
   const discount = data.discountPercentFormatted || data.discountFormatted;
-  if (discount) values.discount = String(discount);
+  if (discount) values.discount = decodeEntities(String(discount));
   return values;
 }
 
