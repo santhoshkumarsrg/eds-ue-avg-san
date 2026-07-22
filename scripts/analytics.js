@@ -14,6 +14,8 @@ import env from './env.js';
 
 const MISSING = 'missing';
 const REGEX_PAGE_NAME_INVALID_CHARS = /[^\w\d\s\-&.]/g;
+const REGEX_LOCALE_PATTERN = /\w{2}-\w{2}/;
+const DEFAULT_LOCALE = 'en-ww';
 
 /**
  * Normalizes a page/segment name the same way AEM does
@@ -24,6 +26,23 @@ const REGEX_PAGE_NAME_INVALID_CHARS = /[^\w\d\s\-&.]/g;
 function normalizeName(value) {
   if (!value) return '';
   return value.toLowerCase().replace(REGEX_PAGE_NAME_INVALID_CHARS, '');
+}
+
+/**
+ * Extracts locale from page path using regex pattern \w{2}-\w{2}.
+ * Falls back to "en-ww" if no match found.
+ * @param {string} pathname
+ * @returns {string}
+ */
+function getLocaleFromPath(pathname) {
+  const segments = pathname.split('/').filter(Boolean);
+  if (segments.length > 0) {
+    const match = segments[0].match(REGEX_LOCALE_PATTERN);
+    if (match) {
+      return match[0].toLowerCase();
+    }
+  }
+  return DEFAULT_LOCALE;
 }
 
 /**
@@ -44,11 +63,11 @@ function resolveLocale() {
     siteLanguage = langMeta.toLowerCase();
   }
 
-  // Fallback: first URL segment like /en-us/...
+  // Fallback: extract locale from URL path using regex \w{2}-\w{2}
   if (!siteLanguage || !siteCountry) {
-    const first = window.location.pathname.split('/').filter(Boolean)[0] || '';
-    if (first.includes('-')) {
-      const [lang, country] = first.toLowerCase().split('-');
+    const localeFromPath = getLocaleFromPath(window.location.pathname);
+    if (localeFromPath !== DEFAULT_LOCALE || (!siteLanguage && !siteCountry)) {
+      const [lang, country] = localeFromPath.toLowerCase().split('-');
       siteLanguage = siteLanguage || lang || '';
       siteCountry = siteCountry || country || '';
     }
