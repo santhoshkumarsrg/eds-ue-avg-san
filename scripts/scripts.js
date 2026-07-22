@@ -133,7 +133,6 @@ async function loadEager(doc) {
   // <meta name="lang"> tag it produces so it doesn't leak into the head.
   const lang = getMetadata('lang');
   document.documentElement.lang = lang || 'en';
-  document.head.querySelector('meta[name="lang"]')?.remove();
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
   if (main) {
