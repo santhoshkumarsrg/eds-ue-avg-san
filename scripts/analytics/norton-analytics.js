@@ -5,16 +5,15 @@
 
 import { getMetadata } from '../aem.js';
 import env from '../env.js';
-import { buildAnalyticsContext } from './utils.js';
 
 const SKU_PAGE_TYPES = new Set(['onboarding', 'Benefits', '75D']);
 
 /**
  * Builds the nortonAnalytics payload for the current page.
- * @param {ReturnType<typeof buildAnalyticsContext>} [ctx]
+ * @param {object} ctx analytics context from buildAnalyticsContext()
  * @returns {object}
  */
-export function buildNortonAnalytics(ctx = buildAnalyticsContext(getMetadata)) {
+export function buildNortonAnalytics(ctx) {
   return {
     account: env.analyticsAccount,
     site_country: ctx.siteCountry,
@@ -35,9 +34,9 @@ export function buildNortonAnalytics(ctx = buildAnalyticsContext(getMetadata)) {
 /**
  * Initializes `window.nortonAnalytics` for the current page.
  * Also copies `inid` from localStorage and applies spa / avast-sku when applicable.
- * @param {ReturnType<typeof buildAnalyticsContext>} [ctx]
+ * @param {object} ctx analytics context from buildAnalyticsContext()
  */
-export default function initNortonAnalytics(ctx = buildAnalyticsContext(getMetadata)) {
+export default function initNortonAnalytics(ctx) {
   window.nortonAnalytics = buildNortonAnalytics(ctx);
 
   try {

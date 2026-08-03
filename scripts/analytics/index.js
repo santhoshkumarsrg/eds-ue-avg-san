@@ -11,7 +11,7 @@
 
 import { getMetadata } from '../aem.js';
 import env from '../env.js';
-import { buildAnalyticsContext } from './utils.js';
+import buildAnalyticsContext from '../util/context.js';
 import initGoogleDataLayer from './google-data-layer.js';
 import initNortonAnalytics from './norton-analytics.js';
 import initSdl from './sdl.js';
@@ -33,7 +33,7 @@ export default async function initAnalytics() {
 
   window.FEATURE_FLAGS = env.featureFlags || [];
 
-  const ctx = buildAnalyticsContext(getMetadata);
+  const ctx = await buildAnalyticsContext(getMetadata);
 
   // Data layer objects before any MarTech consumers.
   initGoogleDataLayer(ctx);

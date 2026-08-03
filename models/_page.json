@@ -149,13 +149,6 @@
           ]
         },
         {
-          "component": "text",
-          "valueType": "string",
-          "name": "page-id",
-          "label": "Page ID",
-          "description": "Analytics pageId / SDL screenId (AEM jcr:uuid equivalent)."
-        },
-        {
           "component": "select",
           "valueType": "string",
           "name": "analytics",

@@ -115,7 +115,7 @@ export default async function loadVendorTags() {
   if (!isPublishLikeHost()) return;
 
   injectTargetPrehiding();
-  await loadCheq();
+  // await loadCheq();
   loadGtmContainers();
   await loadAdobeLaunch();
 }

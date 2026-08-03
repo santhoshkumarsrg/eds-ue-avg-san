@@ -3,15 +3,14 @@
  * Mirrors avast2 `head.html` dataLayer block.
  */
 
-import { getMetadata } from '../aem.js';
-import { PAGE_GROUP, buildAnalyticsContext } from './utils.js';
+import { PAGE_GROUP } from '../util/constants.js';
 
 /**
  * Builds the initial dataLayer page object.
- * @param {ReturnType<typeof buildAnalyticsContext>} [ctx]
+ * @param {object} ctx analytics context from buildAnalyticsContext()
  * @returns {object}
  */
-export function buildDataLayerPagePush(ctx = buildAnalyticsContext(getMetadata)) {
+export function buildDataLayerPagePush(ctx) {
   return {
     contentLocale: ctx.locale,
     pageName: `${ctx.locale} | ${ctx.locale}/${ctx.pageName}`,
@@ -23,9 +22,9 @@ export function buildDataLayerPagePush(ctx = buildAnalyticsContext(getMetadata))
 
 /**
  * Initializes `window.dataLayer` and pushes the page object (+ optional GPC event).
- * @param {ReturnType<typeof buildAnalyticsContext>} [ctx]
+ * @param {object} ctx analytics context from buildAnalyticsContext()
  */
-export default function initGoogleDataLayer(ctx = buildAnalyticsContext(getMetadata)) {
+export default function initGoogleDataLayer(ctx) {
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push(buildDataLayerPagePush(ctx));
 
