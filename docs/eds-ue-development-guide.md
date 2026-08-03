@@ -19,7 +19,8 @@ code in this repository.
 11. [Sitemap and robots.txt](#11-sitemap-and-robotstxt)
 12. [Bulk metadata and `<html lang>` inheritance](#12-bulk-metadata-and-html-lang-inheritance)
 13. [Path mapping via the Config Service](#13-path-mapping-via-the-config-service)
-14. [Other patterns used in this project](#14-other-patterns-used-in-this-project)
+14. [EDS MSM and Universal Editor inheritance](#14-eds-msm-and-universal-editor-inheritance)
+15. [Other patterns used in this project](#15-other-patterns-used-in-this-project)
 
 ---
 
@@ -853,7 +854,7 @@ Guidelines:
 - Never load analytics in the eager phase; the 100 Lighthouse target
 ([https://www.aem.live/developer/keeping-it-100](https://www.aem.live/developer/keeping-it-100)) depends on it.
 - Use per-environment config from `scripts/env.js` (see
-[section 14](#14-other-patterns-used-in-this-project)) to switch between dev/stage/prod report suites
+[section 15](#15-other-patterns-used-in-this-project)) to switch between dev/stage/prod report suites
 or containers.
 - Note the CSP in `head.html` (`script-src 'nonce-aem' 'strict-dynamic' …`) —
 scripts injected from a nonce'd module script are trusted via `strict-dynamic`.
@@ -1405,7 +1406,113 @@ redirect:
 Also update internal links, canonical URLs, hreflang entries, sitemaps, locale
 switchers, analytics paths, and campaign links to use `/fr-fr/`.
 
-## 14. Other patterns used in this project
+## 14. EDS MSM and Universal Editor inheritance
+
+AEM Multi Site Management (MSM) still applies when the content source is
+**AEM + Universal Editor** for Edge Delivery Services. Blueprint pages, live
+copies, and rollouts are authored and synchronized in AEM as usual; Universal
+Editor is the authoring surface for those pages. Inheritance only applies to
+content stored in the AEM repository (not Document Authoring / Drive-based
+sources).
+
+Adobe references:
+
+* [Authoring Content with the Universal Editor — Inheritance](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/sites/authoring/universal-editor/authoring#inheritance)
+* [Content Inheritance in the Universal Editor](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/sites/authoring/universal-editor/inheritance)
+* [Extending the Universal Editor](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/implementing/developing/universal-editor/extending)
+* [Extension Manager](https://developer.adobe.com/uix/docs/extension-manager/)
+
+### Default behaviour (inheritance toolbar not available)
+
+Without the optional MSM extension, Universal Editor still supports MSM
+inheritance, but with a simpler authoring model than classic Page Editor:
+
+* Authors **do not** need to break inheritance before editing.
+* As soon as a block/component is edited on a live copy page, Universal Editor
+  **automatically cancels inheritance for that edited content** so local
+  changes are kept when the blueprint is rolled out / synchronized.
+* **Only the edited block** loses inheritance from the blueprint. Other
+  blocks on the same live copy page keep inheritance and can still receive
+  new content from blueprint rollouts.
+* There is **no visual toolbar indicator** of which components still inherit
+  vs which have been localized, and authors **cannot reinstate**
+  component-level inheritance from Universal Editor.
+* Page-level inheritance can still be reverted outside UE via the Live Copy
+  Overview, Launches console, or the **Reset** action on the Live Copy tab of
+  page properties.
+
+This is the expected default for EDS + UE programs until an administrator
+enables the MSM extension.
+
+### Optional inheritance toolbar — AEM Multi-Site-Management (MSM) Extension
+
+When the **AEM Multi-Site-Management (MSM) Extension** is enabled for the
+program, Universal Editor adds toolbar options for the selected component on
+blueprint-based (live copy) pages:
+
+| Toolbar state | Meaning | Author action |
+| --- | --- | --- |
+| **Inheritance Installed** | Inheritance is still active for the selected component | Click to break inheritance (or simply edit — edit also breaks it) |
+| **Inheritance Broken** | Inheritance was canceled for the selected component | Click to **reinstate** inheritance; reload the page so inherited blueprint content shows again |
+
+What the extension improves over the default:
+
+* **Visibility** — authors can see which selected block still inherits vs which
+  is already localized.
+* **Explicit break** — break inheritance without editing content first.
+* **Reinstate at component level** — restore inheritance for a single block
+  after a local change (not available without the extension; page-level reset
+  remains the fallback).
+
+Notes from Adobe:
+
+* Icons appear only when a component is selected **and** the page is based on
+  a blueprint.
+* The extension works for **pages**, not Content Fragments.
+* To revert inheritance for single components, or to get visual feedback on
+  inheritance status, the MSM extension must be enabled.
+
+### How to enable the MSM Extension
+
+An administrator (or a developer on non-production environments) enables it
+per AEM program/environment via Extension Manager — it is not a code-repo
+change:
+
+1. Open [Extension Manager](https://experience.adobe.com/aem/extension-manager)
+   and sign in with org credentials.
+2. Select the AEM **program** and **environment** (dev / stage / rde /
+   production).
+3. Find **AEM Multi-Site-Management (MSM) Extension** in the available
+   Universal Editor extensions and set it to **Enabled**.
+4. Reload Universal Editor; open a live copy page, select a block, and confirm
+   the Inheritance Installed / Inheritance Broken toolbar icons appear.
+
+Permissions (from Adobe’s Extension Manager docs):
+
+* **Non-production** (`dev`, `stage`, `rde`): Developers and System
+  Administrators can enable/disable extensions.
+* **Production**: only a **System Administrator** can enable/disable or
+  configure extensions.
+
+Also listed under first-party Universal Editor extensions in
+[Extending the Universal Editor](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/implementing/developing/universal-editor/extending).
+
+### Practical guidance for AVG EDS live copies
+
+* Treat automatic cancel-on-edit as the safe default: localize only the blocks
+  that must differ per market; leave the rest inheriting so blueprint rollouts
+  continue to update them.
+* Enable the MSM extension on author environments used for localization so
+  authors can see inheritance state and reinstate a block if they broke it by
+  mistake.
+* After reinstating inheritance for a component, authors must reload the page
+  before the blueprint content appears again.
+* Rollout / sync from blueprint remains an AEM Sites (MSM) operation; Universal
+  Editor does not replace Live Copy Overview or rollout configs — it only
+  changes how component inheritance is broken and (with the extension)
+  reinstated during authoring.
+
+## 15. Other patterns used in this project
 
 Things implemented here that go beyond the boilerplate:
 

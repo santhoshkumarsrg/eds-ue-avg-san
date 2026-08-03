@@ -69,6 +69,120 @@
           "name": "footer",
           "label": "Footer Fragment",
           "description": "Optional alternative footer fragment for this page. Defaults to /footer."
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "site-section",
+          "label": "Site Section",
+          "description": "Analytics site_section. Defaults to avg.com when empty."
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "site-sub-section",
+          "label": "Site Sub Section",
+          "description": "Analytics site_sub_section. When empty, derived from the URL path."
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "site-sub-sub-section",
+          "label": "Site Sub Sub Section",
+          "description": "Analytics site_sub_sub_section. When empty, derived from the URL path."
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "page-name",
+          "label": "Page Name",
+          "description": "Overrides the analytics page_name (defaults to the last URL path segment)."
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "content-title",
+          "label": "Content Title",
+          "description": "Overrides nortonAnalytics content_title (AEM dnt_contentTitle)."
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "page-type",
+          "label": "Page Type",
+          "description": "Pushed to SDL as pageType.",
+          "options": [
+            { "name": "", "value": "" },
+            { "name": "Category page", "value": "categorypage" },
+            { "name": "DTYPage", "value": "dtypage" },
+            { "name": "Homepage", "value": "homepage" },
+            { "name": "Interstitial", "value": "interstitial" },
+            { "name": "Landing page - ACQ", "value": "landingpageacq" },
+            { "name": "Landing page - AFF", "value": "landingpageaff" },
+            { "name": "Landing page - Others", "value": "landingpageothers" },
+            { "name": "Landing page - PLT", "value": "landingpageplt" },
+            { "name": "Landing page - PPC", "value": "landingpageppc" },
+            { "name": "Marketing page", "value": "marketingpage" },
+            { "name": "Partner Page", "value": "partnerpage" },
+            { "name": "Product Page", "value": "productpage" },
+            { "name": "Resource Page", "value": "resourcepage" },
+            { "name": "Survey", "value": "survey" },
+            { "name": "Error", "value": "error" },
+            { "name": "Others", "value": "others" },
+            { "name": "Onboarding", "value": "onboarding" },
+            { "name": "Benefits", "value": "Benefits" },
+            { "name": "75D", "value": "75D" }
+          ]
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "line-of-business",
+          "label": "Line of Business",
+          "description": "Pushed to SDL and dataLayer contentGroup.",
+          "options": [
+            { "name": "Business", "value": "business" },
+            { "name": "Consumer", "value": "consumer" },
+            { "name": "Consumer + SMB", "value": "consumerandsmb" },
+            { "name": "Partners", "value": "partners" },
+            { "name": "Others", "value": "others" }
+          ]
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "page-id",
+          "label": "Page ID",
+          "description": "Analytics pageId / SDL screenId (AEM jcr:uuid equivalent)."
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "analytics",
+          "label": "Analytics",
+          "description": "Set to Off to disable all tracking on this page (legal pages).",
+          "options": [
+            { "name": "On (default)", "value": "" },
+            { "name": "Off", "value": "off" }
+          ]
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "enable-adobe-target-prehiding",
+          "label": "Enable Adobe Target Pre-hiding",
+          "description": "When enabled, injects the Adobe Target pre-hiding snippet before Launch.",
+          "options": [
+            { "name": "No", "value": "" },
+            { "name": "Yes", "value": "true" }
+          ]
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "variant-mapping",
+          "label": "Variant Mapping",
+          "description": "Optional JSON array for ?expid= overrides, e.g. [{\"expIdParam\":\"v2\",\"pageName\":\"page-v2\",\"contentTitle\":\"Title V2\"}]."
         }
       ]
     }
