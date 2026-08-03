@@ -4,9 +4,8 @@
  * Mirrors avast2 `head.html` + `analytics.html` load order:
  * 1. dataLayer / nortonAnalytics / sdl / sdlObj / client-info
  * 2. Target pre-hiding (if enabled)
- * 3. Cheq
- * 4. GTM (feature-flag gated)
- * 5. Adobe Launch
+ * 3. GTM (feature-flag gated)
+ * 4. Adobe Launch
  */
 
 import { getMetadata } from '../aem.js';

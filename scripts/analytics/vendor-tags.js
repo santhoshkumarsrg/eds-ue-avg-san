@@ -1,5 +1,5 @@
 /**
- * Loads Cheq, dual GTM containers, Adobe Launch, and optional Target pre-hiding.
+ * Loads dual GTM containers, Adobe Launch, and optional Target pre-hiding.
  * Mirrors avast2 `head.html` + `analytics.html` publish-mode vendor tags.
  */
 
@@ -41,22 +41,6 @@ export function injectTargetPrehiding() {
       }
     }, f);
   })(window, document, css, timeoutMs);
-}
-
-/**
- * Loads Cheq consent bootstrap. Supports `?cheqDevScript=true` (CheqModel).
- * @returns {Promise<void>}
- */
-export async function loadCheq() {
-  const params = new URLSearchParams(window.location.search);
-  const useDev = params.get('cheqDevScript') === 'true';
-  const src = useDev ? env.cheqDevBootstrapScript : env.cheqBootstrapScript;
-  if (!src) return;
-  try {
-    await loadScript(src, { charset: 'UTF-8' });
-  } catch {
-    // Consent script failure must not break the page.
-  }
 }
 
 /**
@@ -109,13 +93,12 @@ export async function loadAdobeLaunch() {
 }
 
 /**
- * Loads all publish-mode vendor tags in avast2 order.
+ * Loads all publish-mode vendor tags.
  */
 export default async function loadVendorTags() {
   if (!isPublishLikeHost()) return;
 
   injectTargetPrehiding();
-  // await loadCheq();
   loadGtmContainers();
   await loadAdobeLaunch();
 }

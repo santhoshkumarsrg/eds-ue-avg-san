@@ -30,9 +30,6 @@ const DEFAULTS = {
   analyticsAccount: 'veritasdev',
   // Mirrors Avast OSGi AnalyticsUtilImpl adobeLaunch (non-prod / staging).
   adobeLaunchUrl: '//assets.adobedtm.com/b29989a14bed/ccef52b414db/launch-a7750c919e12-staging.min.js',
-  // Same Ensighten paths as avast2 CheqUtilImpl (confirmed for AVG).
-  cheqBootstrapScript: 'https://nexus.ensighten.com/symantec/avast_web/Bootstrap.js',
-  cheqDevBootstrapScript: 'https://nexus.ensighten.com/symantec/avast_web_dev/Bootstrap.js',
   gtmDataLayerId: 'GTM-PZ48F8',
   gtmSdlId: 'GTM-WPC6R3K',
   clientInfoUrl: 'https://www.avg.com/client-info.js?fetch=true',
