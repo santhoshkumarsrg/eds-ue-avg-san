@@ -608,13 +608,30 @@ LifeLock keeps hand-driven analytics fixtures under `test/fixtures/analytics/` (
 Already passing today (automatic AppMeasurement link tracking, no port required):
 
 - a real click on an **external** anchor fires a `b/ss` beacon with `pe=lnk_e` and `pev1` set to the destination URL
-- a click on an internal or sibling-brand anchor fires **nothing**, because of `s.linkInternalFilters`
+- a click on a sibling-brand anchor fires **nothing**, because of `s.linkInternalFilters`
+- a click on a *same-origin* anchor also fires `lnk_e` **on preview only** — an artifact of the preview hostname being absent from the filter list, not a passing test
 - verify from the network panel, not by spying on `s.tl` (see the testing note in Track 2)
 
-Requires the Track 2 port:
+Confirmed passing for `data-template-stl` anchors (`global-stl.js`):
 
-- every tracked anchor has a resolved `data-stl` and `data-inid`, with no leftover `≤token≥` text
-- clicking one fires a second `b/ss` beacon with `pe=lnk_o`, `prop41=avg.com`, and `eVar41` populated
+- the anchor carries a resolved `data-stl` with no leftover `≤token≥` text and no leftover `data-template-stl`
+- clicking it fires a `b/ss` beacon with `pe=lnk_o`, `pev2` set to the compiled link name, `c41=avg.com` and `v41=D=c41`
+
+Measured on `/fr-fr/santhosh-test`, hero CTA to `#bait2`:
+
+```
+GET oms.norton.com/b/ss/veritasdev/1/JS-2.22.0-LEWM/...
+  pe=lnk_o
+  pev2=avgcom-santhosh-test_cta-link_santhosh-test_bait2
+  c41=avg.com
+  v41=D%3Dc41
+```
+
+One inherited behaviour to be aware of: avast2's handler skips any link whose `href` already equals `window.location.href`, which is meant to ignore self-links. For a hash anchor the URL *becomes* the href after the first click, so **repeat clicks on the same anchor are not tracked** until the user navigates away. The port keeps this deliberately, for report-suite consistency with avast.com. Revisit if AVG wants every gesture counted.
+
+Still requires the rest of the Track 2 port:
+
+- every tracked anchor also has a resolved `data-inid`
 - an internal-link click leaves `localStorage.inid` set, and the next page's `nortonAnalytics.inid` picks it up
 - an external link's href carries `?inid=`, and a cart link carries `campaignMarker`
 
