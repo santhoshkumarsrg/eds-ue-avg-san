@@ -2,7 +2,7 @@ import {
   loadHeader,
   loadFooter,
   decorateIcons,
-  decorateSections,
+  decorateSections as decorateAemSections,
   decorateBlocks,
   decorateTemplateAndTheme,
   waitForFirstImage,
@@ -111,10 +111,30 @@ export function decorateButtons(main) {
 }
 
 /**
+ * Promotes authored section metadata `id` (`data-id`) to the HTML `id` attribute.
+ * @param {Element} container The element containing decorated sections
+ */
+function applySectionIds(container) {
+  container.querySelectorAll('.section[data-id]').forEach((section) => {
+    const id = section.dataset.id.trim().replace(/\s+/g, '-');
+    if (id) section.id = id;
+    delete section.dataset.id;
+  });
+}
+
+/**
+ * Decorates all sections in a container element and applies authored HTML ids.
+ * @param {Element} main The container element
+ */
+export function decorateSections(main) {
+  decorateAemSections(main);
+  applySectionIds(main);
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
-// eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
   decorateIcons(main);
   buildAutoBlocks(main);

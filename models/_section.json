@@ -26,6 +26,13 @@
           "description": "The label shown for this section in the Content Tree"
         },
         {
+          "component": "text",
+          "name": "id",
+          "label": "ID",
+          "valueType": "string",
+          "description": "HTML id for this section, used for in-page anchors (e.g. #pricing). Use letters, numbers, hyphens, and underscores; no spaces."
+        },
+        {
           "component": "multiselect",
           "name": "style",
           "label": "Style",
