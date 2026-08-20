@@ -320,10 +320,43 @@ Option B is retained as a documented fallback if the synchronous-fire constraint
 
 ### Track 2 — click beacon
 
-Four modules under `theme/js/analytic/` make clicks work in avast2:
+#### What already works without any port
 
-- **`analytic-helper.js`** — port of `analytic/helper.js`. Shared dependency of everything below: `createTemplateParse`, `getUrlInfo`, `getLinkType`, `LINK_TYPE`.
-- **`global-stl.js`** — AA link tracking via `s.tl` with `linkTrackVars = 'prop41,eVar41'`, driven by `[data-template-stl]` and `[data-custom-template-stl]`. **`prop41 = 'avg.com'`** for this brand. LifeLock's `aa-track.js` is the same shape with `prop41 = 'lifelock'` where avast2 uses `'avast.com'`, confirming the pattern survives the EDS port unchanged.
+Verified on the deployed page after the CSP fix: **generic anchor click tracking is already live**, as a free side effect of the s_code now running to completion. AppMeasurement's own automatic link tracking is enabled (`s.trackExternalLinks === true`, `s.trackDownloadLinks === true`), and a real click on an external anchor fires:
+
+```
+POST oms.norton.com/b/ss/veritasdev/1/JS-2.22.0-LEWM/...
+  pe=lnk_e
+  pev1=https%3A%2F%2Fchrome.google.com%2Fwebstore
+  link=Add%20to%20Chrome
+  region=BODY
+  ot=A
+```
+
+Four things to understand about this, because it is easy to mistake for parity:
+
+- It fires **only for links the s_code considers external**. `s.linkInternalFilters` includes `avg.com`, `avast.com`, `norton.com` and a long list of sibling brands, so every cross-brand link is deliberately suppressed. Confirmed by clicking both an `avg.com` link (no beacon) and a `chrome.google.com` link (beacon) on the same page.
+- On the preview hosts this classification is **wrong in a way that flatters the results**. `main--…--….aem.page` / `.aem.live` appears in no filter entry, so every same-origin link on preview looks external and fires a spurious `lnk_e` beacon. On `www.avg.com` those same clicks fire nothing. Do not read a preview exit-link beacon as evidence that a link is tracked.
+- It carries **no custom variables**. `s.linkTrackVars === "None"`, so there is no `prop41` or `eVar41` on these beacons — which is precisely the avast2 STL payload. Link naming comes from ActivityMap reading the link text, not from an authored `data-stl` template.
+- Download links behave the same way via `pe=lnk_d`, gated on `s.linkDownloadFileTypes` (`doc, pdf, zip, exe, mp3, …`).
+- `trackCustomDownload` is already a global function, supplied by the s_code. It does not need porting, only calling.
+
+So the honest position: generic exit-link and download-link tracking works today. **Branded STL click tracking with `prop41`/`eVar41` and authored link names does not**, and that is what the four modules below provide.
+
+##### Same-page anchors: the case that exposed all of this
+
+A hero CTA pointing at `#bait2` on `/fr-fr/santhosh-test` looked untracked, and the reason turned out to be worth writing down. `s.linkInternalFilters` leads with `#`, which reads like it suppresses hash links — but `s.linkLeaveQueryString` is `false`, so AppMeasurement strips the query string **and the fragment** before it applies the filters. The `#` entry is therefore dead code for anchor links. What the filter actually sees on preview is `https://main--…aem.live/fr-fr/santhosh-test`, which matches no entry, so the click fires a generic `pe=lnk_e` beacon naming the *current page* as an exit destination — semantically wrong, and absent entirely on production.
+
+A same-page anchor is exactly the case AppMeasurement's automatic tracking cannot express, which is why avast2 routes it through `global-stl` instead: `s.tl(true, 'o', name)` with `prop41`/`eVar41` and an authored link name.
+
+> **Testing note.** Do not verify this by spying on `window.s.tl`. AppMeasurement's automatic link tracking calls an internal track function rather than the public `s.tl`, so a monkey-patched `s.tl` records nothing even while beacons are being sent. Confirm from the network panel by filtering for `b/ss` and looking for `pe=lnk_e`.
+
+#### The modules still to port
+
+Four modules under `theme/js/analytic/` make branded click tracking work in avast2:
+
+- **`analytic-helper.js`** — port of `analytic/helper.js`. Shared dependency of everything below: `createTemplateParse`, `getUrlInfo`, `getLinkType`, `LINK_TYPE`. **Shipped** as `scripts/analytics/analytic-helper.js`.
+- **`global-stl.js`** — AA link tracking via `s.tl` with `linkTrackVars = 'prop41,eVar41'`, driven by `[data-template-stl]` and `[data-custom-template-stl]`. **`prop41 = 'avg.com'`** for this brand. LifeLock's `aa-track.js` is the same shape with `prop41 = 'lifelock'` where avast2 uses `'avast.com'`, confirming the pattern survives the EDS port unchanged. **Shipped** as `scripts/analytics/global-stl.js`, initialized from the analytics orchestrator after `nortonAnalytics` exists; `blocks/hero/hero.js` is the first block instrumented, and every other block with a CTA needs the same one-line `data-template-stl` assignment.
 - **`global-inid-link.js`** — compiles `[data-template-inid]` into `data-inid`, then branches on link type. Internal and `tel:` links persist the inid to `localStorage` on click; external links get `?inid=` appended to the href; same-page anchors dispatch `global::stl::inid-anchor-link::click`.
 - **`global-campaign-marker.js`** — expands `[data-campaign-marker]` placeholders into the `XXX~ll-cc~yyyyy~abTest~testVersion~trSrc` marker and sets `campaignMarker` (or `x-campaignMarker` for SMB) on cart links. Site code **`WDS`**, with avast2's `SMBW-WDS` retained for the SMB branch since that is selected by product category rather than brand.
 
@@ -344,6 +377,8 @@ return (stringTemplate, additionalData) => Function(`params`, "return `"
 This matters because `'unsafe-eval'` is then required not only for a third-party file outside our control, but for our own ported code.
 
 **Recommendation:** rewrite `createTemplateParse` as a plain regex substitution against the data object — a small, behaviour-preserving change — and keep the CSP exception scoped to the s_code alone. That leaves exactly one justified reason for the exception instead of two, and it is the only way this module could ever run under a stricter CSP.
+
+**Done.** The shipped `analytic-helper.js` uses `String.replace` with a `≤(\w+?)≥` matcher, so `'unsafe-eval'` remains needed only by the s_code. Two avast2 bugs fell out in the rewrite: the original mutates its own `data` object via `Object.assign(data, additionalData)`, leaking a block's override tokens into every later template on the page; and its `≤(\w+?)≥(≤\w+?≥)?` pattern swallows the token following a match, so adjacent tokens like `≤a≥≤b≥` leave `≤b≥` unresolved. The port fixes both.
 
 #### The imperative escape hatch
 
@@ -569,6 +604,14 @@ LifeLock keeps hand-driven analytics fixtures under `test/fixtures/analytics/` (
 - Omnibug shows exactly **one** Adobe Analytics page view, with `pageName` matching `sdlObj.screen.name`
 
 ### Click
+
+Already passing today (automatic AppMeasurement link tracking, no port required):
+
+- a real click on an **external** anchor fires a `b/ss` beacon with `pe=lnk_e` and `pev1` set to the destination URL
+- a click on an internal or sibling-brand anchor fires **nothing**, because of `s.linkInternalFilters`
+- verify from the network panel, not by spying on `s.tl` (see the testing note in Track 2)
+
+Requires the Track 2 port:
 
 - every tracked anchor has a resolved `data-stl` and `data-inid`, with no leftover `≤token≥` text
 - clicking one fires a second `b/ss` beacon with `pe=lnk_o`, `prop41=avg.com`, and `eVar41` populated

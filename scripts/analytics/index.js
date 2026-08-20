@@ -3,14 +3,16 @@
  *
  * Mirrors avast2 `head.html` + `analytics.html` load order:
  * 1. dataLayer / nortonAnalytics / sdl / sdlObj / client-info
- * 2. Target pre-hiding (if enabled)
- * 3. GTM (feature-flag gated)
- * 4. Adobe Launch
+ * 2. Declarative `s.tl` link tracking
+ * 3. Target pre-hiding (if enabled)
+ * 4. GTM (feature-flag gated)
+ * 5. Adobe Launch
  */
 
 import { getMetadata } from '../aem.js';
 import env from '../env.js';
 import buildAnalyticsContext from '../util/context.js';
+import initGlobalStl from './global-stl.js';
 import initGoogleDataLayer from './google-data-layer.js';
 import initNortonAnalytics from './norton-analytics.js';
 import initSdl from './sdl.js';
@@ -38,6 +40,10 @@ export default async function initAnalytics() {
   initGoogleDataLayer(ctx);
   initNortonAnalytics(ctx);
   initSdl(ctx);
+
+  // Needs nortonAnalytics for template tokens; safe before `s` exists because
+  // the handlers only read `window.s` at click time.
+  initGlobalStl();
 
   await loadVendorTags();
 }
