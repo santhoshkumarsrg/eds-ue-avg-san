@@ -15,7 +15,8 @@ Everything below was confirmed against live runtime — HTTP headers, console st
 
 - **In scope:** Adobe Analytics page-load beacon, Adobe Analytics click/link tracking, and the full SDL event set, all at QA-publisher parity.
 - **Out of scope:** Ensighten / CHEQ and consent gating. See [Ensighten and consent](#ensighten-and-consent) for what this excludes and why it is safe.
-- **This pass is documentation only.** No code changes accompany this file.
+- **Landed with this document:** Blocker 1 (CSP `'unsafe-eval'`) and Blocker 2 (host-derived analytics bucket). These two must ship together — see [Blocker 2](#blocker-2--test-traffic-points-at-the-production-report-suite) for why.
+- **Not yet implemented:** Blockers 3 and 4, and all of Tracks 2 and 3.
 
 ### Reference projects
 
@@ -114,7 +115,21 @@ Side-by-side proof:
 - **EDS:** `typeof s.p_gpv === 'undefined'`, `nortonAnalytics.pagetagfired === undefined`, `s.pageName === undefined`, and zero `/b/ss/` requests. The stack trace names `s_code_norton_min.js`, loaded via `loadAdobeLaunch` in `scripts/analytics/vendor-tags.js`.
 - **QA publisher:** `typeof s.p_gpv === 'function'`, `pagetagfired === true`, `s.pageName === 'avast.com:us:homepage:homepage'`, and the beacon `oms.norton.com/b/ss/veritasdev/1/JS-2.22.0-LEWM/...` is present. That page carries no CSP meta tag at all, which is why the problem is invisible there.
 
-This also explains the secondary console error `window.sdlHub.trackError is not a function`. GTM tags call `sdlHub.trackError`, but `sdlHub` is never fully constructed because the script that builds it aborted. It should disappear once the CSP is fixed, and it is listed in the verification checklist as a re-check rather than assumed.
+#### The `sdlHub.trackError` error has the same root cause
+
+The secondary console error `Uncaught TypeError: window.sdlHub.trackError is not a function` is a second symptom of this same CSP gap, but not for the reason it first appears. Verified on the live page:
+
+- `sdlHub` is **not** built by the Norton s_code, and it is not built by our code either. A search for `sdlHub` across both `avast2` and this repo returns nothing — it is constructed entirely inside GTM-WPC6R3K.
+- The object exists and carries all eight of its expected keys: `trackError`, `storage`, `getTrackingSettings`, `cookieGet`, `cookieSet`, `eventTransform`, `identifiers`, `lib`.
+- But **six of those eight are `undefined`**. Only `identifiers` and `lib` hold objects. Every function member is missing.
+- No external SDL library request appears in the network log, so nothing failed to download. The skeleton was created in-page and the step that would populate its methods never completed.
+- The console reports the eval violation with **count 2**, and the user-reported stack frames are `sdl_hubInit (<anonymous>:2:327)` — `<anonymous>` being the signature of code created through `eval` or `new Function`.
+
+Read together: there are two separate eval violations, one from the s_code and one from GTM's own hub initialization. GTM builds the `sdlHub` skeleton, an eval-dependent step that would assign its six methods is blocked, and a later tag then calls `sdlHub.trackError(...)` and throws.
+
+So one CSP change should clear both console errors. Because the mechanism is inferred from the partial-object state rather than observed directly inside GTM's sandbox, this remains a re-check in the verification list rather than an assumption.
+
+> **Measurement caveat for anyone re-testing this.** Probing with `new Function('return 1')` through DevTools returns success even on the broken page, because CDP's `Runtime.evaluate` bypasses page CSP. That result is an artifact of the tool, not evidence that eval is allowed. Judge this from the console violation and the partially-populated `sdlHub`, not from an evaluated probe.
 
 **Fix:** add `'unsafe-eval'` to `script-src` in **both** `head.html` and `404.html`. The 404 page carries its own copy of the CSP and loads `scripts.js`, so it reaches `initAnalytics()` too and would otherwise remain broken.
 
@@ -138,7 +153,13 @@ Note that our own ported code will need `'unsafe-eval'` too, unless it is rewrit
 
 QA publisher uses `veritasdev`, `launch-a7750c919e12-staging.min.js`, and `dev`.
 
-The sequencing here matters: this is harmless *only* while Blocker 1 suppresses all beacons. The moment the CSP is fixed, this page starts writing test traffic into production Adobe Analytics. **Blocker 2 must land at the same time as Blocker 1 or before it.**
+Confirmed live on `https://main--eds-ue-avg-san--santhoshkumarsrg.aem.live/santhosh-test`:
+
+- `window.nortonAnalytics.account === 'symanteccom'`
+- the loaded Launch library is `launch-773db4767ac4.min.js` — the **production** one, not `launch-a7750c919e12-staging.min.js`
+- the loaded AppMeasurement is `nortonlifelock.com/content/dam/norton-adobe-analytics/**prod**/s_code_norton_min.js`
+
+The sequencing here matters: this is harmless *only* while Blocker 1 suppresses all beacons. The moment the CSP is fixed, this page starts writing test traffic into production Adobe Analytics under the production report suite. **Blocker 2 must land in the same change as Blocker 1, never after it.** Shipping the CSP fix on its own would convert a silent failure into production data corruption.
 
 **Fix:** switch from branch-derived to host-derived resolution, as LifeLock's `scripts/analytics/env.js` does:
 
@@ -185,6 +206,14 @@ The gate is over-cautious. avast2 fetches an absolute cross-origin URL from a `n
 That is strong evidence the endpoint serves permissive CORS headers. Confirming the response headers is listed as a verification step rather than asserted here.
 
 Second, `ui.frontend/src/main/webpack/theme/js/global-sdl/index.js` was never ported, so nothing pushes `server`, `session`, or `screen`. See [Track 3](#track-3--sdl-event-set).
+
+Confirmed live: `window.sdl` has length 3, and its entries are `gtm.js`, `gtm.dom`, `gtm.load` — **GTM's own lifecycle events and nothing else**. No `client`, no `server`, no `session`, no `screen`. There is also no `client-info.js` request in the network log, consistent with the host gate. Meanwhile `window.sdlObj` *is* built correctly:
+
+```json
+{"pageType":"","lineOfBusiness":"consumer","screenId":"77b6b63b-...","screen":{"name":"en-ww | en-ww/santhosh-test"}}
+```
+
+So the page assembles the payload and then never pushes it. Note also that `pageType` is an empty string, which is a separate data-quality gap to resolve while porting.
 
 ### Blocker 4 — analytics runs in the delayed phase
 

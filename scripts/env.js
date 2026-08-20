@@ -6,14 +6,23 @@
  * place to declare configuration values, resolved to the current environment at
  * runtime. Import the default `env` object to read them.
  *
- * The active environment is derived from the branch in the EDS hostname
- * ({branch}--{repo}--{owner}.aem.page):
- *   - main--… / *.aem.live / *.avast.com  -> live
- *   - stage--…                            -> stage
- *   - qa--… / localhost                   -> qa  (default)
+ * There are two independent axes here, and conflating them was a bug:
  *
- * Edit DEFAULTS for values shared across environments, and OVERRIDES.<env> for
- * anything that must differ per environment.
+ * 1. `name` (qa | stage | live) is derived from the branch in the EDS hostname
+ *    ({branch}--{repo}--{owner}.aem.page) and drives non-analytics config such
+ *    as `pricingApiBase`:
+ *      - main--… / *.aem.live / *.avg.com  -> live
+ *      - stage--…                          -> stage
+ *      - qa--… / localhost                 -> qa  (default)
+ *
+ * 2. `analyticsBucket` (prod | nonprod) is derived from an exact-match
+ *    PROD_HOSTS allowlist instead, so preview hosts can never report into the
+ *    production Adobe Analytics suite. Branch `main` resolves to `live` above,
+ *    which previously sent every aem.live preview beacon to the prod suite.
+ *
+ * Edit DEFAULTS for values shared across environments, OVERRIDES.<env> for
+ * anything that must differ per environment, and ANALYTICS_BY_BUCKET for
+ * analytics vendor config.
  */
 
 /**
@@ -26,10 +35,6 @@
 const DEFAULTS = {
   pricingApiBase: 'https://47259-avg-stage.adobeioruntime.net/api/v1/web/avg-app-builder/pricing',
   pricingDefaultLocale: 'en-ww',
-  // Mirrors Avast OSGi AnalyticsUtilImpl adobeAnalyticsAccount (non-prod).
-  analyticsAccount: 'veritasdev',
-  // Mirrors Avast OSGi AnalyticsUtilImpl adobeLaunch (non-prod / staging).
-  adobeLaunchUrl: '//assets.adobedtm.com/b29989a14bed/ccef52b414db/launch-a7750c919e12-staging.min.js',
   gtmDataLayerId: 'GTM-PZ48F8',
   gtmSdlId: 'GTM-WPC6R3K',
   clientInfoUrl: 'https://www.avg.com/client-info.js?fetch=true',
@@ -42,10 +47,44 @@ const OVERRIDES = {
   stage: {},
   live: {
     pricingApiBase: 'https://47259-avg.adobeioruntime.net/api/v1/web/avg-app-builder/pricing',
-    // Mirrors Avast OSGi AnalyticsUtilImpl adobeAnalyticsAccount (prod.publish).
+  },
+};
+
+/**
+ * Hostnames that are allowed to report into production Adobe Analytics.
+ *
+ * Deliberately an exact-match allowlist rather than a suffix test: no EDS
+ * preview host can ever appear here, so previews and feature branches always
+ * fall back to the non-prod suite. Getting this wrong in the safe direction
+ * costs a missing report; getting it wrong the other way corrupts production
+ * data with test traffic.
+ */
+const PROD_HOSTS = ['avg.com', 'www.avg.com'];
+
+/**
+ * True only on real production hosts.
+ * @returns {boolean}
+ */
+export function isProductionHost() {
+  return PROD_HOSTS.includes(window.location.hostname);
+}
+
+/**
+ * Analytics vendor config, keyed by production host rather than by branch.
+ *
+ * Kept separate from OVERRIDES because the analytics bucket and the pricing
+ * environment are independent concerns: `main--…--….aem.live` is a preview that
+ * should use prod pricing but must never use the prod report suite.
+ * Values mirror Avast OSGi AnalyticsUtilImpl.
+ */
+const ANALYTICS_BY_BUCKET = {
+  prod: {
     analyticsAccount: 'symanteccom',
-    // Mirrors Avast OSGi AnalyticsUtilImpl adobeLaunch (prod.publish).
     adobeLaunchUrl: '//assets.adobedtm.com/b29989a14bed/ccef52b414db/launch-773db4767ac4.min.js',
+  },
+  nonprod: {
+    analyticsAccount: 'veritasdev',
+    adobeLaunchUrl: '//assets.adobedtm.com/b29989a14bed/ccef52b414db/launch-a7750c919e12-staging.min.js',
   },
 };
 
@@ -73,17 +112,21 @@ export function resolveEnvName() {
 }
 
 const envName = resolveEnvName();
+const analyticsBucket = isProductionHost() ? 'prod' : 'nonprod';
 
 const env = {
   ...DEFAULTS,
   ...OVERRIDES[envName],
+  ...ANALYTICS_BY_BUCKET[analyticsBucket],
   /** Active EDS environment name (`qa` | `stage` | `live`). */
   name: envName,
+  /** Analytics vendor bucket (`prod` | `nonprod`), derived from the hostname. */
+  analyticsBucket,
   /**
    * Analytics data-layer environment value.
-   * Mirrors AvastAnalytics: `prod` on live/prod-publish, otherwise `dev`.
+   * Mirrors AvastAnalytics: `prod` on production hosts, otherwise `dev`.
    */
-  analyticsEnvironment: envName === 'live' ? 'prod' : 'dev',
+  analyticsEnvironment: analyticsBucket === 'prod' ? 'prod' : 'dev',
 };
 
 export default env;
