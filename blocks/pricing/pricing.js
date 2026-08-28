@@ -115,6 +115,17 @@ function buildPlan(row) {
     anchor.classList.add('button', 'pricing-buy');
     anchor.setAttribute('href', '{buy_link}');
     if (!anchor.textContent.trim()) anchor.textContent = buyLabel;
+    // Only a plan with a SKU has a real checkout URL, so only that anchor is a
+    // cart link worth instrumenting. The analytics link modules skip the
+    // {buy_link} placeholder and are asked to rescan once pricing resolves.
+    if (skuValue) {
+      anchor.dataset.role = 'cart-link';
+      anchor.dataset.productId = skuValue;
+      anchor.dataset.productCategory = 'Consumer';
+      // Empty attribute opts the anchor into the campaign-marker fill.
+      anchor.dataset.campaignMarker = '';
+      anchor.dataset.templateInid = `avgcom-≤page_name≥_store_${skuValue}`;
+    }
     const wrapper = document.createElement('p');
     wrapper.className = 'pricing-buy-wrapper';
     moveInstrumentation(buy, wrapper);
@@ -190,6 +201,12 @@ export default function decorate(block) {
     pricedPlans.forEach((plan) => plan.classList.add('is-loading'));
     loadPricing(block).finally(() => {
       pricedPlans.forEach((plan) => plan.classList.remove('is-loading'));
+      // Buy hrefs only become real URLs here. Until now the inid and
+      // campaign-marker modules deliberately skipped them, so ask for a rescan
+      // rather than relying on analytics happening to run later than this.
+      ['global::inid::setup', 'global::campaign-marker::setup'].forEach((name) => {
+        block.dispatchEvent(new CustomEvent(name, { bubbles: true }));
+      });
     });
   }
 }

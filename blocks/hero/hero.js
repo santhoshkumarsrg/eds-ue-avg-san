@@ -75,9 +75,17 @@ export default function decorate(block) {
   if (linkCell) {
     const link = linkCell.querySelector('a');
     link.classList.add('button', 'avg');
-    link.dataset.templateStl = link.getAttribute('href')?.includes('#')
+    const isPageAnchor = link.getAttribute('href')?.includes('#');
+    link.dataset.templateStl = isPageAnchor
       ? 'avgcom-≤page_name≥_cta-link_≤destinationPageName≥_≤anchorName≥'
       : 'avgcom-≤page_name≥_cta-link_≤destinationPageName≥';
+    // Same-page anchors are already reported through the stl template above.
+    // Adding an inid template to them as well would route the same click into
+    // s.tl twice, so the inid layer only takes the links stl cannot carry:
+    // internal links (persisted to localStorage) and external ones (?inid=).
+    if (!isPageAnchor) {
+      link.dataset.templateInid = 'avgcom-≤page_name≥_cta-link_≤destinationPageName≥';
+    }
     moveInstrumentation(linkCell, link);
     const [leftIconCell, rightIconCell] = iconCells;
     addButtonIcon(link, leftIconCell, 'left');
@@ -110,7 +118,9 @@ export default function decorate(block) {
   block.append(overlay);
   block.append(content);
 
-  // Ask analytics to compile the link-name templates above, for the case where
-  // this block decorates after analytics has already initialized.
-  block.dispatchEvent(new CustomEvent('global::stl::setup', { bubbles: true }));
+  // Ask analytics to compile the link templates above, for the case where this
+  // block decorates after analytics has already initialized.
+  ['global::inid::setup', 'global::stl::setup'].forEach((name) => {
+    block.dispatchEvent(new CustomEvent(name, { bubbles: true }));
+  });
 }
