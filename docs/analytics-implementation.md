@@ -50,7 +50,8 @@ On top of those, four things are reported:
   that object complete and correct before Adobe Launch loads.
 - **Adobe Analytics anchor click** — fired by `scripts/analytics/global-stl.js`
   via `s.tl(true, 'o', linkName)` with `prop41`/`eVar41`, driven by a
-  `data-template-stl` attribute that blocks set on their anchors.
+  `data-template-stl` attribute that a block's analytics handler sets on its
+  anchors.
 - **The SDL `screen` page view** — pushed by
   `scripts/analytics/global-sdl.js` onto `window.sdl`, after `server` and
   `session`.
@@ -59,6 +60,11 @@ On top of those, four things are reported:
   destination (a cart, a download, the next page) can attribute the click.
 
 Everything runs in the **delayed phase** (`scripts/delayed.js`, +3s after lazy).
+
+Blocks themselves contain no analytics code. Each one stamps
+`data-analytic="<name>:0"` and dispatches `analytics:scan`; a handler under
+`scripts/analytics/handlers/` does the instrumentation. See
+[Instrumenting a new block](#instrumenting-a-new-block).
 
 ## Module map
 
@@ -77,6 +83,12 @@ scripts/
 │   ├── global-inid-link.js        data-inid: localStorage / s.tl / ?inid= routes
 │   ├── global-campaign-marker.js  campaignMarker on cart links
 │   ├── analytic-helper.js         ≤token≥ template compiler, URL parsing, link types
+│   ├── wire.js                    data-analytic marker sweep, analytics:scan listener
+│   ├── link-name.js               the avgcom link-name taxonomy, in one place
+│   ├── handlers/
+│   │   ├── index.js               block name → handler registry
+│   │   ├── hero.js                hero CTA instrumentation
+│   │   └── pricing.js             cart-link instrumentation
 │   └── vendor-tags.js             Target pre-hiding, GTM ×2, Adobe Launch
 └── util/
     ├── context.js                 shared page context consumed by all three builders
@@ -108,8 +120,9 @@ flowchart TD
   G --> J["link tracking:<br/>inid → campaign marker → stl"]
   H --> J
   I --> J
-  J --> P["pushSdlPageLoad(clientInfoReady)<br/>server + session, then screen"]
-  J --> K["await loadVendorTags()"]
+  J --> Q["installScanListener(ctx)<br/>scan(document, ctx)<br/>mount per-block handlers"]
+  Q --> P["pushSdlPageLoad(clientInfoReady)<br/>server + session, then screen"]
+  Q --> K["await loadVendorTags()"]
   K --> L[Target pre-hiding, gated on metadata]
   K --> M["GTM ×2, gated on WEBAVAST-7241"]
   K --> N[Adobe Launch → AppMeasurement + s_code]
@@ -135,6 +148,11 @@ export default async function initAnalytics() {
   initGlobalInidLink();
   initGlobalCampaignMarker();
   initGlobalStl();
+
+  // Per-block instrumentation. Install the listener before the sweep so a block
+  // announcing in the same task cannot slip between the two.
+  installScanListener(ctx);
+  scan(document, ctx);
 
   // Chained off client-info so GTM-WPC6R3K sees `client` before `screen`.
   pushSdlPageLoad(clientInfoReady);
@@ -590,7 +608,7 @@ dispatcher.
 user click" but "where did this visitor come from", which is why the value has to
 survive a navigation.
 
-A block sets `data-template-inid` (or `data-custom-template-inid`); the module
+A handler sets `data-template-inid` (or `data-custom-template-inid`); the module
 compiles it with the same `≤token≥` compiler STL uses, writes the result to
 `data-inid`, and then picks one of three delivery routes based on the link type
 that `getLinkType()` reports:
@@ -655,7 +673,7 @@ XXX~ll-cc~yyyyy~abTest~testVersion~trSrc
 | `testVersion` | Empty, and also where a button location is written               |
 | `trSrc`       | **Always empty** — see below                                     |
 
-A block opts an element in with an empty `data-campaign-marker` attribute. The
+A handler opts an element in with an empty `data-campaign-marker` attribute. The
 compiled marker replaces it and is appended to the href as `campaignMarker`, or
 `x-campaignMarker` for SMB. Processed elements are stamped `data-cm-processed` so
 a rescan cannot double-append.
@@ -686,108 +704,196 @@ modules. `detail` is passed through as the options object, so
 
 ## Instrumenting a new block
 
-Adding branded click tracking to a block is two edits inside `decorate`.
+**Blocks contain no analytics code.** No link-name templates, no campaign-marker
+attributes, no imports from `scripts/analytics/`. A block announces itself; a
+handler does the instrumentation. This is the handler-registry pattern from the
+lifelock-ue project, and it exists so that changing the taxonomy — renaming a
+role, adding a channel, dropping a vendor — never touches a block file.
 
-**1. Set the templates on each tracked anchor**, before the anchor is appended.
-`blocks/hero/hero.js` shows the pattern, including the one rule that is easy to
-get wrong:
-
-```blocks/hero/hero.js
-    const isPageAnchor = link.getAttribute('href')?.includes('#');
-    link.dataset.templateStl = isPageAnchor
-      ? 'avgcom-≤page_name≥_cta-link_≤destinationPageName≥_≤anchorName≥'
-      : 'avgcom-≤page_name≥_cta-link_≤destinationPageName≥';
-    // Same-page anchors are already reported through the stl template above.
-    // Adding an inid template to them as well would route the same click into
-    // s.tl twice, so the inid layer only takes the links stl cannot carry.
-    if (!isPageAnchor) {
-      link.dataset.templateInid = 'avgcom-≤page_name≥_cta-link_≤destinationPageName≥';
-    }
-```
-
-**Never put both `data-template-stl` and `data-template-inid` on a same-page
-anchor.** STL sends one `s.tl` from its own click handler, and the inid layer
-re-dispatches anchor clicks into a second one — the click would be counted twice.
-In avast2 the two attributes are kept apart by an authoring flag
-(`enableStlCall`); here it is a code-level decision, so make it explicitly.
-
-**2. Dispatch the rescan events at the end of** `decorate`, from the block root:
-
-```blocks/hero/hero.js
-  // Ask analytics to compile the link templates above, for the case where this
-  // block decorates after analytics has already initialized.
-  ['global::inid::setup', 'global::stl::setup'].forEach((name) => {
-    block.dispatchEvent(new CustomEvent(name, { bubbles: true }));
-  });
-```
-
-Dispatch only the events your block actually needs — an event nothing consumes is
-just noise.
-
-For per-block override tokens, use the custom variant instead:
+The full contract is two lines at the end of `decorate`:
 
 ```js
-link.dataset.customTemplateStl = 'avgcom-≤page_name≥_pricing-buy_≤sku≥';
-block.dispatchEvent(new CustomEvent('global::stl::setup', {
-  bubbles: true,
-  detail: { templateType: 'custom-template', overrideData: { sku } },
-}));
+block.setAttribute('data-analytic', '<block-name>:0');
+block.dispatchEvent(new CustomEvent('analytics:scan', { bubbles: true }));
 ```
 
-Note that one dispatch carries one `overrideData`, so a block with several
-anchors needing *different* override values cannot use the custom variant for
-all of them in a single event. Interpolating the known value straight into the
-template string is usually simpler — this is what the pricing block does with the
-SKU.
+`<block-name>` matches the block folder and doubles as the key into
+`scripts/analytics/handlers/index.js`.
 
-### Blocks whose hrefs resolve asynchronously
+### How the sweep works
 
-`blocks/pricing/pricing.js` is the reference for this case. The buy anchor is
-rendered with a `{buy_link}` placeholder and the real URL only arrives when the
-pricing API answers, so the attributes are set at decorate time but the rescan is
-deferred:
+`scripts/analytics/wire.js` owns the mechanism:
+
+```scripts/analytics/wire.js
+export function scan(root, ctx) {
+  const scope = root && root.querySelectorAll ? root : document;
+  const pending = [...scope.querySelectorAll(PENDING_SELECTOR)];
+  if (scope.matches?.(PENDING_SELECTOR)) pending.unshift(scope);
+  if (!pending.length) return;
+
+  pending.forEach((el) => {
+    const name = parseMarker(el);
+    const handler = HANDLERS[name];
+    // …mount, then:
+    el.setAttribute('data-analytic', `${name}:1`);
+  });
+}
+```
+
+The `:0` → `:1` flip makes rescanning free, because the pending selector never
+matches a mounted marker. Two details are load-bearing:
+
+- **`scope.matches?.()` is not redundant.** `querySelectorAll` matches
+  descendants only, and a block stamps the marker on the element it announces
+  from — without the explicit self-check, a block's own marker is never found.
+- **Blocks decorate in the lazy phase, analytics initializes in the delayed
+  phase**, so most announcements happen before the listener exists. Those events
+  are lost, and it does not matter: the markers are still `:0` when
+  `scan(document)` sweeps. The listener covers whatever announces later.
+
+### Writing the handler
+
+Create `scripts/analytics/handlers/<name>.js` exporting `default { mount(root, ctx) }`
+and register it. `blocks/hero/hero.js` stamps only a semantic role:
+
+```blocks/hero/hero.js
+    // Semantic role, not a tracking name: this anchor is the hero's CTA. The
+    // analytics handler (scripts/analytics/handlers/hero.js) reads it to build
+    // the link names and pick a tracking channel.
+    link.dataset.heroLinkType = CTA_ROLE;
+```
+
+and the handler decides everything from there:
+
+```scripts/analytics/handlers/hero.js
+function stampCta(link) {
+  const role = link.dataset.heroLinkType;
+  if (!role) return;
+
+  const isPageAnchor = (link.getAttribute('href') || '').includes('#');
+
+  if (!link.dataset.stl) {
+    link.dataset.templateStl = linkTemplate(role, { withAnchor: isPageAnchor });
+  }
+  if (!isPageAnchor && !link.dataset.inid) {
+    link.dataset.templateInid = linkTemplate(role);
+  }
+}
+```
+
+The handler stamps the template attributes and then compiles its own subtree by
+calling the exported scan functions directly, rather than dispatching the
+`global::*::setup` events. Within the analytics layer a direct call is clearer
+than an event round trip through `document`:
+
+```scripts/analytics/handlers/hero.js
+    // inid before stl, matching the orchestrator: inid may rewrite an external
+    // href, and stl reads the final href when it decides whether the link points
+    // at the current page.
+    scanInidTemplates(root);
+    scanStlTemplates(root);
+```
+
+**Never give a same-page anchor both an STL and an inid template.** STL sends one
+`s.tl` from its own click handler and the inid layer re-dispatches anchor clicks
+into a second — the click is counted twice. avast2 keeps the two apart with an
+authoring flag (`enableStlCall`); here it is the handler's decision, so make it
+explicitly. This is exactly the kind of rule that belongs in a handler and not
+spread across every block.
+
+### The name taxonomy
+
+`scripts/analytics/link-name.js` holds every name shape, so no handler hardcodes
+the `avgcom` prefix:
+
+```scripts/analytics/link-name.js
+export function linkTemplate(role, { withAnchor = false } = {}) {
+  const tail = withAnchor ? '_≤anchorName≥' : '';
+  return `${PREFIX}-≤page_name≥_${role}_≤destinationPageName≥${tail}`;
+}
+```
+
+`role` names the interaction (`cta-link`, `store`, `download-link`), not the
+block, so reports group by what the user did rather than by which component
+rendered it.
+
+### Blocks whose DOM or hrefs settle later
+
+Announcing is repeatable: reset the marker to `:0` and dispatch again. The
+handler remounts over the same subtree, which is why every handler must tolerate
+a second pass.
+
+`blocks/pricing/pricing.js` needs this because its buy hrefs start as
+`{buy_link}` placeholders:
 
 ```blocks/pricing/pricing.js
-    if (skuValue) {
-      anchor.dataset.role = 'cart-link';
-      anchor.dataset.productId = skuValue;
-      anchor.dataset.productCategory = 'Consumer';
-      // Empty attribute opts the anchor into the campaign-marker fill.
-      anchor.dataset.campaignMarker = '';
-      anchor.dataset.templateInid = `avgcom-≤page_name≥_store_${skuValue}`;
-    }
+function announceToAnalytics(block) {
+  block.setAttribute('data-analytic', 'pricing:0');
+  block.dispatchEvent(new CustomEvent('analytics:scan', { bubbles: true }));
+}
 ```
 
 ```blocks/pricing/pricing.js
     loadPricing(block).finally(() => {
       pricedPlans.forEach((plan) => plan.classList.remove('is-loading'));
-      // Buy hrefs only become real URLs here. Until now the inid and
-      // campaign-marker modules deliberately skipped them, so ask for a rescan
-      // rather than relying on analytics happening to run later than this.
-      ['global::inid::setup', 'global::campaign-marker::setup'].forEach((name) => {
-        block.dispatchEvent(new CustomEvent(name, { bubbles: true }));
-      });
+      // Buy hrefs only become real URLs here, so announce a second time rather
+      // than relying on analytics happening to run later than this fetch.
+      announceToAnalytics(block);
     });
 ```
 
-Only plans with a SKU are instrumented, because only they have a real checkout
-URL. A plan without one keeps the unresolved placeholder forever, and the guard
-correctly leaves it alone.
+The handler is written for the double mount. Re-stamping the campaign-marker
+opt-in would be actively destructive, since the fill skips anchors it has already
+processed:
+
+```scripts/analytics/handlers/pricing.js
+  // Empty attribute is the opt-in; the fill replaces it with the marker. Never
+  // reset it, or the second mount wipes the marker written by the first.
+  if (!cta.hasAttribute('data-campaign-marker')) {
+    cta.setAttribute('data-campaign-marker', '');
+  }
+  if (!cta.dataset.inid) {
+    cta.dataset.templateInid = storeTemplate(sku);
+  }
+```
+
+### Checklist
+
+1. Add `scripts/analytics/handlers/<name>.js` exporting `default { mount(root, ctx) }`.
+2. Register it in `scripts/analytics/handlers/index.js` under the block's folder name.
+3. In the block's `decorate`, stamp the marker and announce. If the block's DOM
+   settles asynchronously, announce again at that point.
+4. Put any new name shape in `link-name.js`, not in the handler.
 
 Points to keep in mind:
 
-- **Templates are set in block code, never authored.** No `_{blockname}.json`
-  model changes, no UE dialog work, no author training. The token strings stay
-  reviewable in code.
-- **Naming convention** is `avgcom-{page_name}_{role}_{destination}`, where role
-  is a stable identifier for the interaction (`cta-link`, `store`,
-  `download-link`). Keep it consistent so reports group cleanly.
-- **Dispatch from the block root, not from the element carrying the template.**
-  All three modules use `root.querySelectorAll()`, which matches descendants
-  only.
+- **A semantic role attribute is fine in a block; a tracking name is not.**
+  `data-hero-link-type="cta-link"` says what the link *is*. The template string
+  that consumes it says how it is *reported*, and belongs in the handler.
+- **Announce from the block root**, not from the element the handler will look
+  for. Both the sweep and the template compilers walk descendants.
+- **Nothing is authored.** No `_{blockname}.json` model changes, no UE dialog
+  work, no author training.
+- **A missing handler warns rather than failing silently.** `wire.js` logs
+  `no analytics handler registered for "<name>"`, which is usually a typo
+  between the marker and the registry key.
 - **Non-anchor interactions have no declarative route.** `global-stl.js` only
-  binds `<a>` elements carrying a template attribute. A widget filter or carousel
-  control needs a direct `s.tl` call; there is no shared wrapper for that yet.
+  binds `<a>` elements carrying a template attribute. lifelock solves this with
+  `analytics:<block>:<verb>` lifecycle events that a handler translates; that
+  convention would port cleanly here but is not implemented yet.
+
+### The relationship to the `global::*::setup` events
+
+Two mechanisms now exist and they are not competing:
+
+| Layer | Audience | Use |
+| --- | --- | --- |
+| `analytics:scan` + `data-analytic` | **Blocks** | The contract every block uses |
+| `global::inid::setup`, `global::stl::setup`, `global::campaign-marker::setup` | avast2 parity, third-party scripts | Low-level rescan of a subtree that already carries template attributes |
+
+New block code should always use `analytics:scan`. The `global::*` events are
+retained because they are avast2's published API and a migrated third-party
+script may dispatch them.
 
 
 
@@ -876,11 +982,19 @@ default.
 
 ### Only two blocks are instrumented
 
-`blocks/hero/hero.js` (STL + inid) and `blocks/pricing/pricing.js` (inid +
-campaign marker) are the only instrumented blocks. `product-hero`, `promo`,
-`icon-button`, `media-text`, `cards`, `header` and `footer` all render CTAs and
-have no instrumentation. The `data-custom-template-stl` /
-`data-custom-template-inid` variants are implemented but unused.
+`hero` (STL + inid) and `pricing` (inid + campaign marker) are the only blocks
+with handlers registered. `product-hero`, `promo`, `icon-button`, `media-text`,
+`cards`, `header` and `footer` all render CTAs and have none. The
+`data-custom-template-stl` / `data-custom-template-inid` variants are implemented
+but unused.
+
+### No lifecycle-event convention yet
+
+lifelock's handler pattern also covers non-click interactions: a block dispatches
+`analytics:<block>:<verb>` with semantic detail and its handler translates that
+into vendor calls, so quiz steps, form successes and modal opens stay out of
+block code too. Only the `analytics:scan` half is ported here, because no block
+in this project has a non-click interaction to report yet.
 
 ### The inid same-page-anchor route is wired but unexercised
 
@@ -940,6 +1054,13 @@ host allowlist regressed.
 beacon.
 - `window.userAgentDetection.os.get()` should return a real OS name — a `null`
 name means `session.platform` is wrong too.
+
+**Block instrumentation**
+
+- Every instrumented block root should read `data-analytic="<name>:1"`. A marker
+stuck at `:0` means no handler mounted — check the console for
+`no analytics handler registered`.
+- A block with no `data-analytic` attribute at all never announced.
 
 **Clicks**
 

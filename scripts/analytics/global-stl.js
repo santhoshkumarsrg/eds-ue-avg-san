@@ -67,10 +67,12 @@ function bindTemplates(root, selector, templateKey, overrideData) {
 }
 
 /**
- * Scans for `data-template-stl` anchors.
+ * Scans for `data-template-stl` anchors. Exported so an analytics handler can
+ * compile its own subtree straight after stamping it, without an event round
+ * trip through the document.
  * @param {Element} [root] subtree to scan, defaults to the whole document
  */
-function scanDefaultTemplates(root) {
+export function scanStlTemplates(root) {
   bindTemplates(root || document, DEFAULT_SELECTOR, 'templateStl');
 }
 
@@ -80,7 +82,7 @@ function scanDefaultTemplates(root) {
  * @param {Element} root subtree to scan
  * @param {object} [overrideData] extra tokens for this scan
  */
-function scanCustomTemplates(root, overrideData) {
+export function scanCustomStlTemplates(root, overrideData) {
   if (!root) return;
   bindTemplates(root, CUSTOM_SELECTOR, 'customTemplateStl', overrideData);
 }
@@ -90,7 +92,7 @@ function scanCustomTemplates(root, overrideData) {
  */
 export default function initGlobalStl() {
   try {
-    scanDefaultTemplates();
+    scanStlTemplates();
 
     // Anchors whose link name is carried in `data-inid` are tracked by the
     // inid layer, which re-dispatches the click here.
@@ -101,8 +103,8 @@ export default function initGlobalStl() {
 
     document.addEventListener('global::stl::setup', (e) => {
       const { templateType, overrideData } = e.detail || {};
-      if (templateType === 'custom-template') scanCustomTemplates(e.target, overrideData);
-      else scanDefaultTemplates(e.target);
+      if (templateType === 'custom-template') scanCustomStlTemplates(e.target, overrideData);
+      else scanStlTemplates(e.target);
     });
   } catch {
     // link tracking must never break page decoration

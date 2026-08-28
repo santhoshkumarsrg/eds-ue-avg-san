@@ -4,10 +4,11 @@
  * Mirrors avast2 `head.html` + `analytics.html` load order:
  * 1. dataLayer / nortonAnalytics / sdl / sdlObj / client-info
  * 2. Declarative link tracking: inid, campaign marker, `s.tl`
- * 3. SDL page-load events (`server` / `session` / `screen`)
- * 4. Target pre-hiding (if enabled)
- * 5. GTM (feature-flag gated)
- * 6. Adobe Launch
+ * 3. Per-block handlers, via the `data-analytic` marker sweep
+ * 4. SDL page-load events (`server` / `session` / `screen`)
+ * 5. Target pre-hiding (if enabled)
+ * 6. GTM (feature-flag gated)
+ * 7. Adobe Launch
  */
 
 import { getMetadata } from '../aem.js';
@@ -21,6 +22,7 @@ import initNortonAnalytics from './norton-analytics.js';
 import pushSdlPageLoad from './global-sdl.js';
 import initSdl from './sdl.js';
 import loadVendorTags from './vendor-tags.js';
+import { installScanListener, scan } from './wire.js';
 
 /**
  * Returns true when analytics should be skipped (legal / opt-out pages).
@@ -52,6 +54,11 @@ export default async function initAnalytics() {
   initGlobalInidLink();
   initGlobalCampaignMarker();
   initGlobalStl();
+
+  // Per-block instrumentation. Install the listener before the sweep so a block
+  // announcing in the same task cannot slip between the two.
+  installScanListener(ctx);
+  scan(document, ctx);
 
   // Chained off client-info so GTM-WPC6R3K sees `client` before `screen`.
   // Deliberately not awaited: GTM picks up entries pushed either side of its own

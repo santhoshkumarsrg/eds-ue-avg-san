@@ -1,6 +1,9 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
+/** The role the hero's CTA plays, read by the analytics handler. */
+const CTA_ROLE = 'cta-link';
+
 /**
  * Builds an element from a field cell, unwrapping a lone <p> wrapper that EDS
  * adds around plain-text fields so the markup stays semantic (and instrumentation
@@ -75,17 +78,10 @@ export default function decorate(block) {
   if (linkCell) {
     const link = linkCell.querySelector('a');
     link.classList.add('button', 'avg');
-    const isPageAnchor = link.getAttribute('href')?.includes('#');
-    link.dataset.templateStl = isPageAnchor
-      ? 'avgcom-≤page_name≥_cta-link_≤destinationPageName≥_≤anchorName≥'
-      : 'avgcom-≤page_name≥_cta-link_≤destinationPageName≥';
-    // Same-page anchors are already reported through the stl template above.
-    // Adding an inid template to them as well would route the same click into
-    // s.tl twice, so the inid layer only takes the links stl cannot carry:
-    // internal links (persisted to localStorage) and external ones (?inid=).
-    if (!isPageAnchor) {
-      link.dataset.templateInid = 'avgcom-≤page_name≥_cta-link_≤destinationPageName≥';
-    }
+    // Semantic role, not a tracking name: this anchor is the hero's CTA. The
+    // analytics handler (scripts/analytics/handlers/hero.js) reads it to build
+    // the link names and pick a tracking channel.
+    link.dataset.heroLinkType = CTA_ROLE;
     moveInstrumentation(linkCell, link);
     const [leftIconCell, rightIconCell] = iconCells;
     addButtonIcon(link, leftIconCell, 'left');
@@ -118,9 +114,8 @@ export default function decorate(block) {
   block.append(overlay);
   block.append(content);
 
-  // Ask analytics to compile the link templates above, for the case where this
-  // block decorates after analytics has already initialized.
-  ['global::inid::setup', 'global::stl::setup'].forEach((name) => {
-    block.dispatchEvent(new CustomEvent(name, { bubbles: true }));
-  });
+  // Announce to analytics. The handler registered under this name does all the
+  // instrumentation; this block deliberately knows nothing about link names.
+  block.setAttribute('data-analytic', 'hero:0');
+  block.dispatchEvent(new CustomEvent('analytics:scan', { bubbles: true }));
 }

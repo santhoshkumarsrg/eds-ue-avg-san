@@ -115,17 +115,10 @@ function buildPlan(row) {
     anchor.classList.add('button', 'pricing-buy');
     anchor.setAttribute('href', '{buy_link}');
     if (!anchor.textContent.trim()) anchor.textContent = buyLabel;
-    // Only a plan with a SKU has a real checkout URL, so only that anchor is a
-    // cart link worth instrumenting. The analytics link modules skip the
-    // {buy_link} placeholder and are asked to rescan once pricing resolves.
-    if (skuValue) {
-      anchor.dataset.role = 'cart-link';
-      anchor.dataset.productId = skuValue;
-      anchor.dataset.productCategory = 'Consumer';
-      // Empty attribute opts the anchor into the campaign-marker fill.
-      anchor.dataset.campaignMarker = '';
-      anchor.dataset.templateInid = `avgcom-≤page_name≥_store_${skuValue}`;
-    }
+    // Semantic role, not a tracking name: this anchor is the plan's buy button.
+    // The analytics handler (scripts/analytics/handlers/pricing.js) reads it,
+    // together with the plan's data-sku, to instrument the cart link.
+    anchor.dataset.pricingCta = 'buy';
     const wrapper = document.createElement('p');
     wrapper.className = 'pricing-buy-wrapper';
     moveInstrumentation(buy, wrapper);
@@ -138,6 +131,18 @@ function buildPlan(row) {
   }
 
   return plan;
+}
+
+/**
+ * Announces the block to analytics. Resetting the marker to `:0` first makes the
+ * announcement repeatable, which this block needs: the buy hrefs are still
+ * `{buy_link}` placeholders on the first pass and only resolve once the pricing
+ * API answers.
+ * @param {Element} block
+ */
+function announceToAnalytics(block) {
+  block.setAttribute('data-analytic', 'pricing:0');
+  block.dispatchEvent(new CustomEvent('analytics:scan', { bubbles: true }));
 }
 
 /**
@@ -193,6 +198,8 @@ export default function decorate(block) {
     block.append(footerRow);
   }
 
+  announceToAnalytics(block);
+
   // Kick off the live-pricing lookup as soon as the block is decorated (lazy
   // phase) rather than waiting for the delayed phase. Token-bearing elements
   // are masked with a shimmer until the API resolves so raw {tokens} never show.
@@ -201,12 +208,9 @@ export default function decorate(block) {
     pricedPlans.forEach((plan) => plan.classList.add('is-loading'));
     loadPricing(block).finally(() => {
       pricedPlans.forEach((plan) => plan.classList.remove('is-loading'));
-      // Buy hrefs only become real URLs here. Until now the inid and
-      // campaign-marker modules deliberately skipped them, so ask for a rescan
-      // rather than relying on analytics happening to run later than this.
-      ['global::inid::setup', 'global::campaign-marker::setup'].forEach((name) => {
-        block.dispatchEvent(new CustomEvent(name, { bubbles: true }));
-      });
+      // Buy hrefs only become real URLs here, so announce a second time rather
+      // than relying on analytics happening to run later than this fetch.
+      announceToAnalytics(block);
     });
   }
 }

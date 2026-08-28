@@ -149,10 +149,12 @@ function bindTemplates(root, selector, templateKey, overrideData) {
 }
 
 /**
- * Scans for `data-template-inid` anchors.
+ * Scans for `data-template-inid` anchors. Exported so an analytics handler can
+ * compile its own subtree straight after stamping it, without an event round
+ * trip through the document.
  * @param {Element} [root] subtree to scan, defaults to the whole document
  */
-function scanDefaultTemplates(root) {
+export function scanInidTemplates(root) {
   bindTemplates(root || document, DEFAULT_SELECTOR, 'templateInid');
 }
 
@@ -162,7 +164,7 @@ function scanDefaultTemplates(root) {
  * @param {Element} root subtree to scan
  * @param {object} [overrideData] extra tokens for this scan
  */
-function scanCustomTemplates(root, overrideData) {
+export function scanCustomInidTemplates(root, overrideData) {
   if (!root) return;
   bindTemplates(root, CUSTOM_SELECTOR, 'customTemplateInid', overrideData);
 }
@@ -172,12 +174,12 @@ function scanCustomTemplates(root, overrideData) {
  */
 export default function initGlobalInidLink() {
   try {
-    scanDefaultTemplates();
+    scanInidTemplates();
 
     document.addEventListener('global::inid::setup', (e) => {
       const { templateType, overrideData } = e.detail || {};
-      if (templateType === 'custom-template') scanCustomTemplates(e.target, overrideData);
-      else scanDefaultTemplates(e.target);
+      if (templateType === 'custom-template') scanCustomInidTemplates(e.target, overrideData);
+      else scanInidTemplates(e.target);
     });
   } catch {
     // inid tracking must never break page decoration
