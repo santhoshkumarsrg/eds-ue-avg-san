@@ -119,9 +119,9 @@
 }
 
 /* AVG green CTA. On preview/live the delivery pipeline flattens a nested
-   icon-button into a plain button + a standalone image, so columns.js pulls the
+   cta-button into a plain button + a standalone image, so columns.js pulls the
    image back into the anchor as .button-icon. These rules style both the author
-   (icon-button block) and the reconstructed preview button identically. */
+   (cta-button block) and the reconstructed preview button identically. */
 .columns.prose a.button.avg {
   display: inline-flex;
   align-items: center;

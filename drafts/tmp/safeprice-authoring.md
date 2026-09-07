@@ -126,8 +126,8 @@ Add these components **inside** the second column, in this order:
    - `Simply go to your favourite online shop or travel site`
    - `Pick the item you want to buy`
    - `We'll automatically scan the Internet to find the best prices for you`
-4. **Button (Icons)** component — insert it from the **+** menu inside the column
-   (it's the custom `icon-button` block, allowed inside Columns), and place it
+4. **Button** component — insert it from the **+** menu inside the column
+   (it's the custom `cta-button` block, allowed inside Columns), and place it
    **above** the support line below. In its **Properties** panel set:
 
    | Field             | Value                                  |
@@ -139,13 +139,13 @@ Add these components **inside** the second column, in this order:
    | Button Image (Left) | select/upload `chrome.svg`           |
    | Button Image (Right) | leave empty                         |
 
-   > In the editor the icon-button renders as a real block with the left image
+   > In the editor the cta-button renders as a real block with the left image
    > **inside** the button. On the **published site** (preview/live) the Edge
    > Delivery pipeline flattens any block nested inside a Columns column into
    > plain content — the button and the icon arrive as separate elements. The
    > Columns prose block detects this and pulls the icon back into the green AVG
    > button automatically, so author and live render the same. (This is why a
-   > nested block can't be styled by its own `icon-button.css` on the live site;
+   > nested block can't be styled by its own `cta-button.css` on the live site;
    > the styling/merge lives in the Columns block instead.)
 5. Text (support line): `Problems with the addon? Visit our Support Center.`
    - Link the words **Visit our Support Center** to:
@@ -252,7 +252,7 @@ them, but author them as **default content** in this logical order:
   order doesn't apply there — just fill in the fields.
 - **Headings.** Hero uses **H1**; both Columns sections use **H2**; cards use
   **H3**. Keep this hierarchy for accessibility/SEO.
-- **Buttons with icons.** Use the **Button (Icons)** component (`icon-button`)
+- **Buttons with icons.** Use the **Button** component (`cta-button`)
   whenever a CTA needs a left/right image (e.g. the Chrome logo). It can be
   inserted directly inside a **Columns** column. Leave the icon **alt text
   empty** — the label already conveys the action.

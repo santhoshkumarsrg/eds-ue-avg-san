@@ -497,7 +497,7 @@ A repo-wide search for `data-role`, `data-sdl`, `data-popup-open`, `data-btn-loc
 The complete `data-role` vocabulary in avast2 is five values — `cart-link`, `download-link`, `cta-link`, `promo-link`, `media` — and that closed set is the contract:
 
 - `data-role="cart-link"` plus `data-product-id`, `data-price`, `data-campaign`, `data-campaign-marker`, `data-product-category`, `data-btn-location` on buy anchors. `blocks/pricing/pricing.js` already sets `dataset.sku` and `dataset.campaign` and builds a `.pricing-buy` anchor, so this is an extension rather than a rewrite.
-- `data-role="cta-link"` / `data-role="promo-link"` on CTAs in `hero`, `product-hero`, `promo`, `icon-button`, `media-text`
+- `data-role="cta-link"` / `data-role="promo-link"` on CTAs in `hero`, `product-hero`, `promo`, `cta-button`, `media-text`
 - `data-role="download-link"` on download buttons, plus `data-product-category` for the `user.download.products` push
 - `data-role="media"` on video and media players for `user.download.media`
 - A `.c-hero` / `.c-centerhero` equivalent for the `user.read.article` below-fold trigger, remapped to the EDS `hero` block class

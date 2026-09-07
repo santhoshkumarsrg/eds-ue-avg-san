@@ -191,6 +191,21 @@
           }
         },
         {
+          "title": "Button",
+          "id": "cta-button",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "CTA Button",
+                  "model": "cta-button"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Feature Bar",
           "id": "feature-bar",
           "plugins": {
@@ -246,21 +261,6 @@
                 "template": {
                   "name": "Hero",
                   "model": "hero"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Button (Icons)",
-          "id": "icon-button",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
-                "template": {
-                  "name": "Icon Button",
-                  "model": "icon-button"
                 }
               }
             }

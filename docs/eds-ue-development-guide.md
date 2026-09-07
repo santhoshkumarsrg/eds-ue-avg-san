@@ -465,13 +465,13 @@ one block works: block-level field rows come first, then one row per child item.
 ### Reusing default content (Title, Text, Image, Button) inside a container
 
 The `columns` block lets authors compose the **existing default-content
-components** (`title`, `text`, `image`, `button`, `icon-button`) inside each
+components** (`title`, `text`, `image`, `button`, `cta-button`) inside each
 column, writing no new models (`blocks/columns/_columns.json`):
 
 ```json
 "filters": [
   { "id": "columns", "components": ["column"] },
-  { "id": "column", "components": ["text", "image", "button", "icon-button", "title"] }
+  { "id": "column", "components": ["text", "image", "button", "cta-button", "title"] }
 ]
 ```
 
@@ -596,7 +596,7 @@ forget.** Add the block id here:
 {
   "id": "section",
   "components": [
-    "text", "image", "button", "icon-button", "title",
+    "text", "image", "button", "cta-button", "title",
     "hero", "product-hero", "pricing", "feature-bar", "steps",
     "awards", "tabs", "carousel", "promo", "cards", "columns", "fragment",
     "my-new-block"
@@ -1551,8 +1551,9 @@ they are why `moveInstrumentation` matters in block code.
 **Buttons by authoring convention.** `decorateButtons` in `scripts/scripts.js`
 only turns links into buttons when the author formats them: **bold** link →
 `.button.primary`, *italic* → `.button.secondary`, bold+italic → `.button.accent`.
-Plain links stay links. There is also a dedicated `icon-button` block for
-image-adorned CTAs.
+Plain links stay links. There is also a dedicated `cta-button` block (authored
+as "Button" in the Blocks group) for image-adorned CTAs and download links
+resolved from `/download.json` via a `dnt_downloadId` field.
 
 **Three-phase loading.** `scripts/scripts.js` orchestrates eager (decorate +
 first section, fonts on desktop), lazy (remaining sections, header, footer,

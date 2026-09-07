@@ -1,8 +1,8 @@
-.icon-button .button-wrapper {
+.cta-button .button-wrapper {
   margin: 0;
 }
 
-.icon-button a.button.avg {
+.cta-button a.button.avg {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -19,25 +19,25 @@
   text-decoration: none;
 }
 
-.icon-button a.button.avg:hover,
-.icon-button a.button.avg:focus-visible {
+.cta-button a.button.avg:hover,
+.cta-button a.button.avg:focus-visible {
   background-color: var(--avg-alt-green);
   color: var(--avg-white);
 }
 
-.icon-button a.button.avg.secondary {
+.cta-button a.button.avg.secondary {
   background-color: transparent;
   color: var(--avg-green);
   box-shadow: inset 0 0 0 2px var(--avg-green);
 }
 
-.icon-button a.button.avg.secondary:hover,
-.icon-button a.button.avg.secondary:focus-visible {
+.cta-button a.button.avg.secondary:hover,
+.cta-button a.button.avg.secondary:focus-visible {
   background-color: var(--avg-faint-green);
   color: var(--avg-alt-green);
 }
 
-.icon-button a.button.avg .button-icon {
+.cta-button a.button.avg .button-icon {
   flex-shrink: 0;
   width: 24px;
   height: 24px;

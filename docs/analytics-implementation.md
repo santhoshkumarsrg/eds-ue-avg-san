@@ -983,7 +983,7 @@ default.
 ### Only two blocks are instrumented
 
 `hero` (STL + inid) and `pricing` (inid + campaign marker) are the only blocks
-with handlers registered. `product-hero`, `promo`, `icon-button`, `media-text`,
+with handlers registered. `product-hero`, `promo`, `cta-button`, `media-text`,
 `cards`, `header` and `footer` all render CTAs and have none. The
 `data-custom-template-stl` / `data-custom-template-inid` variants are implemented
 but unused.

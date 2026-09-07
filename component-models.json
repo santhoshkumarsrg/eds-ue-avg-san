@@ -536,6 +536,66 @@
     ]
   },
   {
+    "id": "cta-button",
+    "fields": [
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "linkText",
+        "label": "Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "linkTitle",
+        "label": "Title"
+      },
+      {
+        "component": "select",
+        "name": "linkType",
+        "label": "Type",
+        "options": [
+          {
+            "name": "primary",
+            "value": "primary"
+          },
+          {
+            "name": "secondary",
+            "value": "secondary"
+          },
+          {
+            "name": "default",
+            "value": ""
+          }
+        ]
+      },
+      {
+        "component": "reference",
+        "name": "buttonImageLeft",
+        "label": "Button Image (Left)",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "name": "buttonImageRight",
+        "label": "Button Image (Right)",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "dnt_downloadId",
+        "label": "Download Id",
+        "description": "Matches a Download ID row in /download.json. When it matches, the button navigates to that row's Download Link instead of the authored Link."
+      }
+    ]
+  },
+  {
     "id": "feature-bar",
     "fields": [
       {
@@ -610,59 +670,6 @@
         "valueType": "string",
         "name": "linkText",
         "label": "Button Label"
-      },
-      {
-        "component": "reference",
-        "name": "buttonImageLeft",
-        "label": "Button Image (Left)",
-        "multi": false
-      },
-      {
-        "component": "reference",
-        "name": "buttonImageRight",
-        "label": "Button Image (Right)",
-        "multi": false
-      }
-    ]
-  },
-  {
-    "id": "icon-button",
-    "fields": [
-      {
-        "component": "aem-content",
-        "name": "link",
-        "label": "Link"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "linkText",
-        "label": "Text"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "linkTitle",
-        "label": "Title"
-      },
-      {
-        "component": "select",
-        "name": "linkType",
-        "label": "Type",
-        "options": [
-          {
-            "name": "primary",
-            "value": "primary"
-          },
-          {
-            "name": "secondary",
-            "value": "secondary"
-          },
-          {
-            "name": "default",
-            "value": ""
-          }
-        ]
       },
       {
         "component": "reference",
