@@ -1,7 +1,7 @@
 {
   "definitions": [
     {
-      "title": "Button",
+      "title": "CTA Button",
       "id": "cta-button",
       "plugins": {
         "xwalk": {
