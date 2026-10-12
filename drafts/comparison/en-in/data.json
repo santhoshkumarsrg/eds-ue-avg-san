@@ -1,0 +1,114 @@
+{
+  ":names": [
+    "features",
+    "products",
+    "matrix",
+    "categories",
+    "strings"
+  ],
+  ":version": 3,
+  ":type": "multi-sheet",
+  "features": {
+    "total": 1,
+    "offset": 0,
+    "limit": 1,
+    "data": [
+      {
+        "id": "antivirus",
+        "category": "",
+        "headline": "Advanced antivirus (IN)",
+        "short-description": "",
+        "long-description": "",
+        "icon": "",
+        "icon-mobile": "",
+        "platforms": "",
+        "notes": ""
+      }
+    ],
+    "columns": [
+      "id",
+      "category",
+      "headline",
+      "short-description",
+      "long-description",
+      "icon",
+      "icon-mobile",
+      "platforms",
+      "notes"
+    ]
+  },
+  "products": {
+    "total": 1,
+    "offset": 0,
+    "limit": 1,
+    "data": [
+      {
+        "id": "ultimate",
+        "name": "AVG Ultimate (IN)",
+        "subtitle": "",
+        "icon": "",
+        "url": "https://www.avg.com/en-in/ultimate",
+        "platforms": "",
+        "type": "",
+        "sku": ""
+      }
+    ],
+    "columns": [
+      "id",
+      "name",
+      "subtitle",
+      "icon",
+      "url",
+      "platforms",
+      "type",
+      "sku"
+    ]
+  },
+  "matrix": {
+    "total": 1,
+    "offset": 0,
+    "limit": 1,
+    "data": [
+      {
+        "feature": "tuneup",
+        "internet-security": "",
+        "secure-vpn": "",
+        "antitrack": "",
+        "ultimate": "",
+        "incognito": "",
+        "ad-blockers": ""
+      }
+    ],
+    "columns": [
+      "feature",
+      "internet-security",
+      "secure-vpn",
+      "antitrack",
+      "ultimate",
+      "incognito",
+      "ad-blockers"
+    ]
+  },
+  "categories": {
+    "total": 0,
+    "offset": 0,
+    "limit": 0,
+    "data": [],
+    "columns": []
+  },
+  "strings": {
+    "total": 1,
+    "offset": 0,
+    "limit": 1,
+    "data": [
+      {
+        "key": "included",
+        "value": "Shaamil"
+      }
+    ],
+    "columns": [
+      "key",
+      "value"
+    ]
+  }
+}

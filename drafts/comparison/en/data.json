@@ -1,0 +1,351 @@
+{
+  ":names": [
+    "features",
+    "products",
+    "matrix",
+    "categories",
+    "strings"
+  ],
+  ":version": 3,
+  ":type": "multi-sheet",
+  "features": {
+    "total": 10,
+    "offset": 0,
+    "limit": 10,
+    "data": [
+      {
+        "id": "antivirus",
+        "category": "protection",
+        "headline": "Advanced antivirus",
+        "short-description": "Blocks viruses and malware",
+        "long-description": "Scans files, emails and downloads in real time and blocks <strong>viruses, spyware and malware</strong> before they reach your device.",
+        "icon": "",
+        "icon-mobile": "",
+        "platforms": "",
+        "notes": ""
+      },
+      {
+        "id": "ransomware-shield",
+        "category": "protection",
+        "headline": "Ransomware protection",
+        "short-description": "Keeps personal files safe",
+        "long-description": "Adds an extra layer of security to stop ransomware from encrypting your <em>photos and documents</em>.",
+        "icon": "",
+        "icon-mobile": "",
+        "platforms": "pc, mac",
+        "notes": ""
+      },
+      {
+        "id": "enhanced-firewall",
+        "category": "protection",
+        "headline": "Enhanced firewall",
+        "short-description": "Stops hackers getting in",
+        "long-description": "Monitors traffic between your PC and the internet to stop hackers from accessing your data.",
+        "icon": "",
+        "icon-mobile": "",
+        "platforms": "pc",
+        "notes": ""
+      },
+      {
+        "id": "fake-website-shield",
+        "category": "protection",
+        "headline": "Fake website shield",
+        "short-description": "",
+        "long-description": "Avoids fake sites designed to steal your passwords and payment details.",
+        "icon": "",
+        "icon-mobile": "",
+        "platforms": "",
+        "notes": ""
+      },
+      {
+        "id": "webcam-protection",
+        "category": "privacy",
+        "headline": "Webcam protection",
+        "short-description": "",
+        "long-description": "Prevents untrusted apps from spying on you through your webcam.",
+        "icon": "/icons/shield-check.svg",
+        "icon-mobile": "",
+        "platforms": "pc",
+        "notes": ""
+      },
+      {
+        "id": "secure-vpn",
+        "category": "privacy",
+        "headline": "Secure VPN",
+        "short-description": "Encrypts your connection",
+        "long-description": "Hides your IP address and encrypts your connection on public Wi-Fi. <a href=\"https://www.avg.com/en-ww/secure-vpn\">Learn more</a>",
+        "icon": "",
+        "icon-mobile": "",
+        "platforms": "",
+        "notes": ""
+      },
+      {
+        "id": "antitrack-browser",
+        "category": "privacy",
+        "headline": "Anti-tracking",
+        "short-description": "Blocks trackers",
+        "long-description": "Disguises your digital fingerprint so advertisers can't follow you online.",
+        "icon": "",
+        "icon-mobile": "",
+        "platforms": "",
+        "notes": ""
+      },
+      {
+        "id": "antitrack-cleanup",
+        "category": "privacy",
+        "headline": "Tracking cookie cleanup",
+        "short-description": "Removes tracking cookies",
+        "long-description": "",
+        "icon": "",
+        "icon-mobile": "",
+        "platforms": "",
+        "notes": ""
+      },
+      {
+        "id": "tuneup",
+        "category": "performance",
+        "headline": "Automatic PC tune-up",
+        "short-description": "Speeds up your device",
+        "long-description": "Cleans junk files, updates apps and puts background programs to sleep.",
+        "icon": "",
+        "icon-mobile": "",
+        "platforms": "pc, mac, android",
+        "notes": ""
+      },
+      {
+        "id": "scam-guardian",
+        "category": "protection",
+        "headline": "Scam Guardian",
+        "short-description": "AI scam detection",
+        "long-description": "Uses AI to spot hidden scams in websites, emails and texts. <script>alert(1)</script><img src=x onerror=alert(2)>",
+        "icon": "",
+        "icon-mobile": "",
+        "platforms": "",
+        "notes": ""
+      }
+    ],
+    "columns": [
+      "id",
+      "category",
+      "headline",
+      "short-description",
+      "long-description",
+      "icon",
+      "icon-mobile",
+      "platforms",
+      "notes"
+    ]
+  },
+  "products": {
+    "total": 6,
+    "offset": 0,
+    "limit": 6,
+    "data": [
+      {
+        "id": "internet-security",
+        "name": "AVG Internet Security",
+        "subtitle": "Advanced protection",
+        "icon": "/icons/shield-check.svg",
+        "url": "https://www.avg.com/en-ww/internet-security",
+        "platforms": "pc, mac, android, ios",
+        "type": "product",
+        "sku": ""
+      },
+      {
+        "id": "secure-vpn",
+        "name": "AVG Secure VPN",
+        "subtitle": "Private browsing",
+        "icon": "/icons/shield-check.svg",
+        "url": "https://www.avg.com/en-ww/secure-vpn",
+        "platforms": "pc, mac, android, ios",
+        "type": "product",
+        "sku": ""
+      },
+      {
+        "id": "antitrack",
+        "name": "AVG AntiTrack",
+        "subtitle": "Anti-tracking",
+        "icon": "/icons/shield-check.svg",
+        "url": "https://www.avg.com/en-ww/antitrack",
+        "platforms": "pc, mac",
+        "type": "product",
+        "sku": ""
+      },
+      {
+        "id": "ultimate",
+        "name": "AVG Ultimate",
+        "subtitle": "All-in-one bundle",
+        "icon": "/icons/trophy.svg",
+        "url": "https://www.avg.com/en-ww/ultimate",
+        "platforms": "pc, mac, android, ios",
+        "type": "product",
+        "sku": ""
+      },
+      {
+        "id": "incognito",
+        "name": "Incognito / Private mode",
+        "subtitle": "",
+        "icon": "",
+        "url": "",
+        "platforms": "",
+        "type": "generic",
+        "sku": ""
+      },
+      {
+        "id": "ad-blockers",
+        "name": "Ad-blockers",
+        "subtitle": "",
+        "icon": "",
+        "url": "",
+        "platforms": "",
+        "type": "competitor",
+        "sku": ""
+      }
+    ],
+    "columns": [
+      "id",
+      "name",
+      "subtitle",
+      "icon",
+      "url",
+      "platforms",
+      "type",
+      "sku"
+    ]
+  },
+  "matrix": {
+    "total": 9,
+    "offset": 0,
+    "limit": 9,
+    "data": [
+      {
+        "feature": "antivirus",
+        "internet-security": "yes",
+        "secure-vpn": "",
+        "antitrack": "",
+        "ultimate": "yes",
+        "incognito": "",
+        "ad-blockers": ""
+      },
+      {
+        "feature": "ransomware-shield",
+        "internet-security": "yes",
+        "secure-vpn": "",
+        "antitrack": "",
+        "ultimate": "yes",
+        "incognito": "",
+        "ad-blockers": ""
+      },
+      {
+        "feature": "enhanced-firewall",
+        "internet-security": "yes",
+        "secure-vpn": "",
+        "antitrack": "",
+        "ultimate": "yes",
+        "incognito": "",
+        "ad-blockers": ""
+      },
+      {
+        "feature": "fake-website-shield",
+        "internet-security": "yes",
+        "secure-vpn": "",
+        "antitrack": "",
+        "ultimate": "yes",
+        "incognito": "",
+        "ad-blockers": "partial: Some sites"
+      },
+      {
+        "feature": "webcam-protection",
+        "internet-security": "yes",
+        "secure-vpn": "",
+        "antitrack": "",
+        "ultimate": "yes",
+        "incognito": "",
+        "ad-blockers": ""
+      },
+      {
+        "feature": "secure-vpn",
+        "internet-security": "",
+        "secure-vpn": "yes",
+        "antitrack": "",
+        "ultimate": "yes",
+        "incognito": "",
+        "ad-blockers": ""
+      },
+      {
+        "feature": "antitrack-browser",
+        "internet-security": "",
+        "secure-vpn": "",
+        "antitrack": "yes",
+        "ultimate": "yes",
+        "incognito": "yes: Limited*",
+        "ad-blockers": "partial: Ads only"
+      },
+      {
+        "feature": "antitrack-cleanup",
+        "internet-security": "",
+        "secure-vpn": "",
+        "antitrack": "yes",
+        "ultimate": "yes",
+        "incognito": "text: Clears on exit",
+        "ad-blockers": "maybe"
+      },
+      {
+        "feature": "tuneup",
+        "internet-security": "",
+        "secure-vpn": "",
+        "antitrack": "",
+        "ultimate": "yes: Included in <strong>Ultimate</strong>",
+        "incognito": "",
+        "ad-blockers": ""
+      }
+    ],
+    "columns": [
+      "feature",
+      "internet-security",
+      "secure-vpn",
+      "antitrack",
+      "ultimate",
+      "incognito",
+      "ad-blockers"
+    ]
+  },
+  "categories": {
+    "total": 3,
+    "offset": 0,
+    "limit": 3,
+    "data": [
+      {
+        "id": "protection",
+        "title": "Protection"
+      },
+      {
+        "id": "privacy",
+        "title": "Privacy"
+      },
+      {
+        "id": "performance",
+        "title": "Performance"
+      }
+    ],
+    "columns": [
+      "id",
+      "title"
+    ]
+  },
+  "strings": {
+    "total": 1,
+    "offset": 0,
+    "limit": 1,
+    "data": [
+      {
+        "key": "included",
+        "value": "Included"
+      }
+    ],
+    "columns": [
+      "key",
+      "value"
+    ]
+  }
+}

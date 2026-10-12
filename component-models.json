@@ -536,6 +536,103 @@
     ]
   },
   {
+    "id": "comparison-table",
+    "fields": [
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "label": "Options",
+        "description": "Only pick options that differ from the default look (full header, centred, filled highlight, headline with info tooltip). Pick at most one feature text option.",
+        "options": [
+          {
+            "name": "Simple header (product name only)",
+            "value": "simple"
+          },
+          {
+            "name": "Left aligned",
+            "value": "left"
+          },
+          {
+            "name": "Highlight with border",
+            "value": "highlight-border"
+          },
+          {
+            "name": "Group features by category",
+            "value": "categories"
+          },
+          {
+            "name": "Feature text: short description",
+            "value": "short-desc"
+          },
+          {
+            "name": "Feature text: long description",
+            "value": "long-desc"
+          },
+          {
+            "name": "Feature text: headline + short description",
+            "value": "headline-short"
+          },
+          {
+            "name": "Feature text: headline + long description",
+            "value": "headline-long"
+          }
+        ]
+      },
+      {
+        "component": "richtext",
+        "name": "heading",
+        "label": "Heading",
+        "description": "Optional heading shown above the table (use Heading 2 or 3)"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "products",
+        "label": "Products",
+        "description": "Product ids from the products sheet, comma separated, in column order, e.g. premium-security, premium-vpn, ultimate"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "highlight",
+        "label": "Highlighted Product",
+        "description": "Product id(s) to highlight, e.g. ultimate"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "labels",
+        "label": "Product Labels",
+        "description": "Optional pills above product names as id: text, comma separated, e.g. ultimate: Best value"
+      },
+      {
+        "component": "richtext",
+        "name": "features",
+        "label": "Features",
+        "description": "Feature ids in row order, one per line or comma separated. Use category: <id> for a whole category, <prefix>* for a group, and <id> (New, icon) for a badge and/or the feature icon."
+      },
+      {
+        "component": "richtext",
+        "name": "cta",
+        "label": "Buttons",
+        "description": "Optional: one link per product, in product order. Products without a link use their sheet URL with the first link's label."
+      },
+      {
+        "component": "richtext",
+        "name": "note",
+        "label": "Note",
+        "description": "Optional small print under the table, e.g. the asterisk note"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "data",
+        "label": "Data Source",
+        "description": "Optional workbook path. Defaults to /{locale}/comparison/data (or the comparison-data page metadata). {locale} is replaced by the page locale, with fallback to /en."
+      }
+    ]
+  },
+  {
     "id": "cta-button",
     "fields": [
       {
